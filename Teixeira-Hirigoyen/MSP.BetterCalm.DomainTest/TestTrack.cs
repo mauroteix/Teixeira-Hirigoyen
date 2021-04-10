@@ -55,5 +55,12 @@ namespace MSP.BetterCalm.DomainTest
             track.Image = "http://www.google.com";
             Assert.AreEqual("http://www.google.com", track.Image);
         }
+
+        [TestMethod]
+        public void RegisterSound()
+        {
+            track.Sound = "http://www.youtube.com";
+            Assert.AreEqual("http://www.youtube.com", track.Sound);
+        }
     }
 }
