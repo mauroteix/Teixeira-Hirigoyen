@@ -41,5 +41,12 @@ namespace MSP.BetterCalm.DomainTest
             track.Author = "NTVG";
             Assert.AreEqual("NTVG", track.Author);
         }
+
+        [TestMethod]
+        public void ImageEmpty()
+        {
+            track.Image = "";
+            Assert.IsTrue(track.ImageEmpty());
+        }
     }
 }

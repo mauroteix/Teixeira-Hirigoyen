@@ -7,6 +7,7 @@ namespace MSP.BetterCalm.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
+        public string Image { get; set; }
 
         public bool NameEmpty()
         {
@@ -15,6 +16,10 @@ namespace MSP.BetterCalm.Domain
         public bool AuthorEmpty()
         {
             return this.Author.Length == 0;
+        }
+        public bool ImageEmpty()
+        {
+            return this.Image.Length == 0;
         }
     }
 }
