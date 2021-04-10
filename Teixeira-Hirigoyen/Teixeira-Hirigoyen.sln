@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.API", "MSP.BetterCalm.API\MSP.BetterCalm.API.csproj", "{FA161B5F-82B6-4E12-A657-344918A1AB6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{27048D6A-3826-41D8-BA18-1F9586FF6CCE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5634094A-D0FD-4BA7-9897-132FCCA5A6ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{16B072C8-539D-40C3-9BA5-1F0BD99E4744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.Domain", "MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj", "{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DomainTest", "MSP.BetterCalm.DomainTest\MSP.BetterCalm.DomainTest.csproj", "{CDCF970D-39C7-4D93-A037-4C6743257EFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.Database", "MSP.BetterCalm.Database\MSP.BetterCalm.Database.csproj", "{599E93F3-EE55-4873-BE82-D856F6A4F62C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA161B5F-82B6-4E12-A657-344918A1AB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA161B5F-82B6-4E12-A657-344918A1AB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA161B5F-82B6-4E12-A657-344918A1AB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA161B5F-82B6-4E12-A657-344918A1AB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6} = {27048D6A-3826-41D8-BA18-1F9586FF6CCE}
+		{CDCF970D-39C7-4D93-A037-4C6743257EFE} = {5634094A-D0FD-4BA7-9897-132FCCA5A6ED}
+		{599E93F3-EE55-4873-BE82-D856F6A4F62C} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E21E7C1-E7CC-4329-B2D6-288CF8A2E9C3}
+	EndGlobalSection
+EndGlobal
