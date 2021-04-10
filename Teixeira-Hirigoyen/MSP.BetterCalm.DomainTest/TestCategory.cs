@@ -23,5 +23,12 @@ namespace MSP.BetterCalm.DomainTest
             category.Name = "Mauro";
             Assert.AreEqual("Mauro", category.Name);
         }
+
+        [TestMethod]
+        public void RegisterDescription()
+        {
+            category.Description = "Facil para dormir";
+            Assert.AreEqual("Facil para dormir", category.Description);
+        }
     }
 }
