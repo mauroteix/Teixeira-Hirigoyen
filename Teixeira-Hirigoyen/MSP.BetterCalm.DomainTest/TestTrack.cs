@@ -62,5 +62,12 @@ namespace MSP.BetterCalm.DomainTest
             track.Sound = "http://www.youtube.com";
             Assert.AreEqual("http://www.youtube.com", track.Sound);
         }
+
+        [TestMethod]
+        public void SoundEmpty()
+        {
+            track.Sound = "";
+            Assert.IsTrue(track.SoundEmpty());
+        }
     }
 }

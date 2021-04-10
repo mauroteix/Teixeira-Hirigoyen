@@ -22,5 +22,9 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Image.Length == 0;
         }
+        public bool SoundEmpty()
+        {
+            return this.Sound.Length == 0;
+        }
     }
 }
