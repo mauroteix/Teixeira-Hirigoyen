@@ -48,5 +48,12 @@ namespace MSP.BetterCalm.DomainTest
             track.Image = "";
             Assert.IsTrue(track.ImageEmpty());
         }
+
+        [TestMethod]
+        public void RegisterImage()
+        {
+            track.Image = "http://www.google.com";
+            Assert.AreEqual("http://www.google.com", track.Image);
+        }
     }
 }
