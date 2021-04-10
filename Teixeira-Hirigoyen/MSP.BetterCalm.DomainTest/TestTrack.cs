@@ -34,5 +34,12 @@ namespace MSP.BetterCalm.DomainTest
             track.Author = "";
             Assert.IsTrue(track.AuthorEmpty());
         }
+
+        [TestMethod]
+        public void RegisterAuthor()
+        {
+            track.Author = "NTVG";
+            Assert.AreEqual("NTVG", track.Author);
+        }
     }
 }
