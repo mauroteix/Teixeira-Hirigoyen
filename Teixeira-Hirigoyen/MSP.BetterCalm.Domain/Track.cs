@@ -10,6 +10,7 @@ namespace MSP.BetterCalm.Domain
         public string Image { get; set; }
         public string Sound { get; set; }
         public Category Category { get; set; }
+        public Playlist Playlist { get; set; }
 
         public bool NameEmpty()
         {
