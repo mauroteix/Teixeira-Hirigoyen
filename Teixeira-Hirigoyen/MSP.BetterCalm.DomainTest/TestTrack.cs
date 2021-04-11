@@ -8,10 +8,17 @@ namespace MSP.BetterCalm.DomainTest
     public class TestTrack
     {
         Track track;
+        Category category;
         [TestInitialize]
         public void Initialize()
         {
             track = new Track();
+            category = new Category();
+            category.Id = 1;
+            category.Name = "Musica";
+            
+            
+
         }
 
         [TestMethod]
@@ -68,6 +75,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             track.Sound = "";
             Assert.IsTrue(track.SoundEmpty());
+        }
+        [TestMethod]
+        public void RegisterCategory()
+        {
+            track.Category =category;
+            Assert.IsTrue(track.Category.Id == category.Id);
         }
     }
 }
