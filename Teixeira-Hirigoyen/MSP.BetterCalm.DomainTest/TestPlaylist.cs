@@ -25,5 +25,11 @@ namespace MSP.BetterCalm.DomainTest
             playlist.Name = "";
             Assert.IsTrue(playlist.NameEmpty());
         }
+        [TestMethod]
+        public void RegisterName()
+        {
+            playlist.Name = "Mauro";
+            Assert.AreEqual("Mauro", playlist.Name);
+        }
     }
 }
