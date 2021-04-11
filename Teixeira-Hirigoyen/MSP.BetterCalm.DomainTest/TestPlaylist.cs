@@ -11,11 +11,16 @@ namespace MSP.BetterCalm.DomainTest
     public class TestPlaylist
     {
         Playlist playlist;
+        Track track;
         [TestInitialize]
         public void Initialize()
         {
             playlist = new Playlist();
-      
+            track = new Track();
+            track.Id = 1;
+            track.Image = "";
+            track.Author = "";
+            track.Name = "Mauro baila cumbia";
 
         }
 
@@ -62,6 +67,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             playlist.Image = "";
             Assert.IsTrue(playlist.ImageEmpty());
+        }
+        [TestMethod]
+        public void RegisterTrack()
+        {
+            playlist.Track = track;
+            Assert.IsTrue(playlist.Track.Id == track.Id);
         }
     }
 }
