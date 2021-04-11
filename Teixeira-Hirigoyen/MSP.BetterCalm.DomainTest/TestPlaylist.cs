@@ -37,5 +37,12 @@ namespace MSP.BetterCalm.DomainTest
             playlist.Description = "Facil para dormir";
             Assert.AreEqual("Facil para dormir", playlist.Description);
         }
+        [TestMethod]
+        public void DescriptionLengthTrue()
+        {
+            playlist.Description = "Facil para dormir";
+            Assert.IsTrue(playlist.DescriptionLength());
+        }
+      
     }
 }

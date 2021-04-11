@@ -14,7 +14,14 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Name.Length == 0;
         }
+        public bool DescriptionLength()
+        {
+            const int maxLength = 150;
+            bool ok = false;
+            if (Description.Length < maxLength) ok = true;
+            return ok;
 
+        }
 
 
     }
