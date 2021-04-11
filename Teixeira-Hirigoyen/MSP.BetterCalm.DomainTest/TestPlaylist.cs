@@ -51,5 +51,11 @@ namespace MSP.BetterCalm.DomainTest
                 "qwe qwe qwe qwe qwe qwe qweqw eq weqw eqw eqwe qw eqeqweqwe q weqwe qweqweqw eqw";
             Assert.IsFalse(playlist.DescriptionLength());
         }
+        [TestMethod]
+        public void RegisterImage()
+        {
+            playlist.Image = "http://www.google.com";
+            Assert.AreEqual("http://www.google.com", playlist.Image);
+        }
     }
 }
