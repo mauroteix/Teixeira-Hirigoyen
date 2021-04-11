@@ -23,6 +23,10 @@ namespace MSP.BetterCalm.Domain
             return ok;
 
         }
+        public bool ImageEmpty()
+        {
+            return this.Image.Length == 0;
+        }
 
 
     }

@@ -57,5 +57,11 @@ namespace MSP.BetterCalm.DomainTest
             playlist.Image = "http://www.google.com";
             Assert.AreEqual("http://www.google.com", playlist.Image);
         }
+        [TestMethod]
+        public void ImageEmpty()
+        {
+            playlist.Image = "";
+            Assert.IsTrue(playlist.ImageEmpty());
+        }
     }
 }
