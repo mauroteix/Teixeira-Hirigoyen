@@ -43,6 +43,13 @@ namespace MSP.BetterCalm.DomainTest
             playlist.Description = "Facil para dormir";
             Assert.IsTrue(playlist.DescriptionLength());
         }
-      
+        [TestMethod]
+        public void DescriptionLengthFalse()
+        {
+            playlist.Description = "Facil para dormir asd qweqwe 1231231 seasdas gffdgdf asdqwe qqwe eqwe qweqw eqwe "+
+                "qw eqw eqweqw eqwe qw eqw eq qweqw eqwe qwe qw eq qweq weqwe "+
+                "qwe qwe qwe qwe qwe qwe qweqw eq weqw eqw eqwe qw eqeqweqwe q weqwe qweqweqw eqw";
+            Assert.IsFalse(playlist.DescriptionLength());
+        }
     }
 }
