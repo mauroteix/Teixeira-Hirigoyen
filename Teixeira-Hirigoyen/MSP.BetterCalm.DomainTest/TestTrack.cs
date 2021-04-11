@@ -9,15 +9,22 @@ namespace MSP.BetterCalm.DomainTest
     {
         Track track;
         Category category;
+        Playlist playlist;
         [TestInitialize]
         public void Initialize()
         {
             track = new Track();
+            playlist = new Playlist();
             category = new Category();
+            
             category.Id = 1;
             category.Name = "Musica";
             
+            playlist.Id = 1;
+            playlist.Name = "Musica para Mauro";
             
+
+
 
         }
 
@@ -81,6 +88,13 @@ namespace MSP.BetterCalm.DomainTest
         {
             track.Category =category;
             Assert.IsTrue(track.Category.Id == category.Id);
+        }
+
+        [TestMethod]
+        public void RegisterPlayList()
+        {
+            track.Playlist = playlist;
+            Assert.IsTrue(track.Playlist.Id == playlist.Id);
         }
     }
 }
