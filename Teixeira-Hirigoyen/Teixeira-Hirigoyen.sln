@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.API", "MSP.BetterCalm.API\MSP.BetterCalm.API.csproj", "{FA161B5F-82B6-4E12-A657-344918A1AB6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.API", "MSP.BetterCalm.API\MSP.BetterCalm.API.csproj", "{FA161B5F-82B6-4E12-A657-344918A1AB6B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{27048D6A-3826-41D8-BA18-1F9586FF6CCE}"
 EndProject
@@ -11,11 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5634094A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{16B072C8-539D-40C3-9BA5-1F0BD99E4744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.Domain", "MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj", "{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.Domain", "MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj", "{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DomainTest", "MSP.BetterCalm.DomainTest\MSP.BetterCalm.DomainTest.csproj", "{CDCF970D-39C7-4D93-A037-4C6743257EFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.DomainTest", "MSP.BetterCalm.DomainTest\MSP.BetterCalm.DomainTest.csproj", "{CDCF970D-39C7-4D93-A037-4C6743257EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.Database", "MSP.BetterCalm.Database\MSP.BetterCalm.Database.csproj", "{599E93F3-EE55-4873-BE82-D856F6A4F62C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.Migration", "MSP.BetterCalm.Migration\MSP.BetterCalm.Migration.csproj", "{A98244D7-4FE6-48DC-A56E-88E491F2B574}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DataAccess", "MSP.BetterCalm.DataAccess\MSP.BetterCalm.DataAccess.csproj", "{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DataAccessInterface", "MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj", "{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +39,18 @@ Global
 		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDCF970D-39C7-4D93-A037-4C6743257EFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{599E93F3-EE55-4873-BE82-D856F6A4F62C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98244D7-4FE6-48DC-A56E-88E491F2B574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98244D7-4FE6-48DC-A56E-88E491F2B574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98244D7-4FE6-48DC-A56E-88E491F2B574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98244D7-4FE6-48DC-A56E-88E491F2B574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,7 +58,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9A67DEB4-58F1-40EF-88BF-CA44F3CAFDB6} = {27048D6A-3826-41D8-BA18-1F9586FF6CCE}
 		{CDCF970D-39C7-4D93-A037-4C6743257EFE} = {5634094A-D0FD-4BA7-9897-132FCCA5A6ED}
-		{599E93F3-EE55-4873-BE82-D856F6A4F62C} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
+		{A98244D7-4FE6-48DC-A56E-88E491F2B574} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
+		{B7B08D41-1ED6-4878-89C5-4A6A958B1E57} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
+		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8E21E7C1-E7CC-4329-B2D6-288CF8A2E9C3}

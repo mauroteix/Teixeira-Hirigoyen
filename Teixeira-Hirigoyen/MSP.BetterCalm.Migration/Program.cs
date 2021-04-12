@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MSP.BetterCalm.Database
+namespace MSP.BetterCalm.Migration
 {
     class Program
     {
