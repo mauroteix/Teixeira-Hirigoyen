@@ -10,8 +10,8 @@ namespace MSP.BetterCalm.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
-        public Track Track { get; set; }
-        public Category Category { get; set; }
+        //public Track Track { get; set; }
+       // public Category Category { get; set; }
 
         public bool NameEmpty()
         {

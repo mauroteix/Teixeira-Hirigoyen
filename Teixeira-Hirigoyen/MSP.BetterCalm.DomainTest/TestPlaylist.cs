@@ -76,7 +76,7 @@ namespace MSP.BetterCalm.DomainTest
             playlist.Image = "";
             Assert.IsTrue(playlist.ImageEmpty());
         }
-        [TestMethod]
+        /*[TestMethod]
         public void RegisterTrack()
         {
             playlist.Track = track;
@@ -87,6 +87,6 @@ namespace MSP.BetterCalm.DomainTest
         {
             playlist.Category = category;
             Assert.IsTrue(playlist.Category.Id == category.Id);
-        }
+        }*/
     }
 }
