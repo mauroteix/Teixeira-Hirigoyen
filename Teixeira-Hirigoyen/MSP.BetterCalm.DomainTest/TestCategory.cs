@@ -43,7 +43,7 @@ namespace MSP.BetterCalm.DomainTest
             category.Description = "Facil para dormir";
             Assert.AreEqual("Facil para dormir", category.Description);
         }
-        [TestMethod]
+        /*[TestMethod]
         public void RegisterTrack()
         {
             category.Track = track;
@@ -54,6 +54,6 @@ namespace MSP.BetterCalm.DomainTest
         {
             category.Playlist = playlist;
             Assert.IsTrue(category.Playlist.Id == playlist.Id);
-        }
+        }*/
     }
 }
