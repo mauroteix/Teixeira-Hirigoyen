@@ -52,5 +52,12 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual(track, categoryTrack.Track);
         }
 
+        [TestMethod]
+        public void RegisterTrackId()
+        {
+            categoryTrack.IdTrack = track.Id;
+            Assert.AreEqual(track.Id, categoryTrack.IdTrack);
+        }
+
     }
 }
