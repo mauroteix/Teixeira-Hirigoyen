@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.DomainTest
     {
         CategoryTrack categoryTrack;
         Category category;
+        Track track;
 
         [TestInitialize]
         public void Initialize()
@@ -20,6 +21,12 @@ namespace MSP.BetterCalm.DomainTest
             {   Name = "Dormir",
                 Id = 0,
                 Description = "Para relajarte"
+            };
+            track = new Track
+            {
+                Name = "Llegamos",
+                Id = 1,
+                Author = "Los pibes chorros"
             };
             
         }
@@ -34,8 +41,15 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void RegisterCategoryId()
         {
-            categoryTrack.Category = category;
-            Assert.AreEqual(category.Id, categoryTrack.Category.Id);
+            categoryTrack.IdCategory = category.Id;
+            Assert.AreEqual(category.Id, categoryTrack.IdCategory);
+        }
+
+        [TestMethod]
+        public void RegisterTrack()
+        {
+            categoryTrack.Track= track;
+            Assert.AreEqual(track, categoryTrack.Track);
         }
 
     }

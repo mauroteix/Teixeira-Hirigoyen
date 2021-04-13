@@ -83,7 +83,7 @@ namespace MSP.BetterCalm.DomainTest
             track.Sound = "";
             Assert.IsTrue(track.SoundEmpty());
         }
-        [TestMethod]
+       /* [TestMethod]
         public void RegisterCategory()
         {
             track.Category =category;
@@ -95,6 +95,6 @@ namespace MSP.BetterCalm.DomainTest
         {
             track.Playlist = playlist;
             Assert.IsTrue(track.Playlist.Id == playlist.Id);
-        }
+        }*/
     }
 }
