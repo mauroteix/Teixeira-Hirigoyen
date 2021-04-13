@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -9,8 +10,7 @@ namespace MSP.BetterCalm.Domain
         public string Author { get; set; }
         public string Image { get; set; }
         public string Sound { get; set; }
-        //public Category Category { get; set; }
-        //public Playlist Playlist { get; set; }
+        public ICollection<CategoryTrack> CategoryTrack { get; set; }
 
         public bool NameEmpty()
         {
