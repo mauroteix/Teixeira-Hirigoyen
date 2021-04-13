@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.Domain;
-
+using System.Collections.Generic;
 
 namespace MSP.BetterCalm.DomainTest
 {
@@ -10,21 +10,38 @@ namespace MSP.BetterCalm.DomainTest
         Track track;
         Category category;
         Playlist playlist;
+        CategoryTrack categoryTrack;
         [TestInitialize]
         public void Initialize()
         {
-            track = new Track();
+            track = new Track
+            {
+                Id = 1,
+                Image = "",
+                Author = "",
+                Sound = "",
+                Name = "Mauro baila cumbia",
+                CategoryTrack = new List<CategoryTrack>(),
+            };
+           
+            category = new Category {
+                Id = 1,
+                Name = "Musica",
+                Description = "Facil para dormir",
+                CategoryTrack = new List<CategoryTrack>(),
+            };
+            categoryTrack = new CategoryTrack
+            {
+                IdCategory = category.Id,
+                Category = category,
+                IdTrack = track.Id,
+                Track = track,
+            };
+            track.CategoryTrack.Add(categoryTrack);
+
             playlist = new Playlist();
-            category = new Category();
-            
-            category.Id = 1;
-            category.Name = "Musica";
-            
             playlist.Id = 1;
             playlist.Name = "Musica para Mauro";
-            
-
-
 
         }
 
@@ -38,14 +55,12 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void RegisterName()
         {
-            track.Name = "Mauro";
-            Assert.AreEqual("Mauro", track.Name);
+            Assert.AreEqual("Mauro baila cumbia", track.Name);
         }
 
         [TestMethod]
         public void AuthorEmpty()
         {
-            track.Author = "";
             Assert.IsTrue(track.AuthorEmpty());
         }
 
@@ -59,7 +74,6 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void ImageEmpty()
         {
-            track.Image = "";
             Assert.IsTrue(track.ImageEmpty());
         }
 
@@ -80,21 +94,14 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void SoundEmpty()
         {
-            track.Sound = "";
             Assert.IsTrue(track.SoundEmpty());
-        }
-        [TestMethod]
-        public void RegisterCategory()
-        {
-            track.Category =category;
-            Assert.IsTrue(track.Category.Id == category.Id);
         }
 
         [TestMethod]
-        public void RegisterPlayList()
+        public void RegisterCategoryTrack()
         {
-            track.Playlist = playlist;
-            Assert.IsTrue(track.Playlist.Id == playlist.Id);
+            Assert.IsTrue(track.CategoryTrack.Count == 1);
         }
+
     }
 }
