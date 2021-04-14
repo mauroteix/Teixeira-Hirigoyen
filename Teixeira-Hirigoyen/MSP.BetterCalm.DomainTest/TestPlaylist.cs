@@ -13,22 +13,40 @@ namespace MSP.BetterCalm.DomainTest
         Playlist playlist;
         Track track;
         Category category;
+        PlaylistTrack playlistTrack;
+
         [TestInitialize]
         public void Initialize()
         {
-            playlist = new Playlist();
-            track = new Track();
-            category = new Category();
+            playlist = new Playlist {
+                Name = "Mauro",
+                Description = "Facil para dormir",
+                Image = "",
+                PlaylistTrack = new List<PlaylistTrack>()
+        };
+            track = new Track {
+                Id = 1,
+                Image = "",
+                Author = "",
+                Sound = "",
+                Name = "Mauro baila cumbia",
+                CategoryTrack = new List<CategoryTrack>(),
+            };
+            category = new Category
+            {
+                Id = 1,
+                Name = "Dormir",
+                Description = "Musica para dormir"
+            };
 
-            track.Id = 1;
-            track.Image = "";
-            track.Author = "";
-            track.Name = "Mauro baila cumbia";
-
-            category.Id = 1;
-            category.Name = "Dormir";
-            category.Description = "Musica para dormir";
-
+            playlistTrack = new PlaylistTrack
+            {
+                IdPlaylist = playlist.Id,
+                Playlist = playlist,
+                IdTrack = track.Id,
+                Track = track,
+            };
+            playlist.PlaylistTrack.Add(playlistTrack);
 
         }
 
@@ -41,19 +59,16 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void RegisterName()
         {
-            playlist.Name = "Mauro";
             Assert.AreEqual("Mauro", playlist.Name);
         }
         [TestMethod]
         public void RegisterDescription()
         {
-            playlist.Description = "Facil para dormir";
             Assert.AreEqual("Facil para dormir", playlist.Description);
         }
         [TestMethod]
         public void DescriptionLengthTrue()
         {
-            playlist.Description = "Facil para dormir";
             Assert.IsTrue(playlist.DescriptionLength());
         }
         [TestMethod]
@@ -76,17 +91,12 @@ namespace MSP.BetterCalm.DomainTest
             playlist.Image = "";
             Assert.IsTrue(playlist.ImageEmpty());
         }
-        /*[TestMethod]
-        public void RegisterTrack()
-        {
-            playlist.Track = track;
-            Assert.IsTrue(playlist.Track.Id == track.Id);
-        }
+
         [TestMethod]
-        public void RegisterCategory()
+        public void RegisterPlaylistTrack()
         {
-            playlist.Category = category;
-            Assert.IsTrue(playlist.Category.Id == category.Id);
-        }*/
+            Assert.IsTrue(playlist.PlaylistTrack.Count == 1);
+        }
+
     }
 }
