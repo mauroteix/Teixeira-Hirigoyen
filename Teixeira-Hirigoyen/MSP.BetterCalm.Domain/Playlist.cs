@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.Domain
         public string Description { get; set; }
         public string Image { get; set; }
         public ICollection<PlaylistTrack> PlaylistTrack { get; set; }
+        public ICollection<PlaylistCategory> PlaylistCategory { get; set; }
 
         // public Category Category { get; set; }
 
