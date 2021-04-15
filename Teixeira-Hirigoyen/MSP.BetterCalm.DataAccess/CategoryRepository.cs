@@ -39,7 +39,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(Category entity)
         {
-            throw new NotImplementedException();
+            _context.Category.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
