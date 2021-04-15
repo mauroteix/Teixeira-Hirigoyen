@@ -27,7 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj" />
     <ProjectReference Include="..\MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.HandleMessage\MSP.BetterCalm.HandleMessage.csproj" />
   </ItemGroup>
 
 </Project>

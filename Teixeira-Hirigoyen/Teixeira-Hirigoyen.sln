@@ -15,11 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.Domain", "MS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.DomainTest", "MSP.BetterCalm.DomainTest\MSP.BetterCalm.DomainTest.csproj", "{CDCF970D-39C7-4D93-A037-4C6743257EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.Migration", "MSP.BetterCalm.Migration\MSP.BetterCalm.Migration.csproj", "{A98244D7-4FE6-48DC-A56E-88E491F2B574}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.Migration", "MSP.BetterCalm.Migration\MSP.BetterCalm.Migration.csproj", "{A98244D7-4FE6-48DC-A56E-88E491F2B574}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DataAccess", "MSP.BetterCalm.DataAccess\MSP.BetterCalm.DataAccess.csproj", "{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.DataAccess", "MSP.BetterCalm.DataAccess\MSP.BetterCalm.DataAccess.csproj", "{B7B08D41-1ED6-4878-89C5-4A6A958B1E57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DataAccessInterface", "MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj", "{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSP.BetterCalm.DataAccessInterface", "MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj", "{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HandleMessage", "HandleMessage", "{921BCD4B-7F9B-4C2F-BE3C-0A5275E12540}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.HandleMessage", "MSP.BetterCalm.HandleMessage\MSP.BetterCalm.HandleMessage.csproj", "{F189767C-AE04-4E45-B37C-6386631B44FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSP.BetterCalm.DataAccessTest", "MSP.BetterCalm.DataAccesTest\MSP.BetterCalm.DataAccessTest.csproj", "{A1AA4BF0-39C6-4165-8A78-D2E1A4B88D62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,14 @@ Global
 		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F189767C-AE04-4E45-B37C-6386631B44FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F189767C-AE04-4E45-B37C-6386631B44FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F189767C-AE04-4E45-B37C-6386631B44FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F189767C-AE04-4E45-B37C-6386631B44FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1AA4BF0-39C6-4165-8A78-D2E1A4B88D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1AA4BF0-39C6-4165-8A78-D2E1A4B88D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1AA4BF0-39C6-4165-8A78-D2E1A4B88D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AA4BF0-39C6-4165-8A78-D2E1A4B88D62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +75,8 @@ Global
 		{A98244D7-4FE6-48DC-A56E-88E491F2B574} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
 		{B7B08D41-1ED6-4878-89C5-4A6A958B1E57} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
 		{EDD2EF39-7E84-4A8F-B8D9-2B92E8D5622E} = {16B072C8-539D-40C3-9BA5-1F0BD99E4744}
+		{F189767C-AE04-4E45-B37C-6386631B44FB} = {921BCD4B-7F9B-4C2F-BE3C-0A5275E12540}
+		{A1AA4BF0-39C6-4165-8A78-D2E1A4B88D62} = {5634094A-D0FD-4BA7-9897-132FCCA5A6ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8E21E7C1-E7CC-4329-B2D6-288CF8A2E9C3}
