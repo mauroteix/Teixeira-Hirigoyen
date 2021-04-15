@@ -14,19 +14,26 @@ namespace MSP.BetterCalm.DomainTest
         Track track;
         Playlist playlist;
         CategoryTrack categoryTrack;
+        PlaylistCategory playlistCategory;
 
         [TestInitialize]
         public void Initialize()
         {
-            playlist = new Playlist();
-            playlist.Id = 1;
-            playlist.Name = "Musica para Mauro";
+            playlist = new Playlist
+            {
+                Id = 1,
+                Name = "Musica para Mauro",
+                Description = "De todo",
+                PlaylistCategory = new List<PlaylistCategory>()
+            };
+
             category = new Category
             {
                 Name = "Dormir",
                 Id = 1,
                 Description = "Facil para dormir",
                 CategoryTrack = new List<CategoryTrack>(),
+                PlaylistCategory = new List<PlaylistCategory>()
                
             };
             track = new Track
@@ -44,7 +51,16 @@ namespace MSP.BetterCalm.DomainTest
                 IdTrack = track.Id,
                 Track = track,
             };
+
+            playlistCategory = new PlaylistCategory
+            {
+                 IdCategory = category.Id,
+                 Category = category,
+                 IdPlaylist = playlist.Id,
+                 Playlist = playlist
+            };
             category.CategoryTrack.Add(categoryTrack);
+            category.PlaylistCategory.Add(playlistCategory);
 
         }
 
@@ -65,6 +81,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.IsTrue(category.CategoryTrack.Count == 1);
         }
-        
+
+        [TestMethod]
+        public void RegisterPlaylistCategory()
+        {
+            Assert.IsTrue(category.PlaylistCategory.Count == 1);
+        }
+
     }
 }
