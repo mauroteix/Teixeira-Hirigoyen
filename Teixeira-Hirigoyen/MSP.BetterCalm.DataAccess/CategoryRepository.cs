@@ -34,7 +34,7 @@ namespace MSP.BetterCalm.DataAccess
 
         public IEnumerable<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Category.ToList();
         }
 
         public void Update(Category entity)
