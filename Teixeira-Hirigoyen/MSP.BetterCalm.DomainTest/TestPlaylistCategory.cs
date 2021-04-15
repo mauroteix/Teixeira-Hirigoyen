@@ -10,6 +10,7 @@ namespace MSP.BetterCalm.DomainTest
     public class TestPlaylistCategory
     {
         Playlist playlist;
+        Category category;
         PlaylistCategory playlistCategory;
 
         [TestInitialize]
@@ -24,6 +25,13 @@ namespace MSP.BetterCalm.DomainTest
                 Image = "",
                 PlaylistTrack = new List<PlaylistTrack>()
             };
+            category = new Category
+            {
+                Name = "Dormir",
+                Id = 2,
+                Description = "Musica para relajarse",
+                CategoryTrack = new List<CategoryTrack>()
+            };
         }
 
         [TestMethod]
@@ -37,6 +45,13 @@ namespace MSP.BetterCalm.DomainTest
         {
             playlistCategory.IdPlaylist = playlist.Id;
             Assert.AreEqual(playlist.Id, playlistCategory.IdPlaylist);
+        }
+
+        [TestMethod]
+        public void RegisterCategory()
+        {
+            playlistCategory.Category = category;
+            Assert.AreEqual(category, playlistCategory.Category);
         }
     }
 }
