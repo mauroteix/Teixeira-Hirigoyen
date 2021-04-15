@@ -26,12 +26,17 @@ namespace MSP.BetterCalm.DomainTest
             };
         }
 
-
         [TestMethod]
         public void RegisterPlaylist()
         {
             playlistCategory.Playlist = playlist;
             Assert.AreEqual(playlist, playlistCategory.Playlist);
+        }
+        [TestMethod]
+        public void RegisterPlaylistId()
+        {
+            playlistCategory.IdPlaylist = playlist.Id;
+            Assert.AreEqual(playlist.Id, playlistCategory.IdPlaylist);
         }
     }
 }
