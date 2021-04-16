@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MSP.BetterCalm.DataAccessTest
 {
@@ -43,6 +44,24 @@ namespace MSP.BetterCalm.DataAccessTest
             var category = repository.Get(listCategories[0].Id);
             context.Database.EnsureDeleted();
             Assert.AreEqual(listCategories[0].Id, category.Id);
+        }
+
+        [TestMethod]
+        public void AddCategory()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+            .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            context.Add(listCategories[0]);
+            context.SaveChanges();
+            repository = new CategoryRepository(context);
+            var initial = repository.GetAll().Count();
+
+            repository.Add(listCategories[1]);
+            var final = repository.GetAll().Count();
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(initial + 1, final);
         }
     }
 }
