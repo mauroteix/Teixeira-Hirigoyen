@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,6 +63,16 @@ namespace MSP.BetterCalm.DataAccessTest
             context.Database.EnsureDeleted();
 
             Assert.AreEqual(initial + 1, final);
+        }
+
+        [TestMethod]
+        public void DeleteCategory()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+            .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            repository = new CategoryRepository(context);
+            Assert.ThrowsException<CannotBePerformed>(() => repository.Delete(listCategories[0]));
         }
     }
 }
