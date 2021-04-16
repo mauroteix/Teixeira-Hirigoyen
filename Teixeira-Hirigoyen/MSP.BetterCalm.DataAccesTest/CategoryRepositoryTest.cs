@@ -74,5 +74,22 @@ namespace MSP.BetterCalm.DataAccessTest
             repository = new CategoryRepository(context);
             Assert.ThrowsException<CannotBePerformed>(() => repository.Delete(listCategories[0]));
         }
+
+        [TestMethod]
+        public void UpdateCategory()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options; 
+            var context = new BetterCalmContext(options);
+            listCategories.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new CategoryRepository(context);
+            listCategories[0].Name = "Musica";
+            repository.Update(listCategories[0]);
+            var category = repository.Get(listCategories[0].Id);
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(category.Name, "Musica");
+        }
     }
 }
