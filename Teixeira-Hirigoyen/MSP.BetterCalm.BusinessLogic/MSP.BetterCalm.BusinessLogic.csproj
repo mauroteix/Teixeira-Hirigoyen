@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
+  </ItemGroup>
+
 </Project>
