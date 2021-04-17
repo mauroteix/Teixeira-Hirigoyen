@@ -11,5 +11,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.HandleMessage\MSP.BetterCalm.HandleMessage.csproj" />
+  </ItemGroup>
+
 
 </Project>
