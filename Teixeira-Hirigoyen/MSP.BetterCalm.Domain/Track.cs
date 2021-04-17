@@ -9,6 +9,8 @@ namespace MSP.BetterCalm.Domain
         public string Name { get; set; }
         public string Author { get; set; }
         public string Image { get; set; }
+        public int Hour { get; set; }
+        public double MinSeconds { get; set; }
         public string Sound { get; set; }
         public ICollection<CategoryTrack> CategoryTrack { get; set; }
         public ICollection<PlaylistTrack> PlaylistTrack { get; set; }
@@ -29,6 +31,11 @@ namespace MSP.BetterCalm.Domain
         public bool SoundEmpty()
         {
             return this.Sound.Length == 0;
+        }
+
+        public bool HourIsEmpty()
+        {
+            return this.Hour == 0;
         }
     }
 }

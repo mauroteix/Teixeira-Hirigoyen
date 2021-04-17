@@ -23,6 +23,8 @@ namespace MSP.BetterCalm.DomainTest
                 Author = "",
                 Sound = "",
                 Name = "Mauro baila cumbia",
+                Hour = 1,
+                MinSeconds = 2.10,
                 CategoryTrack = new List<CategoryTrack>(),
                 PlaylistTrack = new List<PlaylistTrack>()
             };
@@ -124,5 +126,23 @@ namespace MSP.BetterCalm.DomainTest
             Assert.IsTrue(track.PlaylistTrack.Count == 1);
         }
 
+        [TestMethod]
+        public void RegisterHour()
+        {
+            Assert.AreEqual(1, track.Hour);
+        }
+
+        [TestMethod]
+        public void RegisterMinSeconds()
+        {
+            Assert.AreEqual(2.10, track.MinSeconds);
+        }
+
+        [TestMethod]
+        public void HourIsEmpty()
+        {
+            track.Hour = 0;
+            Assert.IsTrue(track.HourIsEmpty());
+        }
     }
 }
