@@ -13,6 +13,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.BusinessLogic\MSP.BetterCalm.BusinessLogic.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.DataAccess\MSP.BetterCalm.DataAccess.csproj" />
     <ProjectReference Include="..\MSP.BetterCalm.HandleMessage\MSP.BetterCalm.HandleMessage.csproj" />
   </ItemGroup>
 
