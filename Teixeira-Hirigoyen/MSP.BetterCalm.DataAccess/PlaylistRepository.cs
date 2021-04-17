@@ -39,7 +39,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(Playlist entity)
         {
-            throw new NotImplementedException();
+            _context.Playlist.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

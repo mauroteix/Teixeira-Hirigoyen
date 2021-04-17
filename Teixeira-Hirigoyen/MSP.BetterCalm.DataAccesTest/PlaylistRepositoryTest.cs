@@ -55,7 +55,7 @@ namespace MSP.BetterCalm.DataAccessTest
         }
 
         [TestMethod]
-        public void GetOneCategory()
+        public void GetOnePlaylist()
         {
             var options = new DbContextOptionsBuilder<BetterCalmContext>()
                 .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
@@ -68,6 +68,22 @@ namespace MSP.BetterCalm.DataAccessTest
             Assert.AreEqual(listPlaylist[0].Id, playlist.Id);
         }
 
+        [TestMethod]
+        public void UpdatePlaylist()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listPlaylist.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new PlaylistRepository(context);
+            listPlaylist[0].Name = "Pop";
+            repository.Update(listPlaylist[0]);
+            var playlist = repository.Get(listPlaylist[0].Id);
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(playlist.Name, "Pop");
+        }
 
     }
 }
