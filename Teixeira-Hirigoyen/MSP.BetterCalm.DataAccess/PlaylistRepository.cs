@@ -29,7 +29,7 @@ namespace MSP.BetterCalm.DataAccess
 
         public Playlist Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Playlist.FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<Playlist> GetAll()
