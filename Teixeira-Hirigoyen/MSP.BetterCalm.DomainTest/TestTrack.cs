@@ -132,5 +132,11 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual(1, track.Hour);
         }
 
+        [TestMethod]
+        public void RegisterMinSeconds()
+        {
+            Assert.AreEqual(2.10, track.MinSeconds);
+        }
+
     }
 }
