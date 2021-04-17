@@ -32,5 +32,10 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Sound.Length == 0;
         }
+
+        public bool HourIsEmpty()
+        {
+            return this.Hour == 0;
+        }
     }
 }
