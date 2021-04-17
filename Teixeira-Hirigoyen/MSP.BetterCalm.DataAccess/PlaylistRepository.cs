@@ -24,7 +24,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(Playlist entity)
         {
-            throw new NotImplementedException();
+            _context.Playlist.Remove(_context.Playlist.Find(entity.Id));
+            _context.SaveChanges();
         }
 
         public Playlist Get(int id)
