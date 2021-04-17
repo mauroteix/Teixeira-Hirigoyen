@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj" />
   </ItemGroup>
 
 </Project>
