@@ -11,9 +11,12 @@ namespace MSP.BetterCalm.DataAccess
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Track> Track { get; set; }
         public virtual DbSet<Playlist> Playlist { get; set; }
- 
+        public virtual DbSet<Playlist> PlaylistCategory { get; set; }
+        public virtual DbSet<Playlist> PlaylistTrack { get; set; }
+        public virtual DbSet<Playlist> CategoryTrack { get; set; }
 
-    public BetterCalmContext() { }
+
+        public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options)
         {
         }
