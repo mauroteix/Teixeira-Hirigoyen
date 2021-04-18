@@ -32,6 +32,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual(consultation.Virtual, psychologist.Consultation);
         }
+        [TestMethod]
+        public void RegisterConsultationFaceToFace()
+        {
+            psychologist.Consultation = consultation.FaceToFace;
+            Assert.AreEqual(consultation.FaceToFace, psychologist.Consultation);
+        }
 
     }
 }
