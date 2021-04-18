@@ -88,7 +88,7 @@ namespace MSP.BetterCalm.DataAccessTest
             Assert.AreEqual(track.Name, "Pop");
         }
         [TestMethod]
-        public void DeleteOnePlaylist()
+        public void DeleteOneTrack()
         {
             Track trackDelete = new Track
             {
