@@ -30,7 +30,7 @@ namespace MSP.BetterCalm.DataAccess
 
         public Track Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Track.FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<Track> GetAll()
