@@ -9,6 +9,8 @@ namespace MSP.BetterCalm.Domain
         public int IdMeeting { get; set; }
         public User User { get; set; }
         public int IdUser { get; set; }
+        public Psychologist Psychologist { get; set; }
+        public int IdPsychologist { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.DomainTest
     {
         User user;
         Meeting meeting;
+        Psychologist psychologist;
         [TestInitialize]
         public void Initialize()
         {
@@ -24,11 +25,20 @@ namespace MSP.BetterCalm.DomainTest
                 Cellphone = "099156189",
 
             };
+            psychologist = new Psychologist
+            {
+                Name = "Mauro",
+                Id = 1,
+                MeetingType = meetingType.Virtual,
+                AdressMeeting = "Horacio 7895",
+            };
             meeting = new Meeting
             {
                 IdMeeting = 1,
                 User = user,
                 IdUser = user.Id,
+                Psychologist = psychologist,
+                IdPsychologist = psychologist.Id,
             };
 
         }
@@ -41,6 +51,11 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterUserId()
         {
             Assert.AreEqual(user.Id, meeting.IdUser);
+        }
+        [TestMethod]
+        public void RegisterPsychologist()
+        {
+            Assert.AreEqual(psychologist, meeting.Psychologist);
         }
     }
 }
