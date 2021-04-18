@@ -40,7 +40,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(Track entity)
         {
-            throw new NotImplementedException();
+            _context.Track.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

@@ -67,9 +67,25 @@ namespace MSP.BetterCalm.DataAccessTest
             listTrack.ForEach(cat => context.Add(cat));
             context.SaveChanges();
             repository = new TrackRepository(context);
-            var playlist = repository.Get(listTrack[0].Id);
+            var track = repository.Get(listTrack[0].Id);
             context.Database.EnsureDeleted();
-            Assert.AreEqual(listTrack[0].Id, playlist.Id);
+            Assert.AreEqual(listTrack[0].Id, track.Id);
+        }
+        [TestMethod]
+        public void UpdateTrack()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listTrack.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new TrackRepository(context);
+            listTrack[0].Name = "Pop";
+            repository.Update(listTrack[0]);
+            var track = repository.Get(listTrack[0].Id);
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(track.Name, "Pop");
         }
     }
 }
