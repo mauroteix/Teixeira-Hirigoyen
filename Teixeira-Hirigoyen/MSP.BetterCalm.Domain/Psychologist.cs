@@ -9,6 +9,8 @@ namespace MSP.BetterCalm.Domain
         public int Id { get; set; }
         public string Name { get; set;}
         public consultation Consultation{ get; set; }
+        public string AdressConsultation { get; set; }
+
 
     }
 }
