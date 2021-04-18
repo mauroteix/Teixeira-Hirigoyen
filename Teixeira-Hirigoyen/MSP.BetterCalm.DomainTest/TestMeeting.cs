@@ -37,5 +37,10 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual(user, meeting.User);
         }
+        [TestMethod]
+        public void RegisterUserId()
+        {
+            Assert.AreEqual(user.Id, meeting.IdUser);
+        }
     }
 }
