@@ -17,6 +17,7 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Mauro",
                 Id = 1,
+                Surname = "Teixeira", 
 
             };
             
@@ -26,6 +27,11 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterName()
         {
             Assert.AreEqual("Mauro", user.Name);
+        }
+        [TestMethod]
+        public void RegisterSurname()
+        {
+            Assert.AreEqual("Teixeira", user.Surname);
         }
     }
 }
