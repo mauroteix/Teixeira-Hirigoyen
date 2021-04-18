@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
     <ProjectReference Include="..\MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.DTO\MSP.BetterCalm.DTO.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,5 +11,8 @@ namespace MSP.BetterCalm.Domain
         public int IdTrack { get; set; }
         public Track Track { get; set; }
 
+        public CategoryTrack()
+        { }
+
     }
 }

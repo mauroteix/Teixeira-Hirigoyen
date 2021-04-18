@@ -11,11 +11,12 @@ namespace MSP.BetterCalm.DataAccess
     public class CategoryRepository : IData<Category>
     {
         readonly BetterCalmContext _context;
-
+        
         public CategoryRepository(BetterCalmContext context)
         {
             _context = context;
         }
+
         public void Add(Category entity)
         {
             _context.Category.Add(entity);

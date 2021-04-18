@@ -1,6 +1,7 @@
 ﻿using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace MSP.BetterCalm.BusinessLogic
             _repository = repository;
         }
 
-        public List<Category> GetAll()
+        public List<CategoryDTO> GetAll()
         {
-            return _repository.GetAll().ToList();
+            var categories = _repository.GetAll().ToList();
+            var categoriesDTO = categories.Select(u => new CategoryDTO { Id = u.Id, Name = u.Name }).ToList();
+            return categoriesDTO;
         }
     }
 }

@@ -4,7 +4,9 @@ using Moq;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.DTO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MSP.BetterCalm.APITest
 {
@@ -29,7 +31,7 @@ namespace MSP.BetterCalm.APITest
         public void GetAllCategories()
         {
             var mockUser = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mockUser.Setup(u => u.GetAll()).Returns(categoryList);
+            mockUser.Setup(u => u.GetAll()).Returns(categoryList.Select(c => new CategoryDTO {Name = c.Name , Id = c.Id}).ToList());
             var categoryController = new CategoryController(mockUser.Object);
             Assert.AreEqual(new OkObjectResult("").ToString(), categoryController.GetAll().ToString());
         }
