@@ -57,5 +57,10 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual(psychologist, meeting.Psychologist);
         }
+        [TestMethod]
+        public void RegisterPsychologistId()
+        {
+            Assert.AreEqual(psychologist.Id, meeting.IdPsychologist);
+        }
     }
 }
