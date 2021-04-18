@@ -87,5 +87,28 @@ namespace MSP.BetterCalm.DataAccessTest
 
             Assert.AreEqual(track.Name, "Pop");
         }
+        [TestMethod]
+        public void DeleteOnePlaylist()
+        {
+            Track trackDelete = new Track
+            {
+                Id = 3,
+                Name = "Pepe",
+                Image = "",
+                Hour = 2,
+                MinSeconds = 30.1
+            };
+            listTrack.Add(trackDelete);
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listTrack.ForEach(track => context.Add(track));
+            context.SaveChanges();
+            repository = new TrackRepository(context);
+            repository.Delete(trackDelete);
+            context.Database.EnsureDeleted();
+            Track getTrack = repository.Get(3);
+            Assert.AreEqual(null, getTrack);
+        }
     }
 }

@@ -25,7 +25,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(Track entity)
         {
-            throw new NotImplementedException();
+            _context.Track.Remove(_context.Track.Find(entity.Id));
+            _context.SaveChanges();
         }
 
         public Track Get(int id)
