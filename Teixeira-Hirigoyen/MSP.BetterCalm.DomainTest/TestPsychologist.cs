@@ -17,7 +17,7 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Mauro",
                 Id = 1,
-                Consultation = consultation.Virtual,
+                MeetingType = meetingType.Virtual,
                 AdressMeeting = "Horacio 7895",
             };
 
@@ -29,15 +29,15 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual("Mauro", psychologist.Name);
         }
         [TestMethod]
-        public void RegisterConsultationVirtual()
+        public void RegisterMeetingTypeVirtual()
         {
-            Assert.AreEqual(consultation.Virtual, psychologist.Consultation);
+            Assert.AreEqual(meetingType.Virtual, psychologist.MeetingType);
         }
         [TestMethod]
-        public void RegisterConsultationFaceToFace()
+        public void RegisterMeetingTypeFaceToFace()
         {
-            psychologist.Consultation = consultation.FaceToFace;
-            Assert.AreEqual(consultation.FaceToFace, psychologist.Consultation);
+            psychologist.MeetingType = meetingType.FaceToFace;
+            Assert.AreEqual(meetingType.FaceToFace, psychologist.MeetingType);
         }
         [TestMethod]
         public void RegisterAdressMeeting()

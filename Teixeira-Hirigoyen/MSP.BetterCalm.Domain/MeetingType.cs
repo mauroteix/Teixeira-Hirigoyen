@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MSP.BetterCalm.Domain
 {
-    public enum consultation
+    public enum meetingType
     {
         Virtual,FaceToFace
     }
