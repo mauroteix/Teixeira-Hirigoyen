@@ -17,7 +17,8 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Mauro",
                 Id = 1,
-                Surname = "Teixeira", 
+                Surname = "Teixeira",
+                Birthday = new DateTime(1996,1,1),
 
             };
             
@@ -32,6 +33,12 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterSurname()
         {
             Assert.AreEqual("Teixeira", user.Surname);
+        }
+        [TestMethod]
+        public void RegisterBirthday()
+        {
+            DateTime date = new DateTime(1996, 1, 1);
+            Assert.AreEqual(date, user.Birthday);
         }
     }
 }
