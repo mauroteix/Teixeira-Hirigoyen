@@ -8,12 +8,25 @@ namespace MSP.BetterCalm.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public ICollection<CategoryTrack> CategoryTrack { get; set; }
         public ICollection<PlaylistCategory> PlaylistCategory { get; set; }
 
         public Category()
         { }
+
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Category category = (Category)obj;
+                return (this.Id==category.Id);
+            }
+        }
+
 
     }
 }

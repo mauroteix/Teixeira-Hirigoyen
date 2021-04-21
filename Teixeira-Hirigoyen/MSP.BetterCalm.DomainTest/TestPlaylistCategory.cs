@@ -29,7 +29,6 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Dormir",
                 Id = 2,
-                Description = "Musica para relajarse",
                 CategoryTrack = new List<CategoryTrack>()
             };
         }
@@ -51,7 +50,7 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterCategory()
         {
             playlistCategory.Category = category;
-            Assert.AreEqual(category, playlistCategory.Category);
+            Assert.AreEqual(category,playlistCategory.Category);
         }
         [TestMethod]
         public void RegisterCategoryId()
