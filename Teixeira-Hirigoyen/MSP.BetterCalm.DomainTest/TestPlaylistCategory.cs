@@ -50,7 +50,7 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterCategory()
         {
             playlistCategory.Category = category;
-            Assert.AreEqual(category, playlistCategory.Category);
+            Assert.AreEqual(category,playlistCategory.Category);
         }
         [TestMethod]
         public void RegisterCategoryId()

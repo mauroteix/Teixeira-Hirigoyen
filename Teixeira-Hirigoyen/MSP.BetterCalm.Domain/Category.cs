@@ -14,5 +14,19 @@ namespace MSP.BetterCalm.Domain
         public Category()
         { }
 
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Category category = (Category)obj;
+                return (this.Id==category.Id);
+            }
+        }
+
+
     }
 }
