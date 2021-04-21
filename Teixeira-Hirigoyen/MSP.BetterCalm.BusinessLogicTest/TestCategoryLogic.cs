@@ -23,14 +23,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             category = new Category()
             {
                 Id = 1,
-                Name = "Dormir",
-                Description = "Para tener un buen descanso",
+                Name = "Dormir"
             };
             secondCategory = new Category()
             {
                 Id = 2,
-                Name = "Musica",
-                Description = "Cumbia pal rodri",
+                Name = "Musica"
             };
             categoryList = new List<Category>();
             categoryList.Add(category);

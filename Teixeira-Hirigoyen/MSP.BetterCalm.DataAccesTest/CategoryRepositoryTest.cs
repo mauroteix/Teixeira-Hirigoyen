@@ -21,14 +21,12 @@ namespace MSP.BetterCalm.DataAccessTest
                 new Category()
                 {
                     Id = 1,
-                    Name = "Dormir",
-                    Description = "Musica para dormir tranquilo"
+                    Name = "Dormir"
                 },
                 new Category()
                 {
                     Id=2,
-                    Name="Meditar",
-                    Description = "Musica para relajarse"
+                    Name="Meditar"
                 }
             };
         }

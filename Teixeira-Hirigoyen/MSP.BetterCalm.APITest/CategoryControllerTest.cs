@@ -22,7 +22,6 @@ namespace MSP.BetterCalm.APITest
             {
                 Id = 1,
                 Name = "Dormir",
-                Description = "Para relajarse"
             };
             categoryList = new List<Category>();
             categoryList.Add(category);

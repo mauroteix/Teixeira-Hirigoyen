@@ -29,7 +29,6 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Dormir",
                 Id = 2,
-                Description = "Musica para relajarse",
                 CategoryTrack = new List<CategoryTrack>()
             };
         }

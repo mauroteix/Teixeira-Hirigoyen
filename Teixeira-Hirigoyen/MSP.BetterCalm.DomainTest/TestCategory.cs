@@ -31,7 +31,6 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Dormir",
                 Id = 1,
-                Description = "Facil para dormir",
                 CategoryTrack = new List<CategoryTrack>(),
                 PlaylistCategory = new List<PlaylistCategory>()
                
@@ -70,11 +69,6 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual("Dormir", category.Name);
         }
 
-        [TestMethod]
-        public void RegisterDescription()
-        {
-            Assert.AreEqual("Facil para dormir", category.Description);
-        }
 
         [TestMethod]
         public void RegisterCategoryTrack()
