@@ -15,11 +15,11 @@ namespace MSP.BetterCalm.DataAccess
         public virtual DbSet<Playlist> PlaylistTrack { get; set; }
         public virtual DbSet<Playlist> CategoryTrack { get; set; }
 
-
+        public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options)
         {
         }
-        public BetterCalmContext() { }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CategoryTrack>()

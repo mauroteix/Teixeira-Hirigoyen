@@ -32,7 +32,7 @@ namespace MSP.BetterCalm.API
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddCors(options =>
+           /* services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",
                     builder =>
@@ -42,7 +42,7 @@ namespace MSP.BetterCalm.API
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                     });
-            });
+            });*/
             
             services.AddDbContext<BetterCalmContext>();
             services.AddScoped<IData<Category>, CategoryRepository>();
@@ -53,7 +53,7 @@ namespace MSP.BetterCalm.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("AllowAll");
+           // app.UseCors("AllowAll");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
