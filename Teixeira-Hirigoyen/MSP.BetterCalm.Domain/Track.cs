@@ -37,5 +37,17 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Hour == 0;
         }
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Track track = (Track)obj;
+                return (this.Id == track.Id);
+            }
+        }
     }
 }
