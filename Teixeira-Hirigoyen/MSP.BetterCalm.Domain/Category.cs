@@ -12,5 +12,8 @@ namespace MSP.BetterCalm.Domain
         public ICollection<CategoryTrack> CategoryTrack { get; set; }
         public ICollection<PlaylistCategory> PlaylistCategory { get; set; }
 
+        public Category()
+        { }
+
     }
 }

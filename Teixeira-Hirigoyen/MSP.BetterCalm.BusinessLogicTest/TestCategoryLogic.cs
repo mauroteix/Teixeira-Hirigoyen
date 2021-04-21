@@ -3,6 +3,7 @@ using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.DTO;
 using System.Collections.Generic;
 
 namespace MSP.BetterCalm.BusinessLogicTest
@@ -41,7 +42,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         [TestMethod]
         public void GetAll()
         {
-            ICollection<Category> categoryList = categoryLogic.GetAll();
+            List<CategoryDTO> categoryList = categoryLogic.GetAll();
             Assert.AreEqual(categoryList.Count, 2);
         }
     }

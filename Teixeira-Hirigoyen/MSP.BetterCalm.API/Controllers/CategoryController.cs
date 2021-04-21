@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.API.Controllers
         {
             try
             {
-                return Ok(_categoryLogic.GetAll().ToList());
+                return Ok(_categoryLogic.GetAll());
             }
             catch (EntityNotExists en)
             {
