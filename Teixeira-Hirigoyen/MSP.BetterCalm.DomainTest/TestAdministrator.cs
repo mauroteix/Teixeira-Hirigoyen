@@ -18,6 +18,7 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Rodrigo",
                 Id = 1,
                 Email = "mauroGil@gmail.com",
+                Password = "123"
             };
         }
         [TestMethod]
@@ -29,6 +30,11 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterEmail()
         {
             Assert.AreEqual("mauroGil@gmail.com", administrator.Email);
+        }
+        [TestMethod]
+        public void RegisterPassword()
+        {
+            Assert.AreEqual("123", administrator.Password);
         }
 
     }
