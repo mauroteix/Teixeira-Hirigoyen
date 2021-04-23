@@ -7,5 +7,18 @@ namespace MSP.BetterCalm.Domain
     public class MedicalCondition
     {
         public string Name { get; set; }
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                MedicalCondition medicalCondition = (MedicalCondition)obj;
+                return (this.Name.Equals(medicalCondition.Name));
+            }
+        }
     }
+
 }
