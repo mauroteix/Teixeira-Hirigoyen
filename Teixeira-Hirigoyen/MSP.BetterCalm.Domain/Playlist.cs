@@ -30,7 +30,18 @@ namespace MSP.BetterCalm.Domain
             return this.Image.Length == 0;
         }
 
-
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Playlist playlist = (Playlist)obj;
+                return (this.Id == playlist.Id);
+            }
+        }
 
     }
 }
