@@ -17,12 +17,18 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Name = "Rodrigo",
                 Id = 1,
+                Email = "mauroGil@gmail.com",
             };
         }
         [TestMethod]
         public void RegisterName()
         {
             Assert.AreEqual("Rodrigo", administrator.Name);
+        }
+        [TestMethod]
+        public void RegisterEmail()
+        {
+            Assert.AreEqual("mauroGil@gmail.com", administrator.Email);
         }
 
     }
