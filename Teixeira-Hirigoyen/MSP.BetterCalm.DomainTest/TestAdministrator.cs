@@ -9,6 +9,21 @@ namespace MSP.BetterCalm.DomainTest
     [TestClass]
     public class TestAdministrator
     {
+        Administrator administrator;
+        [TestInitialize]
+        public void Initialize()
+        {
+            administrator = new Administrator
+            {
+                Name = "Rodrigo",
+                Id = 1,
+            };
+        }
+        [TestMethod]
+        public void RegisterName()
+        {
+            Assert.AreEqual("Rodrigo", administrator.Name);
+        }
 
     }
 }
