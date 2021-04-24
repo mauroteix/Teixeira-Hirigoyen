@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.BusinessLogicInterface;
+﻿using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -16,6 +17,8 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Playlist Get(int id)
         {
+            Playlist unPlaylist = _repository.Get(id);
+            if (unPlaylist == null) throw new EntityNotExists("The playlist with id: " + id + " does not exist");
             return _repository.Get(id);
         }
 
