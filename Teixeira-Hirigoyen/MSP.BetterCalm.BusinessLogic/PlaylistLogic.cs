@@ -4,6 +4,8 @@ using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
@@ -29,7 +31,11 @@ namespace MSP.BetterCalm.BusinessLogic
             if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
             _repository.Add(playlist);
         }
-        
-        
+
+        public List<Playlist> GetAll()
+        {
+            return _repository.GetAll().ToList();
+        }
+
     }
 }

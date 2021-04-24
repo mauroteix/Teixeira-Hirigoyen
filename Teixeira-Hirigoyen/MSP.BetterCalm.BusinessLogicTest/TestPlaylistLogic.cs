@@ -157,5 +157,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => playlistLogic.Add(playlistToAdd));
         }
+
+        [TestMethod]
+        public void GetAllPlaylist()
+        {
+            List<Playlist> categoryList = playlistLogic.GetAll();
+            Assert.AreEqual(categoryList.Count, 1);
+        }
     }
 }
