@@ -10,25 +10,16 @@ namespace MSP.BetterCalm.DomainTest
     public class TestPsychologist
     {
         Psychologist psychologist;
-        List<MedicalCondition> listMedicalCondition;
-        MedicalCondition medicalCondition;
-
         [TestInitialize]
         public void Initialize()
         {
-            listMedicalCondition = new List<MedicalCondition>();
-            medicalCondition = new MedicalCondition
-            {
-                Name = "Depresion",
-            };
-            listMedicalCondition.Add(medicalCondition);
             psychologist = new Psychologist
             {
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
                 AdressMeeting = "Horacio 7895",
-                ListMedicalCondition = null,
+
             };
 
 
@@ -54,11 +45,6 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual("Horacio 7895", psychologist.AdressMeeting);
         }
-        [TestMethod]
-        public void RegisterListMedicalCondition()
-        {
-            psychologist.ListMedicalCondition = listMedicalCondition;
-            Assert.IsTrue(psychologist.ListMedicalCondition.Contains(listMedicalCondition[0]));
-        }
+
     }
 }

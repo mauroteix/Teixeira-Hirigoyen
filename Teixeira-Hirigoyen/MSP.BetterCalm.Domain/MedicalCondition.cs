@@ -6,7 +6,9 @@ namespace MSP.BetterCalm.Domain
 {
     public class MedicalCondition
     {
+        public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<PsyExpertise> PsyExpertise { get; set; }
         public override bool Equals(object obj)
         {
             if (!this.GetType().Equals(obj.GetType()))
