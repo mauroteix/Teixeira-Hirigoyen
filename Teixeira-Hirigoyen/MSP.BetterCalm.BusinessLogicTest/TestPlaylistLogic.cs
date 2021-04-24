@@ -143,5 +143,19 @@ namespace MSP.BetterCalm.BusinessLogicTest
             playlistToAdd.PlaylistCategory.Add(playlistCategory);
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => playlistLogic.Add(playlistToAdd));
         }
+
+        [TestMethod]
+        public void AddPlaylistCategoryEmpty()
+        {
+            Playlist playlistToAdd = new Playlist()
+            {
+                Id = 1,
+                Name = "Variado",
+                Description = "Lo mejor 2021",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => playlistLogic.Add(playlistToAdd));
+        }
     }
 }
