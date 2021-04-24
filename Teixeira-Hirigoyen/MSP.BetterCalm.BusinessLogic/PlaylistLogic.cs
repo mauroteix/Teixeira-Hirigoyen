@@ -1,6 +1,7 @@
 ﻿using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 
 namespace MSP.BetterCalm.BusinessLogic
@@ -17,5 +18,17 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return _repository.Get(id);
         }
+
+        public void Add(Playlist playlist)
+        {
+            if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
+            if(!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
+            _repository.Add(playlist);
+        }
+        private bool ValidatePlaylist(Playlist playlist)
+        {
+            return (!playlist.NameEmpty() && playlist.DescriptionLength()); 
+        }
+        
     }
 }
