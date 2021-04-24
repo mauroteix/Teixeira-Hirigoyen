@@ -113,5 +113,35 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => playlistLogic.Add(playlistToAdd));
         }
 
+        [TestMethod]
+        public void AddPlaylistDescriptionLengthWrong()
+        {
+            Playlist playlistToAdd = new Playlist()
+            {
+                Id = 1,
+                Name = "Variado",
+                Description = "Lo mejor 2021 del mundo mundial mundoooooooooooooooooooooooooooo ksdksdsd   sdsd sd s ds d sd   sd sdsdsd sd sd sd  ds d" +
+                " sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds sdsds sdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+
+            PlaylistCategory playlistCategory = new PlaylistCategory
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>()
+                },
+                IdCategory = 1,
+                IdPlaylist = 1,
+                Playlist = playlistToAdd
+
+            };
+            playlistToAdd.PlaylistCategory.Add(playlistCategory);
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => playlistLogic.Add(playlistToAdd));
+        }
     }
 }
