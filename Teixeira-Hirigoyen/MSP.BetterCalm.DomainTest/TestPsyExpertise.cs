@@ -30,5 +30,10 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual(psyExpertise.MedicalCondition, medicalCondition);
         }
+        [TestMethod]
+        public void RegisterMedicalConditionId()
+        {
+            Assert.AreEqual(psyExpertise.MedicalCondition.Id, medicalCondition.Id);
+        }
     }
 }
