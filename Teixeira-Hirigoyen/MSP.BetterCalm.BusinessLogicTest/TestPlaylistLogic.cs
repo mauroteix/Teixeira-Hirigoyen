@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
@@ -36,8 +37,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
             repositoryPlaylist.Setup(play => play.Get(0)).Returns(playlist);
             repositoryPlaylist.Setup(play => play.Add(playlist));
             playlistLogic = new PlaylistLogic(repositoryPlaylist.Object);
-
-            
+      
         }
 
         [TestMethod]
@@ -45,6 +45,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             Playlist newPlaylist = playlistLogic.Get(playlist.Id);
             Assert.AreEqual(playlist, newPlaylist);
+        }
+
+        [TestMethod]
+        public void GetPlaylistNotExist()
+        {
+            Assert.ThrowsException<EntityNotExists>(() => playlistLogic.Get(1));
         }
 
         [TestMethod]
