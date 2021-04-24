@@ -115,5 +115,11 @@ namespace MSP.BetterCalm.DomainTest
             Assert.IsTrue(playlist.PlaylistCategory.Count == 1);
         }
 
+        [TestMethod]
+        public void PlaylistCategoryNotEmpty()
+        {
+            Assert.IsFalse(playlist.PlaylistCategoryEmpty());
+        }
+
     }
 }

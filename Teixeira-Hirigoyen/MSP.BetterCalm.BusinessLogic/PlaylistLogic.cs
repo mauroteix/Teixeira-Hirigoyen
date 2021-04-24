@@ -23,12 +23,10 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
             if(!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
+
             _repository.Add(playlist);
         }
-        private bool ValidatePlaylist(Playlist playlist)
-        {
-            return (!playlist.NameEmpty() && playlist.DescriptionLength()); 
-        }
+        
         
     }
 }
