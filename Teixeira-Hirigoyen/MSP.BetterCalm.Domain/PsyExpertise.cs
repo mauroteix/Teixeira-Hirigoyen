@@ -8,6 +8,10 @@ namespace MSP.BetterCalm.Domain
     {
         public int IdMedicalCondition { get; set; }
         public MedicalCondition MedicalCondition { get; set; }
+        public int IdPsychologist { get; set; }
+        public Psychologist Psychologist { get; set; }
+
+
 
     }
 }

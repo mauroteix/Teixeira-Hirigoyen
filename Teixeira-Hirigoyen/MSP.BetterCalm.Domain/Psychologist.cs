@@ -10,7 +10,6 @@ namespace MSP.BetterCalm.Domain
         public string Name { get; set;}
         public meetingType MeetingType { get; set; }
         public string AdressMeeting { get; set; }
-        public ICollection<MedicalCondition> ListMedicalCondition { get; set; }
 
 
     }
