@@ -4,14 +4,16 @@ using MSP.BetterCalm.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSP.BetterCalm.DataAccess.Migrations
 {
     [DbContext(typeof(BetterCalmContext))]
-    partial class BetterCalmContextModelSnapshot : ModelSnapshot
+    [Migration("20210424203539_SixMigration")]
+    partial class SixMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

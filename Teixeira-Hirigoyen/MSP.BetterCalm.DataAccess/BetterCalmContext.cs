@@ -11,9 +11,13 @@ namespace MSP.BetterCalm.DataAccess
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Track> Track { get; set; }
         public virtual DbSet<Playlist> Playlist { get; set; }
-        public virtual DbSet<Playlist> PlaylistCategory { get; set; }
-        public virtual DbSet<Playlist> PlaylistTrack { get; set; }
-        public virtual DbSet<Playlist> CategoryTrack { get; set; }
+        public virtual DbSet<PlaylistCategory> PlaylistCategory { get; set; }
+        public virtual DbSet<PlaylistTrack> PlaylistTrack { get; set; }
+        public virtual DbSet<CategoryTrack> CategoryTrack { get; set; }
+        public virtual DbSet<Administrator> Administrator { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<MedicalCondition> MedicalCondition { get; set; }
+
 
         public BetterCalmContext() { }
         public BetterCalmContext(DbContextOptions options) : base(options)
@@ -54,6 +58,17 @@ namespace MSP.BetterCalm.DataAccess
                 .HasOne(mc => mc.Track)
                 .WithMany(c => c.PlaylistTrack)
                 .HasForeignKey(mc => mc.IdTrack);
+
+            modelBuilder.Entity<PsyExpertise>()
+            .HasKey(mc => new { mc.IdPsychologist, mc.IdMedicalCondition });
+            modelBuilder.Entity<PsyExpertise>()
+                .HasOne(mc => mc.Psychologist)
+                .WithMany(m => m.PsyExpertise)
+                .HasForeignKey(mc => mc.IdPsychologist);
+            modelBuilder.Entity<PsyExpertise>()
+                .HasOne(mc => mc.MedicalCondition)
+                .WithMany(c => c.PsyExpertise)
+                .HasForeignKey(mc => mc.IdMedicalCondition);
         }
 
 
