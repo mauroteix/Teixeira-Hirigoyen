@@ -34,7 +34,7 @@ namespace MSP.BetterCalm.Domain
 
         public bool PlaylistCategoryEmpty()
         {
-            return this.PlaylistCategory.Count == 0;
+            return this.PlaylistCategory==null;
         }
 
         public override bool Equals(object obj)

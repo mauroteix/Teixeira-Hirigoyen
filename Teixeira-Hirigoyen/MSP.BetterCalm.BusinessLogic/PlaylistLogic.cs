@@ -12,9 +12,11 @@ namespace MSP.BetterCalm.BusinessLogic
     public class PlaylistLogic : IPlaylistLogic
     {
         IData<Playlist> _repository;
-        public PlaylistLogic(IData<Playlist> repository)
+        IData<Category> _repositoryCategory;
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> repositoryCategory)
         {
             _repository = repository;
+            _repositoryCategory = repositoryCategory;
         }
 
         public Playlist Get(int id)
@@ -28,7 +30,7 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
             if(!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
-            if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
+            if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");           
             _repository.Add(playlist);
         }
 
