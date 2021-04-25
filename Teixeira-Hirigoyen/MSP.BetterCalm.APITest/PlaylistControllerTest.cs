@@ -46,7 +46,6 @@ namespace MSP.BetterCalm.APITest
         [TestMethod]
         public void GetOnePlaylistError()
         {
-           
             var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
             mockPlaylist.Setup(res => res.Get(playlistList[0].Id)).Throws(new Exception());
             PlaylistController controller = new PlaylistController(mockPlaylist.Object);
@@ -54,6 +53,19 @@ namespace MSP.BetterCalm.APITest
 
             mockPlaylist.VerifyAll();
             Assert.AreEqual(result.ToString(), new ObjectResult("").ToString());
+        }
+
+        [TestMethod]
+        public void AddOnePlaylist()
+        {
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(res => res.Get(playlistList[0].Id)).Returns(playlistList[0]);
+            PlaylistController controller = new PlaylistController(mockPlaylist.Object);
+
+            var result = controller.Add(playlistList[0]);
+            var okResult = result as OkObjectResult;
+
+            Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(playlistList[0]).ToString());
         }
     }
 }
