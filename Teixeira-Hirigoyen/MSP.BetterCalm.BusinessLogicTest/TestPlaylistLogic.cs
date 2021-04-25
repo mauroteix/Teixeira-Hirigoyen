@@ -169,5 +169,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             List<Playlist> categoryList = playlistLogic.GetAll();
             Assert.AreEqual(categoryList.Count, 1);
         }
+
+        [TestMethod]
+        public void DeletePlaylist()
+        {
+            playlistLogic.Delete(playlist);
+            var getLodg = playlistLogic.Get(playlist.Id);
+        }
     }
 }

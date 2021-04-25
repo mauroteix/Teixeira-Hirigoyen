@@ -72,7 +72,6 @@ namespace MSP.BetterCalm.APITest
         [TestMethod]
         public void AddPlaylistError()
         {
-            // FieldEnteredNotCorrect
             playlistList[0].Name = "";
             var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
             mockPlaylist.Setup(r => r.Add(playlistList[0])).Throws(new FieldEnteredNotCorrect(""));

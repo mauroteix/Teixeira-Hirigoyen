@@ -52,5 +52,27 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+       /* [HttpDelete("{id}")]
+        public IActionResult DeletePlaylist(int id)
+        {
+            if (id < 0)
+            {
+                return NotFound("Id not valid");
+            }
+            else
+            {
+                try
+                {
+                    Playlist playlist = _playlistLogic.Get(id);
+                    _playlistLogic.Delete(lodgment);
+                    return Ok("Erased successfully");
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+        }*/
     }
 }

@@ -58,6 +58,11 @@ namespace MSP.BetterCalm.BusinessLogic
             playlist.PlaylistCategory = list;
             return playlist;
         }
-     
+
+        public void Delete(Playlist playlist)
+        {
+            _repository.Delete(playlist);
+        }
+
     }
 }
