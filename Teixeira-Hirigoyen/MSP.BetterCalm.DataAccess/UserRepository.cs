@@ -18,14 +18,13 @@ namespace MSP.BetterCalm.DataAccess
         }
         public void Add(User entity)
         {
-            throw new NotImplementedException();
-           // _context.User.Add(entity);
-            //_context.SaveChanges();
+           _context.User.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(User entity)
         {
-            throw new NotImplementedException();
+            throw new CannotBePerformed("You cannot delete user " + entity.Name);
         }
 
         public User Get(int id)
@@ -35,7 +34,7 @@ namespace MSP.BetterCalm.DataAccess
 
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.User.ToList();
         }
 
         public void Update(User entity)
