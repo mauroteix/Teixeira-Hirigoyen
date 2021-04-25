@@ -4,6 +4,7 @@ using Moq;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -66,6 +67,18 @@ namespace MSP.BetterCalm.APITest
             var okResult = result as OkObjectResult;
 
             Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(playlistList[0]).ToString());
+        }
+
+        [TestMethod]
+        public void AddPlaylistError()
+        {
+            // FieldEnteredNotCorrect
+            playlistList[0].Name = "";
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(r => r.Add(playlistList[0])).Throws(new FieldEnteredNotCorrect(""));
+            PlaylistController controller = new PlaylistController(mockPlaylist.Object);
+            var result = controller.Add(playlistList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
         }
     }
 }
