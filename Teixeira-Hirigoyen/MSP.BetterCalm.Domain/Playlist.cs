@@ -13,6 +13,8 @@ namespace MSP.BetterCalm.Domain
         public ICollection<PlaylistTrack> PlaylistTrack { get; set; }
         public ICollection<PlaylistCategory> PlaylistCategory { get; set; }
 
+        public Playlist()
+        { }
         public bool NameEmpty()
         {
             return this.Name.Length == 0;
@@ -32,7 +34,7 @@ namespace MSP.BetterCalm.Domain
 
         public bool PlaylistCategoryEmpty()
         {
-            return this.PlaylistCategory.Count == 0;
+            return this.PlaylistCategory==null;
         }
 
         public override bool Equals(object obj)

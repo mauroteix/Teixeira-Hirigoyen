@@ -47,7 +47,12 @@ namespace MSP.BetterCalm.API
             services.AddDbContext<BetterCalmContext>();
             services.AddScoped<IData<Category>, CategoryRepository>();
             services.AddScoped<ICategoryLogic, CategoryLogic>();
-            services.AddControllers();
+            services.AddScoped<IData<Playlist>, PlaylistRepository>();
+            services.AddScoped<IPlaylistLogic, PlaylistLogic>();
+            services.AddScoped<PlaylistCategory>();
+            //services.AddScoped<IPlaylistLogic, PlaylistLogic>();
+            services.AddControllers().AddNewtonsoftJson(options => 
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
