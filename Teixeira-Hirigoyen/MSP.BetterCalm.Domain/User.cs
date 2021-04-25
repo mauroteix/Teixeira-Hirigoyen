@@ -12,5 +12,6 @@ namespace MSP.BetterCalm.Domain
         public DateTime Birthday { get; set; }
         public string Email { get; set; }
         public string Cellphone { get; set; }
+        public ICollection<Meeting> Meeting { get; set; }
     }
 }

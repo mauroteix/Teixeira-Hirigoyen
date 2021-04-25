@@ -4,14 +4,16 @@ using MSP.BetterCalm.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSP.BetterCalm.DataAccess.Migrations
 {
     [DbContext(typeof(BetterCalmContext))]
-    partial class BetterCalmContextModelSnapshot : ModelSnapshot
+    [Migration("20210424203539_SixMigration")]
+    partial class SixMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,21 +72,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.ToTable("CategoryTrack");
                 });
 
-            modelBuilder.Entity("MSP.BetterCalm.Domain.Expertise", b =>
-                {
-                    b.Property<int>("IdPsychologist")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMedicalCondition")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdPsychologist", "IdMedicalCondition");
-
-                    b.HasIndex("IdMedicalCondition");
-
-                    b.ToTable("Expertise");
-                });
-
             modelBuilder.Entity("MSP.BetterCalm.Domain.MedicalCondition", b =>
                 {
                     b.Property<int>("Id")
@@ -98,27 +85,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MedicalCondition");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.Domain.Meeting", b =>
-                {
-                    b.Property<int>("IdPsychologist")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdMeeting")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("IdPsychologist", "IdUser", "IdMeeting");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Meeting");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Playlist", b =>
@@ -170,6 +136,21 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.HasIndex("IdTrack");
 
                     b.ToTable("PlaylistTrack");
+                });
+
+            modelBuilder.Entity("MSP.BetterCalm.Domain.PsyExpertise", b =>
+                {
+                    b.Property<int>("IdPsychologist")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMedicalCondition")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPsychologist", "IdMedicalCondition");
+
+                    b.HasIndex("IdMedicalCondition");
+
+                    b.ToTable("PsyExpertise");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Psychologist", b =>
@@ -269,44 +250,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Track");
                 });
 
-            modelBuilder.Entity("MSP.BetterCalm.Domain.Expertise", b =>
-                {
-                    b.HasOne("MSP.BetterCalm.Domain.MedicalCondition", "MedicalCondition")
-                        .WithMany("Expertise")
-                        .HasForeignKey("IdMedicalCondition")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MSP.BetterCalm.Domain.Psychologist", "Psychologist")
-                        .WithMany("Expertise")
-                        .HasForeignKey("IdPsychologist")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MedicalCondition");
-
-                    b.Navigation("Psychologist");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.Domain.Meeting", b =>
-                {
-                    b.HasOne("MSP.BetterCalm.Domain.Psychologist", "Psychologist")
-                        .WithMany("Meeting")
-                        .HasForeignKey("IdPsychologist")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MSP.BetterCalm.Domain.User", "User")
-                        .WithMany("Meeting")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Psychologist");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MSP.BetterCalm.Domain.PlaylistCategory", b =>
                 {
                     b.HasOne("MSP.BetterCalm.Domain.Category", "Category")
@@ -345,6 +288,25 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Track");
                 });
 
+            modelBuilder.Entity("MSP.BetterCalm.Domain.PsyExpertise", b =>
+                {
+                    b.HasOne("MSP.BetterCalm.Domain.MedicalCondition", "MedicalCondition")
+                        .WithMany("PsyExpertise")
+                        .HasForeignKey("IdMedicalCondition")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MSP.BetterCalm.Domain.Psychologist", "Psychologist")
+                        .WithMany("PsyExpertise")
+                        .HasForeignKey("IdPsychologist")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MedicalCondition");
+
+                    b.Navigation("Psychologist");
+                });
+
             modelBuilder.Entity("MSP.BetterCalm.Domain.Category", b =>
                 {
                     b.Navigation("CategoryTrack");
@@ -354,7 +316,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.MedicalCondition", b =>
                 {
-                    b.Navigation("Expertise");
+                    b.Navigation("PsyExpertise");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Playlist", b =>
@@ -366,9 +328,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Psychologist", b =>
                 {
-                    b.Navigation("Expertise");
-
-                    b.Navigation("Meeting");
+                    b.Navigation("PsyExpertise");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Track", b =>
@@ -376,11 +336,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("CategoryTrack");
 
                     b.Navigation("PlaylistTrack");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.Domain.User", b =>
-                {
-                    b.Navigation("Meeting");
                 });
 #pragma warning restore 612, 618
         }
