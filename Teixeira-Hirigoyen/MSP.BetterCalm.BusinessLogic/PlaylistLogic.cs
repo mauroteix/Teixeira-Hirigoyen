@@ -12,11 +12,12 @@ namespace MSP.BetterCalm.BusinessLogic
     public class PlaylistLogic : IPlaylistLogic
     {
         IData<Playlist> _repository;
-        IData<Category> _repositoryCategory;
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> repositoryCategory)
+        IData<Category> _reposCategory;
+
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory)
         {
             _repository = repository;
-            _repositoryCategory = repositoryCategory;
+            _reposCategory = reposCategory;
         }
 
         public Playlist Get(int id)
@@ -31,13 +32,32 @@ namespace MSP.BetterCalm.BusinessLogic
             if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
             if(!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
             if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");           
-            _repository.Add(playlist);
+            Playlist play = ToEntity(playlist);
+            _repository.Add(play);
         }
 
         public List<Playlist> GetAll()
         {
             return _repository.GetAll().ToList();
         }
-
+        private Playlist ToEntity(Playlist playlist)
+        {
+            Playlist play = new Playlist()
+            { 
+                 Name = playlist.Name,
+                 Image = playlist.Image,
+                 Description = playlist.Description,
+            };
+            List<PlaylistCategory> list = playlist.PlaylistCategory.Select(py => new PlaylistCategory() 
+            { 
+                Category = _reposCategory.Get(py.IdCategory),
+                IdCategory = py.IdCategory,
+                Playlist = playlist,
+                IdPlaylist = playlist.Id
+            }).ToList();
+            playlist.PlaylistCategory = list;
+            return playlist;
+        }
+     
     }
 }
