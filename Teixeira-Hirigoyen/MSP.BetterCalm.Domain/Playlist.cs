@@ -13,6 +13,8 @@ namespace MSP.BetterCalm.Domain
         public ICollection<PlaylistTrack> PlaylistTrack { get; set; }
         public ICollection<PlaylistCategory> PlaylistCategory { get; set; }
 
+        public Playlist()
+        { }
         public bool NameEmpty()
         {
             return this.Name.Length == 0;
