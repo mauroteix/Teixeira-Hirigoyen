@@ -17,6 +17,7 @@ namespace MSP.BetterCalm.DataAccess
         public virtual DbSet<Administrator> Administrator { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<MedicalCondition> MedicalCondition { get; set; }
+        public virtual DbSet<Meeting> Meeting { get; set; }
 
 
         public BetterCalmContext() { }
@@ -59,16 +60,27 @@ namespace MSP.BetterCalm.DataAccess
                 .WithMany(c => c.PlaylistTrack)
                 .HasForeignKey(mc => mc.IdTrack);
 
-            modelBuilder.Entity<PsyExpertise>()
+            modelBuilder.Entity<Expertise>()
             .HasKey(mc => new { mc.IdPsychologist, mc.IdMedicalCondition });
-            modelBuilder.Entity<PsyExpertise>()
+            modelBuilder.Entity<Expertise>()
                 .HasOne(mc => mc.Psychologist)
-                .WithMany(m => m.PsyExpertise)
+                .WithMany(m => m.Expertise)
                 .HasForeignKey(mc => mc.IdPsychologist);
-            modelBuilder.Entity<PsyExpertise>()
+            modelBuilder.Entity<Expertise>()
                 .HasOne(mc => mc.MedicalCondition)
-                .WithMany(c => c.PsyExpertise)
+                .WithMany(c => c.Expertise)
                 .HasForeignKey(mc => mc.IdMedicalCondition);
+
+            modelBuilder.Entity<Meeting>()
+           .HasKey(mc => new { mc.IdPsychologist, mc.IdUser,mc.IdMeeting });
+            modelBuilder.Entity<Meeting>()
+                .HasOne(mc => mc.Psychologist)
+                .WithMany(m => m.Meeting)
+                .HasForeignKey(mc => mc.IdPsychologist);
+            modelBuilder.Entity<Meeting>()
+                .HasOne(mc => mc.User)
+                .WithMany(c => c.Meeting)
+                .HasForeignKey(mc => mc.IdUser);
         }
 
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MSP.BetterCalm.Domain
 {
-    public class PsyExpertise
+    public class Expertise
     {
         public int IdMedicalCondition { get; set; }
         public MedicalCondition MedicalCondition { get; set; }

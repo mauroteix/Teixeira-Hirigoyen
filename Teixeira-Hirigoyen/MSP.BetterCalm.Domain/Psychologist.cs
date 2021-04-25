@@ -10,7 +10,8 @@ namespace MSP.BetterCalm.Domain
         public string Name { get; set;}
         public meetingType MeetingType { get; set; }
         public string AdressMeeting { get; set; }
-        public ICollection<PsyExpertise> PsyExpertise { get; set; }
+        public ICollection<Expertise> Expertise { get; set; }
+        public ICollection<Meeting> Meeting { get; set; }
 
 
     }

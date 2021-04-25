@@ -7,10 +7,10 @@ using System.Text;
 namespace MSP.BetterCalm.DomainTest
 {
     [TestClass]
-    public class TestPsyExpertise
+    public class TestExpertise
     {
         MedicalCondition medicalCondition;
-        PsyExpertise psyExpertise;
+        Expertise Expertise;
         Psychologist psychologist;
 
         [TestInitialize]
@@ -28,7 +28,7 @@ namespace MSP.BetterCalm.DomainTest
                 MeetingType = meetingType.Virtual,
                 AdressMeeting = "Horacio 7895",
             };
-            psyExpertise = new PsyExpertise
+            Expertise = new Expertise
             {
                 IdMedicalCondition = medicalCondition.Id,
                 MedicalCondition = medicalCondition,
@@ -40,22 +40,22 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void RegisterMedicalCondition()
         {
-            Assert.AreEqual(psyExpertise.MedicalCondition, medicalCondition);
+            Assert.AreEqual(Expertise.MedicalCondition, medicalCondition);
         }
         [TestMethod]
         public void RegisterMedicalConditionId()
         {
-            Assert.AreEqual(psyExpertise.MedicalCondition.Id, medicalCondition.Id);
+            Assert.AreEqual(Expertise.MedicalCondition.Id, medicalCondition.Id);
         }
         [TestMethod]
         public void RegisterPsychologist()
         {
-            Assert.AreEqual(psyExpertise.Psychologist, psychologist);
+            Assert.AreEqual(Expertise.Psychologist, psychologist);
         }
         [TestMethod]
         public void RegisterPsychologistId()
         {
-            Assert.AreEqual(psyExpertise.IdPsychologist, psychologist.Id);
+            Assert.AreEqual(Expertise.IdPsychologist, psychologist.Id);
         }
     }
 }
