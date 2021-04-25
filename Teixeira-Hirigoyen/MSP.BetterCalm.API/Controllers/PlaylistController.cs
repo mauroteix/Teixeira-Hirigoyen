@@ -53,7 +53,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
-       /* [HttpDelete("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeletePlaylist(int id)
         {
             if (id < 0)
@@ -65,7 +65,7 @@ namespace MSP.BetterCalm.API.Controllers
                 try
                 {
                     Playlist playlist = _playlistLogic.Get(id);
-                    _playlistLogic.Delete(lodgment);
+                    _playlistLogic.Delete(playlist);
                     return Ok("Erased successfully");
                 }
                 catch (Exception e)
@@ -73,6 +73,6 @@ namespace MSP.BetterCalm.API.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
                 }
             }
-        }*/
+        }
     }
 }
