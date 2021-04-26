@@ -64,5 +64,10 @@ namespace MSP.BetterCalm.BusinessLogic
             _repository.Delete(playlist);
         }
 
+        public void Update(Playlist playlist)
+        {
+            _repository.Update(playlist);
+        }
+
     }
 }

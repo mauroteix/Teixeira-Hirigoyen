@@ -176,5 +176,13 @@ namespace MSP.BetterCalm.BusinessLogicTest
             playlistLogic.Delete(playlist);
             var getLodg = playlistLogic.Get(playlist.Id);
         }
+
+        [TestMethod]
+        public void UpdatePlaylist()
+        {
+            playlist.Name = "Cumbia";
+            playlist.Description = "Lo nuevo";
+            playlistLogic.Update(playlist);
+        }
     }
 }
