@@ -18,7 +18,7 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         public void Add(User user)
         {
-            throw new NotImplementedException();
+            _repository.Add(user);
         }
     }
 }
