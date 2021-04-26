@@ -79,5 +79,18 @@ namespace MSP.BetterCalm.APITest
             var result = controller.Add(playlistList[0]);
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
         }
+
+        [TestMethod]
+        public void DeletePlaylistOk()
+        {
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(t => t.Get(0)).Returns(playlistList[0]);
+            mockPlaylist.Setup(t => t.Delete(playlistList[0]));
+            var controller = new PlaylistController(mockPlaylist.Object);
+            controller.Add(playlistList[0]);
+            var result = controller.DeletePlaylist(1);
+            Assert.AreEqual(new ObjectResult("").ToString(),
+                result.ToString());
+        }
     }
 }
