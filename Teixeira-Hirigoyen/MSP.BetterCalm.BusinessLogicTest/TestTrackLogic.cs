@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
@@ -127,6 +128,23 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             trackLogic.Delete(track);
             var getTrack = trackLogic.Get(track.Id);
+        }
+
+        [TestMethod]
+        public void DeleteTrackNotExist()
+        {
+            Track trackToDelete = new Track()
+            {
+                Id = 10,
+                Name = "Perreo",
+                Author = "Daddy Yankee",
+                Sound = "www.youtube.com/hola.mp3",
+                Hour = 0,
+                MinSeconds = 2.80,
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            Assert.ThrowsException<EntityNotExists>(() => trackLogic.Delete(trackToDelete));
         }
     }
 }
