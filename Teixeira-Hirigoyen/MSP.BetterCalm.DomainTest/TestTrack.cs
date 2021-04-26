@@ -143,5 +143,12 @@ namespace MSP.BetterCalm.DomainTest
             track.Hour = 0;
             Assert.IsTrue(track.HourIsEmpty());
         }
+
+        [TestMethod]
+        public void CategoryTrackEmpty()
+        {
+            track.CategoryTrack= new List<CategoryTrack>();
+            Assert.IsTrue(track.CategoryTrackEmpty());
+        }
     }
 }

@@ -37,6 +37,11 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Hour == 0;
         }
+        public bool CategoryTrackEmpty()
+        {
+            return this.CategoryTrack.Count == 0;
+        }
+
         public override bool Equals(object obj)
         {
             if (!this.GetType().Equals(obj.GetType()))
