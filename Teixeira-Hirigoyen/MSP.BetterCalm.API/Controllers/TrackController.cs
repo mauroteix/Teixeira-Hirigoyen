@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,24 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
-    
+
+        [HttpPost()]
+        public IActionResult Add([FromBody] Track track)
+        {
+            try
+            {
+                _trackLogic.Add(track);
+                return Ok("Successfully added track name:" + track.Name);
+            }
+            catch (FieldEnteredNotCorrect fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
     }
 }

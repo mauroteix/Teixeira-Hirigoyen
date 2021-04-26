@@ -36,25 +36,38 @@ namespace MSP.BetterCalm.APITest
         [TestMethod]
         public void GetOneTrack()
         {
-            var mockPlaylist = new Mock<ITrackLogic>(MockBehavior.Strict);
-            mockPlaylist.Setup(res => res.Get(trackList[0].Id)).Returns(trackList[0]);
-            TrackController controller = new TrackController(mockPlaylist.Object);
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(res => res.Get(trackList[0].Id)).Returns(trackList[0]);
+            TrackController controller = new TrackController(mockTrack.Object);
             var result = controller.Get(trackList[0].Id);
 
-            mockPlaylist.VerifyAll();
+            mockTrack.VerifyAll();
             Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
         }
 
         [TestMethod]
         public void GetOneTrackError()
         {
-            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
-            mockPlaylist.Setup(res => res.Get(trackList[0].Id)).Throws(new Exception());
-            PlaylistController controller = new PlaylistController(mockPlaylist.Object);
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(res => res.Get(trackList[0].Id)).Throws(new Exception());
+            TrackController controller = new TrackController(mockTrack.Object);
             var result = controller.Get(trackList[0].Id);
 
-            mockPlaylist.VerifyAll();
+            mockTrack.VerifyAll();
             Assert.AreEqual(result.ToString(), new ObjectResult("").ToString());
+        }
+
+        [TestMethod]
+        public void AddOneTrack()
+        {
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(res => res.Get(trackList[0].Id)).Returns(trackList[0]);
+            TrackController controller = new TrackController(mockTrack.Object);
+
+            var result = controller.Add(trackList[0]);
+            var okResult = result as OkObjectResult;
+
+            Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(trackList[0]).ToString());
         }
     }
 }
