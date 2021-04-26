@@ -21,10 +21,25 @@ namespace MSP.BetterCalm.BusinessLogicTest
         Mock<IData<Category>> repositoryCategory;
         TrackLogic trackLogic;
         List<Category> categoryList = new List<Category>();
+        Category category;
+        Category secondCategory;
 
         [TestInitialize]
         public void Initialize()
         {
+            category = new Category()
+            {
+                Id = 1,
+                Name = "Dormir"
+            };
+            secondCategory = new Category()
+            {
+                Id = 2,
+                Name = "Musica"
+            };
+            categoryList = new List<Category>();
+            categoryList.Add(category);
+            categoryList.Add(secondCategory);
             track = new Track()
             {
                 Id = 0,
