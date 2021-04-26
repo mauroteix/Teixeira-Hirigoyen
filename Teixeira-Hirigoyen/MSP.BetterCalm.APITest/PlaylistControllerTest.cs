@@ -19,6 +19,13 @@ namespace MSP.BetterCalm.APITest
         [TestInitialize]
         public void Initialize()
         {
+            Category category = new Category()
+            {
+                Id = 1,
+                Name = "Musica",
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistCategory = new List<PlaylistCategory>()
+            };
             Playlist playlist = new Playlist()
             {
                 Id = 1,
@@ -113,6 +120,30 @@ namespace MSP.BetterCalm.APITest
 
             var result = controller.DeletePlaylist(3);
             Assert.AreEqual(new ObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdatePlaylist()
+        {
+            Playlist newPlaylist = new Playlist()
+            {
+                Name = "Cumbia",
+                Description = "Old hits",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(l => l.Get(playlistList[0].Id)).Returns(playlistList[0]);
+            mockPlaylist.Setup(l => l.Add(playlistList[0]));
+            var controller = new PlaylistController(mockPlaylist.Object);
+            playlistList[0].Name = newPlaylist.Name;
+            playlistList[0].Description = newPlaylist.Description;
+            playlistList[0].PlaylistCategory = newPlaylist.PlaylistCategory;
+            playlistList[0].PlaylistTrack = newPlaylist.PlaylistTrack;
+           
+            var result = controller.UpdatePlaylist(playlistList[0].Id, playlistList[0]);
+            Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
                 result.ToString());
         }
     }

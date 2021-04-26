@@ -66,6 +66,10 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void Update(Playlist playlist)
         {
+            if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
+            if (!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
+            //if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
+            //Solucionar este problema en los test ya que esta en null
             _repository.Update(playlist);
         }
 

@@ -10,6 +10,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public void Add(Playlist playlist);
         public List<Playlist> GetAll();
         public void Delete(Playlist playlist);
+        public void Update(Playlist playlist);
 
         /* 
          AddPlaylist
