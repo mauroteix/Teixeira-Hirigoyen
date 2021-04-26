@@ -26,29 +26,32 @@ namespace MSP.BetterCalm.BusinessLogicTest
             track = new Track()
             {
                 Id = 0,
-                Name = "Reggaeton",
-                Description = "Old hits, daddy yankee",
-                PlaylistCategory = new List<PlaylistCategory>(),
+                Name = "Gasolina",
+                Author = "Daddy yankee",
+                Sound = "www.youtube.com/daddyyanke/gasolina.mp3",
+                Hour = 0,
+                MinSeconds = 2.50,
+                CategoryTrack = new List<CategoryTrack>(),
                 PlaylistTrack = new List<PlaylistTrack>()
             };
-            playlistList.Add(playlist);
-            repositoryPlaylist = new Mock<IData<Playlist>>();
-            repositoryCategory = new Mock<IData<Category>>();
+            trackList.Add(track);
+            repositoryTrack = new Mock<IData<Track>>();
+            //repositoryCategory = new Mock<IData<Category>>();
 
-            repositoryPlaylist.Setup(r => r.GetAll()).Returns(playlistList);
-            repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
+            repositoryTrack.Setup(r => r.GetAll()).Returns(trackList);
+            //repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
 
-            repositoryPlaylist.Setup(play => play.Get(0)).Returns(playlist);
-            repositoryPlaylist.Setup(play => play.Add(playlist));
-            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object);
+            repositoryTrack.Setup(play => play.Get(0)).Returns(track);
+           // repositoryPlaylist.Setup(play => play.Add(playlist));
+            trackLogic = new TrackLogic(repositoryTrack.Object);
 
         }
 
         [TestMethod]
-        public void GetPlaylist()
+        public void GetTrack()
         {
-            Playlist newPlaylist = playlistLogic.Get(playlist.Id);
-            Assert.AreEqual(playlist, newPlaylist);
+            Track newTrack = trackLogic.Get(track.Id);
+            Assert.AreEqual(track, newTrack);
         }
 
     }
