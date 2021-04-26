@@ -8,5 +8,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface ITrackLogic
     {
         public Track Get(int id);
+        public void Add(Track track);
+        public void Delete(Track track);
     }
 }

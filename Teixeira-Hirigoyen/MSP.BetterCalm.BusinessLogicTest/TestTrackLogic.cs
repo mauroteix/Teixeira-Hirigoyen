@@ -86,5 +86,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             trackToAdd.CategoryTrack.Add(categoryTrack);
             trackLogic.Add(trackToAdd);
         }
+
+        [TestMethod]
+        public void DeleteTrack()
+        {
+            trackLogic.Delete(track);
+            var getTrack = trackLogic.Get(track.Id);
+        }
     }
 }

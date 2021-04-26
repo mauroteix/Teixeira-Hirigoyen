@@ -57,5 +57,13 @@ namespace MSP.BetterCalm.BusinessLogic
             track.CategoryTrack = list;
             return track;
         }
+
+        public void Delete(Track track)
+        {
+            Track unTrack = _repository.Get(track.Id);
+            if (unTrack == null) throw new EntityNotExists("The track with id: " + track.Id + " does not exist");
+            _repository.Delete(unTrack);
+        }
+
     }
 }
