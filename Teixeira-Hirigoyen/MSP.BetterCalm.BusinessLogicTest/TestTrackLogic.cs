@@ -57,6 +57,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         }
 
         [TestMethod]
+        public void GetTrackNotExist()
+        {
+            Assert.ThrowsException<EntityNotExists>(() => trackLogic.Get(1));
+        }
+
+        [TestMethod]
         public void AddTrackOk()
         {
             Track trackToAdd = new Track()
