@@ -3,6 +3,7 @@ using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -86,6 +87,40 @@ namespace MSP.BetterCalm.BusinessLogicTest
             trackToAdd.CategoryTrack.Add(categoryTrack);
             trackLogic.Add(trackToAdd);
         }
+
+        [TestMethod]
+        public void AddTrackNameEmpty()
+        {
+            Track trackToAdd = new Track()
+            {
+                Id = 2,
+                Name = "",
+                Author = "Daddy",
+                Sound = "www.youtube.com/fielid.mp3",
+                Hour = 0,
+                MinSeconds = 2.80,
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+
+            CategoryTrack categoryTrack = new CategoryTrack
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>()
+                },
+                IdCategory = 1,
+                IdTrack = 2,
+                Track = trackToAdd
+
+            };
+            trackToAdd.CategoryTrack.Add(categoryTrack);
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => trackLogic.Add(trackToAdd));
+        }
+
 
         [TestMethod]
         public void DeleteTrack()
