@@ -84,12 +84,12 @@ namespace MSP.BetterCalm.APITest
         public void DeletePlaylistOk()
         {
             var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
-            mockPlaylist.Setup(t => t.Get(0)).Returns(playlistList[0]);
+            mockPlaylist.Setup(t => t.Get(1)).Returns(playlistList[0]);
             mockPlaylist.Setup(t => t.Delete(playlistList[0]));
             var controller = new PlaylistController(mockPlaylist.Object);
             controller.Add(playlistList[0]);
             var result = controller.DeletePlaylist(1);
-            Assert.AreEqual(new ObjectResult("").ToString(),
+            Assert.AreEqual(new OkObjectResult("").ToString(),
                 result.ToString());
         }
 
@@ -101,6 +101,18 @@ namespace MSP.BetterCalm.APITest
             controller.Add(playlistList[0]);
             var result = controller.DeletePlaylist(-2);
             Assert.AreEqual(new NotFoundObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void DeletePlaylistNotExists()
+        {
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(l => l.Get(1)).Returns(playlistList[0]);
+            var controller = new PlaylistController(mockPlaylist.Object);
+
+            var result = controller.DeletePlaylist(3);
+            Assert.AreEqual(new ObjectResult("").ToString(),
                 result.ToString());
         }
     }
