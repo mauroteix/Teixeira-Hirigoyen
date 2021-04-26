@@ -92,5 +92,16 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("").ToString(),
                 result.ToString());
         }
+
+        [TestMethod]
+        public void DeletePlaylistIdNegative()
+        {
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            var controller = new PlaylistController(mockPlaylist.Object);
+            controller.Add(playlistList[0]);
+            var result = controller.DeletePlaylist(-2);
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
+                result.ToString());
+        }
     }
 }
