@@ -161,6 +161,23 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => trackLogic.Add(trackToAdd));
         }
 
+        [TestMethod]
+        public void AddTrackWithoutCategoryFail()
+        {
+            Track trackToAdd = new Track()
+            {
+                Id = 2,
+                Name = "Gasoline",
+                Author = "Daddy",
+                Sound = "www.youtube.com/fielid.mp3",
+                Hour = 0,
+                MinSeconds = 2.80,
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => trackLogic.Add(trackToAdd));
+        }
+
 
         [TestMethod]
         public void DeleteTrack()
