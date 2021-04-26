@@ -52,5 +52,51 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePlaylist(int id)
+        {
+            if (id < 0)
+            {
+                return NotFound("Id not valid");
+            }
+            else
+            {
+                try
+                {
+                    Playlist playlist = _playlistLogic.Get(id);
+                    _playlistLogic.Delete(playlist);
+                    return Ok("Erased successfully");
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdatePlaylist(int id, [FromBody] Playlist newPlaylist)
+        {
+            try
+            {
+                Playlist playlist = _playlistLogic.Get(id);
+                playlist.Name = newPlaylist.Name;
+                playlist.Description = newPlaylist.Description;
+                playlist.Image = newPlaylist.Image;
+                playlist.PlaylistCategory = newPlaylist.PlaylistCategory;
+                playlist.PlaylistTrack = newPlaylist.PlaylistTrack;
+                _playlistLogic.Update(playlist);
+                return Ok("Updated successfully");
+            }
+            catch (FieldEnteredNotCorrect en)
+            {
+                return UnprocessableEntity(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }

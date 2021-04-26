@@ -19,11 +19,6 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Add(Playlist entity)
         {
-            // playlist - playlistcategory que tiene playlist es unica es siempre la misma y cateorias varias.
-            // ir a buscar las categorias de playlistCategory
-            // crear un playlistCategory le asigno playlist que ya la tenemos y una categoria de la lista
-            // creo una lista playlistCategory donde agrego cada playlistCategory que cree
-
             _context.Playlist.Add(entity);
             _context.SaveChanges();
         }
