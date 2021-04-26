@@ -44,7 +44,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
             repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
 
             repositoryTrack.Setup(play => play.Get(0)).Returns(track);
-           // repositoryPlaylist.Setup(play => play.Add(playlist));
             trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object);
 
         }
