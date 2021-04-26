@@ -16,9 +16,9 @@ namespace MSP.BetterCalm.BusinessLogicTest
         Track track;
         List<Track> trackList = new List<Track>();
         Mock<IData<Track>> repositoryTrack;
-       // Mock<IData<Category>> repositoryCategory;
+        Mock<IData<Category>> repositoryCategory;
         TrackLogic trackLogic;
-        //List<Category> categoryList = new List<Category>();
+        List<Category> categoryList = new List<Category>();
 
         [TestInitialize]
         public void Initialize()
@@ -36,14 +36,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             trackList.Add(track);
             repositoryTrack = new Mock<IData<Track>>();
-            //repositoryCategory = new Mock<IData<Category>>();
+            repositoryCategory = new Mock<IData<Category>>();
 
             repositoryTrack.Setup(r => r.GetAll()).Returns(trackList);
-            //repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
+            repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
 
             repositoryTrack.Setup(play => play.Get(0)).Returns(track);
            // repositoryPlaylist.Setup(play => play.Add(playlist));
-            trackLogic = new TrackLogic(repositoryTrack.Object);
+            trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object);
 
         }
 
@@ -54,5 +54,37 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Assert.AreEqual(track, newTrack);
         }
 
+        [TestMethod]
+        public void AddTrackOk()
+        {
+            Track trackToAdd = new Track()
+            {
+                Id = 1,
+                Name = "Fiel",
+                Author = "Wisin",
+                Sound = "www.youtube.com/fiel.mp3",
+                Hour = 0,
+                MinSeconds = 2.60,
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+
+            CategoryTrack categoryTrack = new CategoryTrack
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>()
+                },
+                IdCategory = 1,
+                IdTrack = 1,
+                Track = trackToAdd
+
+            };
+            trackToAdd.CategoryTrack.Add(categoryTrack);
+            trackLogic.Add(trackToAdd);
+        }
     }
 }
