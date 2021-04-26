@@ -50,6 +50,8 @@ namespace MSP.BetterCalm.API
             services.AddScoped<IData<Playlist>, PlaylistRepository>();
             services.AddScoped<IPlaylistLogic, PlaylistLogic>();
             services.AddScoped<PlaylistCategory>();
+            services.AddScoped<IData<User>, UserRepository>();
+            services.AddScoped<IUserLogic, UserLogic>();
             //services.AddScoped<IPlaylistLogic, PlaylistLogic>();
             services.AddControllers().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
