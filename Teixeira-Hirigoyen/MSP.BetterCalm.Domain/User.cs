@@ -21,5 +21,9 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Name.Length == 0;
         }
+        public bool SurnameEmpty()
+        {
+            return this.Surname.Length == 0;
+        }
     }
 }

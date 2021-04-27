@@ -58,5 +58,11 @@ namespace MSP.BetterCalm.DomainTest
             user.Name = "";
             Assert.IsTrue(user.NameEmpty());
         }
+        [TestMethod]
+        public void SurnameEmpty()
+        {
+            user.Surname = "";
+            Assert.IsTrue(user.SurnameEmpty());
+        }
     }
 }
