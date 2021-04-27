@@ -52,5 +52,11 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual("099156189", user.Cellphone);
         }
+        [TestMethod]
+        public void NameEmpty()
+        {
+            user.Name = "";
+            Assert.IsTrue(user.NameEmpty());
+        }
     }
 }
