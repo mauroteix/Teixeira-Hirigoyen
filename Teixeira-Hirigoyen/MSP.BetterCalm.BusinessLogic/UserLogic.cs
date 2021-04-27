@@ -20,8 +20,9 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(User user)
         {
             if(user.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
-            if(user.SurnameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
-            if(user.CellphoneEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
+            if(user.SurnameEmpty()) throw new FieldEnteredNotCorrect("The surname cannot be empty");
+            if(user.CellphoneEmpty()) throw new FieldEnteredNotCorrect("The cellphone cannot be empty");
+            if (!user.MeetingEmpty()) throw new FieldEnteredNotCorrect("The meeting has to be empty");
             _repository.Add(user);
         }
     }
