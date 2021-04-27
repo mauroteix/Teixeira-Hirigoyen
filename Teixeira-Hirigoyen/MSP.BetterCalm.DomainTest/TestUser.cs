@@ -21,6 +21,7 @@ namespace MSP.BetterCalm.DomainTest
                 Birthday = new DateTime(1996,1,1),
                 Email = "mauroGil@gmail.com",
                 Cellphone = "099156189",
+                Meeting = new List<Meeting>(),
 
             };
             
@@ -69,6 +70,11 @@ namespace MSP.BetterCalm.DomainTest
         {
             user.Cellphone = "";
             Assert.IsTrue(user.CellphoneEmpty());
+        }
+        [TestMethod]
+        public void MeetingEmpty()
+        {
+            Assert.IsTrue(user.MeetingEmpty());
         }
     }
 }

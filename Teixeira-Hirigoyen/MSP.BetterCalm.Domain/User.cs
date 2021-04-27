@@ -29,5 +29,9 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Cellphone.Length == 0;
         }
+        public bool MeetingEmpty()
+        {
+            return this.Meeting.Count == 0;
+        }
     }
 }
