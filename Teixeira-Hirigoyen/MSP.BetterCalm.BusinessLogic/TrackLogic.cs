@@ -15,10 +15,12 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         IData<Track> _repository;
         IData<Category> categoryRepository;
-        public TrackLogic(IData<Track> repository, IData<Category> reposCategory)
+        IData<Playlist> playlistRepository;
+        public TrackLogic(IData<Track> repository, IData<Category> reposCategory, IData<Playlist> playRepository)
         {
             _repository = repository;
             categoryRepository = reposCategory;
+            playlistRepository = playRepository;
         }
 
         public Track Get(int id)
@@ -62,8 +64,15 @@ namespace MSP.BetterCalm.BusinessLogic
                 Track = track,
                 IdTrack = track.Id
             }).ToList();
+            List<PlaylistTrack> listTrack = track.PlaylistTrack.Select(py => new PlaylistTrack()
+            {
+                Track = track,
+                IdTrack = track.Id,
+                Playlist = playlistRepository.Get(py.IdPlaylist),
+                IdPlaylist = py.IdPlaylist
+            }).ToList();
             unTrack.CategoryTrack = list;
-
+            unTrack.PlaylistTrack = listTrack;
             return unTrack;
         }
         private void ValidateCategoriesId(List<CategoryTrack> list)

@@ -80,13 +80,7 @@ namespace MSP.BetterCalm.API.Controllers
         {
             try
             {
-                Playlist playlist = _playlistLogic.Get(id);
-                playlist.Name = newPlaylist.Name;
-                playlist.Description = newPlaylist.Description;
-                playlist.Image = newPlaylist.Image;
-                playlist.PlaylistCategory = newPlaylist.PlaylistCategory;
-                playlist.PlaylistTrack = newPlaylist.PlaylistTrack;
-                _playlistLogic.Update(playlist);
+                _playlistLogic.Update(newPlaylist, id);
                 return Ok("Updated successfully");
             }
             catch (FieldEnteredNotCorrect en)
