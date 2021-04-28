@@ -111,12 +111,38 @@ namespace MSP.BetterCalm.BusinessLogic
             _repository.Delete(playlist);
         }
 
-        public void Update(Playlist playlist)
+        public void Update(Playlist playlist, int id)
         {
+            ExistPlaylist(id);
+            Playlist unPlaylist = _repository.Get(id);
             ValidatePlaylist(playlist);
             ValidateCategoriesId(playlist.PlaylistCategory.ToList());
-            _repository.Update(playlist);
+            unPlaylist.Name = playlist.Name;
+            unPlaylist.Description = playlist.Description;
+            unPlaylist.Image = playlist.Image;
+            unPlaylist.PlaylistCategory = playlist.PlaylistCategory;
+            unPlaylist.PlaylistTrack = playlist.PlaylistTrack;
+            _repository.Update(unPlaylist);
         }
 
+        public List<Playlist> GetPlaylistsByCategory(int categoryId)
+        {
+            List<Playlist> listPlaylist = _repository.GetAll().ToList();
+            List<Playlist> playlistReturn = new List<Playlist>();
+            for (int playlist = 0; playlist < listPlaylist.Count; playlist++)
+            {
+                int largePlaylistCategory = listPlaylist[playlist].PlaylistCategory.Count;
+                List<PlaylistCategory> list = listPlaylist[playlist].PlaylistCategory.ToList();
+                for (int playlistCategory = 0; playlistCategory < largePlaylistCategory; playlistCategory++)
+                {
+                    if (list[playlistCategory].IdCategory == categoryId)
+                    {
+                        playlistReturn.Add(listPlaylist[playlist]);
+                        playlistCategory = largePlaylistCategory;
+                    }
+                }
+            }
+            return playlistReturn;
+        }
     }
 }

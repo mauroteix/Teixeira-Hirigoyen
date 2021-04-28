@@ -33,6 +33,7 @@ namespace MSP.BetterCalm.DataAccess
         {
             return _context.Playlist
                    .Include(t => t.PlaylistCategory).ThenInclude(u => u.Category)
+                   .Include(r => r.PlaylistTrack).ThenInclude(s => s.Track)
                    .FirstOrDefault(u => u.Id == id);
         }
 

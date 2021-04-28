@@ -207,7 +207,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             playlist.Name = "Cumbia";
             playlist.Description = "Lo nuevo";
-            playlistLogic.Update(playlist);
+            playlistLogic.Update(playlist, playlist.Id);
+        }
+
+        [TestMethod]
+        public void GetPlaylistsByCategory()
+        {
+            List<Playlist> listPlaylist = playlistLogic.GetPlaylistsByCategory(category.Id);
+            Assert.AreEqual(playlist, listPlaylist[0]);
         }
     }
 }
