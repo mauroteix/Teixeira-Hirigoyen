@@ -30,6 +30,7 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Playlist playlist)
         {
             ValidatePlaylist(playlist);
+            ValidateCategoriesId(playlist.PlaylistCategory.ToList());
             Playlist play = ToEntity(playlist);
             _repository.Add(play);
         }
@@ -62,6 +63,31 @@ namespace MSP.BetterCalm.BusinessLogic
             }).ToList();
             playlist.PlaylistCategory = list;
             return playlist;
+        }
+
+        private void ValidateCategoriesId(List<PlaylistCategory> list)
+        {
+            int largeList = list.Count;
+            var listCategories = _reposCategory.GetAll().ToList();
+            int largelistCategories = listCategories.Count;
+            bool state = false;
+            for (int categoryTrack = 0; categoryTrack < largeList; categoryTrack++)
+            {
+                for (int category = 0; category < largelistCategories; category++)
+                {
+                    if ((listCategories[category].Id == list[categoryTrack].IdCategory))
+                    {
+                        state = true;
+                        category = largelistCategories;
+                    }
+                }
+                if (!state)
+                {
+                    throw new FieldEnteredNotCorrect("The category that you add do not exist");
+                }
+                state = false;
+            }
+
         }
 
         public void Delete(Playlist playlist)
