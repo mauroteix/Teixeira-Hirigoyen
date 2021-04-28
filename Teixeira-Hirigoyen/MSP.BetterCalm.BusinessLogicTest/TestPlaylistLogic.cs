@@ -44,7 +44,13 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Id = 0,
                 Name = "Reggaeton",
                 Description = "Old hits, daddy yankee",
-                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistCategory = new List<PlaylistCategory>() {
+                     new PlaylistCategory
+                     {
+                          Category = category,
+                          IdCategory = category.Id
+                     }
+                },
                 PlaylistTrack = new List<PlaylistTrack>()
             };
             playlistList.Add(playlist);

@@ -22,8 +22,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Playlist Get(int id)
         {
-            Playlist unPlaylist = _repository.Get(id);
-            if (unPlaylist == null) throw new EntityNotExists("The playlist with id: " + id + " does not exist");
+            ExistPlaylist(id);
             return _repository.Get(id);
         }
 
@@ -90,17 +89,22 @@ namespace MSP.BetterCalm.BusinessLogic
 
         }
 
+        private void ExistPlaylist(int id)
+        {
+            Playlist unPlaylist = _repository.Get(id);
+            if (unPlaylist == null) throw new EntityNotExists("The playlist with id: " + id + " does not exist");
+        }
+
         public void Delete(Playlist playlist)
         {
+            ExistPlaylist(playlist.Id);
             _repository.Delete(playlist);
         }
 
         public void Update(Playlist playlist)
         {
-            if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
-            if (!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
-            //if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
-            //Solucionar este problema en los test ya que esta en null
+            ValidatePlaylist(playlist);
+            ValidateCategoriesId(playlist.PlaylistCategory.ToList());
             _repository.Update(playlist);
         }
 
