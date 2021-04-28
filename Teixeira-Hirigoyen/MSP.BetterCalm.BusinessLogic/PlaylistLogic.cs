@@ -12,12 +12,14 @@ namespace MSP.BetterCalm.BusinessLogic
     public class PlaylistLogic : IPlaylistLogic
     {
         IData<Playlist> _repository;
-        IData<Category> _reposCategory;
+        IData<Category> _repositoryCategory;
+        IData<Track> _repositoryTrack;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory)
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack)
         {
             _repository = repository;
-            _reposCategory = reposCategory;
+            _repositoryCategory = reposCategory;
+            _repositoryTrack = repositoryTrack;
         }
 
         public Playlist Get(int id)
@@ -53,21 +55,29 @@ namespace MSP.BetterCalm.BusinessLogic
                  Image = playlist.Image,
                  Description = playlist.Description,
             };
-            List<PlaylistCategory> list = playlist.PlaylistCategory.Select(py => new PlaylistCategory() 
+            List<PlaylistCategory> listCategory = playlist.PlaylistCategory.Select(py => new PlaylistCategory() 
             { 
-                Category = _reposCategory.Get(py.IdCategory),
+                Category = _repositoryCategory.Get(py.IdCategory),
                 IdCategory = py.IdCategory,
                 Playlist = playlist,
                 IdPlaylist = playlist.Id
             }).ToList();
-            playlist.PlaylistCategory = list;
+            List<PlaylistTrack> listTrack = playlist.PlaylistTrack.Select(py => new PlaylistTrack()
+            {
+                Track = _repositoryTrack.Get(py.IdTrack),
+                IdTrack = py.IdTrack,
+                Playlist = playlist,
+                IdPlaylist = playlist.Id
+            }).ToList();
+            playlist.PlaylistCategory = listCategory;
+            playlist.PlaylistTrack = listTrack;
             return playlist;
         }
 
         private void ValidateCategoriesId(List<PlaylistCategory> list)
         {
             int largeList = list.Count;
-            var listCategories = _reposCategory.GetAll().ToList();
+            var listCategories = _repositoryCategory.GetAll().ToList();
             int largelistCategories = listCategories.Count;
             bool state = false;
             for (int categoryTrack = 0; categoryTrack < largeList; categoryTrack++)
