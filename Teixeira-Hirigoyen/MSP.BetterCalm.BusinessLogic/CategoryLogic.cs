@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.BusinessLogicInterface;
+﻿using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.DTO;
@@ -22,6 +23,20 @@ namespace MSP.BetterCalm.BusinessLogic
             var categories = _repository.GetAll().ToList();
             var categoriesDTO = categories.Select(u => new CategoryDTO { Id = u.Id, Name = u.Name }).ToList();
             return categoriesDTO;
+        }
+
+        public CategoryDTO Get(int id)
+        {
+            ExistCategory(id);
+            var category = _repository.Get(id);
+            var categoryDTO = new CategoryDTO(category.Id, category.Name, category.CategoryTrack, category.PlaylistCategory);
+            return categoryDTO;
+        }
+
+        private void ExistCategory(int id)
+        {
+            Category unCategory = _repository.Get(id);
+            if (unCategory == null) throw new EntityNotExists("The playlist with id: " + id + " does not exist");
         }
     }
 }

@@ -34,14 +34,23 @@ namespace MSP.BetterCalm.BusinessLogicTest
             categoryList.Add(category);
             categoryList.Add(secondCategory);
             repository = new Mock<IData<Category>>();
-            categoryLogic = new CategoryLogic(repository.Object);
             repository.Setup(r => r.GetAll()).Returns(categoryList);
+            repository.Setup(play => play.Get(1)).Returns(category);
+            repository.Setup(play => play.Add(category));
+            categoryLogic = new CategoryLogic(repository.Object);
         }
         [TestMethod]
         public void GetAll()
         {
             List<CategoryDTO> categoryList = categoryLogic.GetAll();
             Assert.AreEqual(categoryList.Count, 2);
+        }
+
+        [TestMethod]
+        public void GetCategory()
+        {
+            CategoryDTO newCategory = categoryLogic.Get(category.Id);
+            Assert.AreEqual(category.Id, newCategory.Id);
         }
     }
 }
