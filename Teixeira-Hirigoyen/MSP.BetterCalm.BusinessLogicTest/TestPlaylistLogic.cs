@@ -18,30 +18,55 @@ namespace MSP.BetterCalm.BusinessLogicTest
         List<Playlist> playlistList = new List<Playlist>();
         Mock<IData<Playlist>> repositoryPlaylist;
         Mock<IData<Category>> repositoryCategory;
+        Mock<IData<Track>> repositoryTrack;
         PlaylistLogic playlistLogic;
         List<Category> categoryList = new List<Category>();
+        List<Track> trackList = new List<Track>();
+        Category category;
+        Category secondCategory;
 
         [TestInitialize]
         public void Initialize()
         {
+            category = new Category()
+            {
+                Id = 1,
+                Name = "Dormir"
+            };
+            secondCategory = new Category()
+            {
+                Id = 2,
+                Name = "Musica"
+            };
+            categoryList = new List<Category>();
+            categoryList.Add(category);
+            categoryList.Add(secondCategory);
             playlist = new Playlist()
             {
                 Id = 0,
                 Name = "Reggaeton",
                 Description = "Old hits, daddy yankee",
-                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistCategory = new List<PlaylistCategory>() {
+                     new PlaylistCategory
+                     {
+                          Category = category,
+                          IdCategory = category.Id
+                     }
+                },
                 PlaylistTrack = new List<PlaylistTrack>()
             };
             playlistList.Add(playlist);
             repositoryPlaylist = new Mock<IData<Playlist>>();
             repositoryCategory = new Mock<IData<Category>>();
+            repositoryTrack = new Mock<IData<Track>>();
 
             repositoryPlaylist.Setup(r => r.GetAll()).Returns(playlistList);
             repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
+            repositoryTrack.Setup(r => r.GetAll()).Returns(trackList);
 
             repositoryPlaylist.Setup(play => play.Get(0)).Returns(playlist);
             repositoryPlaylist.Setup(play => play.Add(playlist));
-            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object);
+            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object, repositoryTrack.Object);
       
         }
 
@@ -182,7 +207,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             playlist.Name = "Cumbia";
             playlist.Description = "Lo nuevo";
-            playlistLogic.Update(playlist);
+            playlistLogic.Update(playlist, playlist.Id);
+        }
+
+        [TestMethod]
+        public void GetPlaylistsByCategory()
+        {
+            List<Playlist> listPlaylist = playlistLogic.GetPlaylistsByCategory(category.Id);
+            Assert.AreEqual(playlist, listPlaylist[0]);
         }
     }
 }

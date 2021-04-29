@@ -19,12 +19,29 @@ namespace MSP.BetterCalm.BusinessLogicTest
         List<Track> trackList = new List<Track>();
         Mock<IData<Track>> repositoryTrack;
         Mock<IData<Category>> repositoryCategory;
+        Mock<IData<Playlist>> repositoryPlaylist;
         TrackLogic trackLogic;
         List<Category> categoryList = new List<Category>();
+        List<Playlist> playlistList = new List<Playlist>();
+        Category category;
+        Category secondCategory;
 
         [TestInitialize]
         public void Initialize()
         {
+            category = new Category()
+            {
+                Id = 1,
+                Name = "Dormir"
+            };
+            secondCategory = new Category()
+            {
+                Id = 2,
+                Name = "Musica"
+            };
+            categoryList = new List<Category>();
+            categoryList.Add(category);
+            categoryList.Add(secondCategory);
             track = new Track()
             {
                 Id = 0,
@@ -39,12 +56,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
             trackList.Add(track);
             repositoryTrack = new Mock<IData<Track>>();
             repositoryCategory = new Mock<IData<Category>>();
+            repositoryPlaylist = new Mock<IData<Playlist>>();
 
             repositoryTrack.Setup(r => r.GetAll()).Returns(trackList);
             repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
+            repositoryPlaylist.Setup(r => r.GetAll()).Returns(playlistList);
 
             repositoryTrack.Setup(play => play.Get(0)).Returns(track);
-            trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object);
+            trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object, repositoryPlaylist.Object);
 
         }
 

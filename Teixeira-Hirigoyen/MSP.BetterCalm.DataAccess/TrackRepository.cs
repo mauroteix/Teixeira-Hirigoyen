@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.DataAccessInterface;
+﻿using Microsoft.EntityFrameworkCore;
+using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using System;
@@ -31,7 +32,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public Track Get(int id)
         {
-            return _context.Track.FirstOrDefault(u => u.Id == id);
+            return _context.Track
+                .Include(t => t.CategoryTrack).ThenInclude(u => u.Category)
+                .Include(r => r.PlaylistTrack).ThenInclude(s => s.Track)
+                .FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<Track> GetAll()

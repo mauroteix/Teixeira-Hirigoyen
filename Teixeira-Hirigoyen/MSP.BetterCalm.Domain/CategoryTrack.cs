@@ -14,5 +14,13 @@ namespace MSP.BetterCalm.Domain
         public CategoryTrack()
         { }
 
+        public CategoryTrack(Track track, Category category)
+        {
+            this.Track = track;
+            this.IdTrack = track.Id;
+            this.Category = category;
+            this.IdCategory = category.Id;
+        }
+
     }
 }

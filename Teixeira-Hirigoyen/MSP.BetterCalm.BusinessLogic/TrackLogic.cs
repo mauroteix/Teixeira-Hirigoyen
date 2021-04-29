@@ -2,6 +2,7 @@
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.DTO;
 using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace MSP.BetterCalm.BusinessLogic
     public class TrackLogic : ITrackLogic
     {
         IData<Track> _repository;
-        IData<Category> _reposCategory;
-        public TrackLogic(IData<Track> repository, IData<Category> reposCategory)
+        IData<Category> categoryRepository;
+        IData<Playlist> playlistRepository;
+        public TrackLogic(IData<Track> repository, IData<Category> reposCategory, IData<Playlist> playRepository)
         {
             _repository = repository;
-            _reposCategory = reposCategory;
+            categoryRepository = reposCategory;
+            playlistRepository = playRepository;
         }
 
         public Track Get(int id)
@@ -29,13 +32,20 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void Add(Track track)
         {
-            if (track.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
-            if (track.AuthorEmpty()) throw new FieldEnteredNotCorrect("The author cannot be empty");
-            if(track.SoundEmpty()) throw new FieldEnteredNotCorrect("The sound cannot be empty");
-            if(track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
+            ValidateTrack(track);
+            ValidateCategoriesId(track.CategoryTrack.ToList());
             Track unTrack = ToEntity(track);
             _repository.Add(unTrack);
         }
+
+        private void ValidateTrack(Track track)
+        {
+            if (track.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
+            if (track.AuthorEmpty()) throw new FieldEnteredNotCorrect("The author cannot be empty");
+            if (track.SoundEmpty()) throw new FieldEnteredNotCorrect("The sound cannot be empty");
+            if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
+        }
+        
         private Track ToEntity(Track track)
         {
             Track unTrack = new Track()
@@ -49,13 +59,45 @@ namespace MSP.BetterCalm.BusinessLogic
             };
             List<CategoryTrack> list = track.CategoryTrack.Select(py => new CategoryTrack()
             {
-                Category = _reposCategory.Get(py.IdCategory),
+                Category = categoryRepository.Get(py.IdCategory),
                 IdCategory = py.IdCategory,
                 Track = track,
                 IdTrack = track.Id
             }).ToList();
-            track.CategoryTrack = list;
-            return track;
+            List<PlaylistTrack> listTrack = track.PlaylistTrack.Select(py => new PlaylistTrack()
+            {
+                Track = track,
+                IdTrack = track.Id,
+                Playlist = playlistRepository.Get(py.IdPlaylist),
+                IdPlaylist = py.IdPlaylist
+            }).ToList();
+            unTrack.CategoryTrack = list;
+            unTrack.PlaylistTrack = listTrack;
+            return unTrack;
+        }
+        private void ValidateCategoriesId(List<CategoryTrack> list)
+        {
+            int largeList = list.Count;
+            var listCategories = categoryRepository.GetAll().ToList();
+            int largelistCategories = listCategories.Count;
+            bool state = false;
+            for (int categoryTrack = 0; categoryTrack < largeList; categoryTrack++)
+            {
+                for (int category = 0; category < largelistCategories; category++)
+                {
+                        if ((listCategories[category].Id == list[categoryTrack].IdCategory))
+                        {
+                            state = true;
+                            category = largelistCategories;
+                        }
+                }
+                if (!state)
+                { 
+                    throw new FieldEnteredNotCorrect("The category that you add do not exist");
+                }
+                state = false;
+            }
+           
         }
 
         public void Delete(Track track)
