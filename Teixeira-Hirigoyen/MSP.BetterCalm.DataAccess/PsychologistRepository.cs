@@ -26,7 +26,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(Psychologist entity)
         {
-            throw new NotImplementedException();
+            _context.Psychologist.Remove(_context.Psychologist.Find(entity.Id));
+            _context.SaveChanges();
         }
 
         public Psychologist Get(int id)
