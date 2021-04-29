@@ -4,6 +4,7 @@ using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.DTO;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 
@@ -40,6 +41,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         public void AddUserOk()
         {
             userLogic.Add(user);
+        }
+        [TestMethod]
+        public void AddUserNameEmpty()
+        {
+            user.Name = "";
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
         }
     }
 }
