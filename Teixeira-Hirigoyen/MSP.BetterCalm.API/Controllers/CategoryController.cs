@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogicInterface;
+using MSP.BetterCalm.DTO;
 using System;
 using System.Linq;
 
@@ -27,6 +28,24 @@ namespace MSP.BetterCalm.API.Controllers
             catch (EntityNotExists en)
             {
                 return NotFound(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                CategoryDTO category = _categoryLogic.Get(id);
+                return Ok(category);
+            }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
             }
             catch (Exception e)
             {

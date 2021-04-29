@@ -9,5 +9,6 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface ICategoryLogic
     {
         List<CategoryDTO> GetAll();
+        public CategoryDTO Get(int id);
     }
 }

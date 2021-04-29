@@ -13,17 +13,17 @@ namespace MSP.BetterCalm.APITest
     [TestClass]
     public class CategoryControllerTest
     {
-        List<Category> categoryList;
+        List<CategoryDTO> categoryList;
 
         [TestInitialize]
         public void Initialize()
         {
-            Category category = new Category()
+            CategoryDTO category = new CategoryDTO()
             {
                 Id = 1,
                 Name = "Dormir",
             };
-            categoryList = new List<Category>();
+            categoryList = new List<CategoryDTO>();
             categoryList.Add(category);
         }
         [TestMethod]
@@ -33,6 +33,18 @@ namespace MSP.BetterCalm.APITest
             mockUser.Setup(u => u.GetAll()).Returns(categoryList.Select(c => new CategoryDTO {Name = c.Name , Id = c.Id}).ToList());
             var categoryController = new CategoryController(mockUser.Object);
             Assert.AreEqual(new OkObjectResult("").ToString(), categoryController.GetAll().ToString());
+        }
+
+        [TestMethod]
+        public void GetOneCategoryById()
+        {
+            var mockCategory = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategory.Setup(res => res.Get(categoryList[0].Id)).Returns(categoryList[0]);
+            CategoryController controller = new CategoryController(mockCategory.Object);
+            var result = controller.Get(categoryList[0].Id);
+
+            mockCategory.VerifyAll();
+            Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
         }
     }
 }
