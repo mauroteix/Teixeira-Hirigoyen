@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.DataAccessInterface;
+﻿using Microsoft.EntityFrameworkCore;
+using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using System;
@@ -30,7 +31,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public Psychologist Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Psychologist
+               .Include(t => t.Meeting).ThenInclude(u => u.User)
+               .Include(r => r.Expertise).ThenInclude(s => s.MedicalCondition)
+               .FirstOrDefault(u => u.Id == id);         
         }
 
         public IEnumerable<Psychologist> GetAll()

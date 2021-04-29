@@ -15,9 +15,11 @@ namespace MSP.BetterCalm.DataAccessTest
         Psychologist psychologist;
         Psychologist psychologistSecond;
         PsychologistRepository repository;
+        List<Psychologist> listPsychologist;
         [TestInitialize]
         public void Initialize()
         {
+            listPsychologist = new List<Psychologist>();
             psychologist = new Psychologist
             {
                 Name = "Mauro",
@@ -36,6 +38,8 @@ namespace MSP.BetterCalm.DataAccessTest
                 Meeting = new List<Meeting>(),
 
             };
+            listPsychologist.Add(psychologist);
+            listPsychologist.Add(psychologistSecond);
         }
         [TestMethod]
         public void AddPsychologist()
@@ -53,6 +57,19 @@ namespace MSP.BetterCalm.DataAccessTest
             context.Database.EnsureDeleted();
 
             Assert.AreEqual(initial + 1, final);
+        }
+        [TestMethod]
+        public void GetOnePsychologist()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listPsychologist.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new PsychologistRepository(context);
+            var playlist = repository.Get(listPsychologist[0].Id);
+            context.Database.EnsureDeleted();
+            Assert.AreEqual(listPsychologist[0].Id, playlist.Id);
         }
 
     }
