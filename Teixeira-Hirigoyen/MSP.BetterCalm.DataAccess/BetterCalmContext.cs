@@ -18,6 +18,7 @@ namespace MSP.BetterCalm.DataAccess
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<MedicalCondition> MedicalCondition { get; set; }
         public virtual DbSet<Meeting> Meeting { get; set; }
+        public virtual DbSet<Psychologist> Psychologist { get; set; }
 
 
         public BetterCalmContext() { }
