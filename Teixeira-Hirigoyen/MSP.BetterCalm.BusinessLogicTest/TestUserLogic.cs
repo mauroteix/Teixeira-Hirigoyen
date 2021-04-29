@@ -66,5 +66,18 @@ namespace MSP.BetterCalm.BusinessLogicTest
             user.Cellphone = "";
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
         }
+        [TestMethod]
+        public void AddUserMeetingNotEmpty()
+        {
+            Meeting meeting = new Meeting()
+            {
+                IdMeeting = 1,
+                IdPsychologist = 1,
+                IdUser = 1,
+                Date = new DateTime(2018, 05, 15),
+            };
+            user.Meeting.Add(meeting);
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
+        }
     }
 }
