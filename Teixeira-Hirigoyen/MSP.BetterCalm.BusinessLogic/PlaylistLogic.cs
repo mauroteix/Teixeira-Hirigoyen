@@ -14,12 +14,14 @@ namespace MSP.BetterCalm.BusinessLogic
         IData<Playlist> _repository;
         IData<Category> _repositoryCategory;
         IData<Track> _repositoryTrack;
+        ITrackLogic trackLogic;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack)
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack ,ITrackLogic unTrackLogic)
         {
             _repository = repository;
             _repositoryCategory = reposCategory;
             _repositoryTrack = repositoryTrack;
+            trackLogic = unTrackLogic;
         }
 
         public Playlist Get(int id)
@@ -32,6 +34,7 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             ValidatePlaylist(playlist);
             ValidateCategoriesId(playlist.PlaylistCategory.ToList());
+            ValidateTrackId(playlist);
             Playlist play = ToEntity(playlist);
             _repository.Add(play);
         }
@@ -99,6 +102,20 @@ namespace MSP.BetterCalm.BusinessLogic
 
         }
 
+        private void ValidateTrackId(Playlist playlist)
+        {
+            var playlistTrack = playlist.PlaylistTrack.ToList();
+            var rangeList = playlistTrack.Count;
+            for (int aPlaylistTrack = 0; aPlaylistTrack < rangeList; aPlaylistTrack++)
+            {
+                var idTrack = playlistTrack[aPlaylistTrack].IdTrack;
+                if(idTrack <= 0 ) throw new FieldEnteredNotCorrect("One or more tracks are with id invalid");
+                var unTrack = _repositoryTrack.Get(playlistTrack[aPlaylistTrack].IdTrack);
+                if (unTrack == null) throw new EntityNotExists("One or more tracks not exist");      
+            }
+        }
+
+     
         private void ExistPlaylist(int id)
         {
             Playlist unPlaylist = _repository.Get(id);
@@ -125,24 +142,6 @@ namespace MSP.BetterCalm.BusinessLogic
             _repository.Update(unPlaylist);
         }
 
-        public List<Playlist> GetPlaylistsByCategory(int categoryId)
-        {
-            List<Playlist> listPlaylist = _repository.GetAll().ToList();
-            List<Playlist> playlistReturn = new List<Playlist>();
-            for (int playlist = 0; playlist < listPlaylist.Count; playlist++)
-            {
-                int largePlaylistCategory = listPlaylist[playlist].PlaylistCategory.Count;
-                List<PlaylistCategory> list = listPlaylist[playlist].PlaylistCategory.ToList();
-                for (int playlistCategory = 0; playlistCategory < largePlaylistCategory; playlistCategory++)
-                {
-                    if (list[playlistCategory].IdCategory == categoryId)
-                    {
-                        playlistReturn.Add(listPlaylist[playlist]);
-                        playlistCategory = largePlaylistCategory;
-                    }
-                }
-            }
-            return playlistReturn;
-        }
+ 
     }
 }

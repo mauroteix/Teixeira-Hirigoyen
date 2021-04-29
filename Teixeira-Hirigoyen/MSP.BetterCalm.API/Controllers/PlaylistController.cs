@@ -29,6 +29,10 @@ namespace MSP.BetterCalm.API.Controllers
                 Playlist playlist = _playlistLogic.Get(id);
                 return Ok(playlist);
             }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
@@ -44,6 +48,10 @@ namespace MSP.BetterCalm.API.Controllers
                 return Ok("Successfully added playlist name:"+ playlist.Name);
             }
             catch (FieldEnteredNotCorrect fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (EntityNotExists fe)
             {
                 return UnprocessableEntity(fe.MessageError());
             }

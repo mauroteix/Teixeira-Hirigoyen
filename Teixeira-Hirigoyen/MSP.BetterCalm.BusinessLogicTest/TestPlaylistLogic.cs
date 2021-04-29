@@ -210,11 +210,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
             playlistLogic.Update(playlist, playlist.Id);
         }
 
-        [TestMethod]
-        public void GetPlaylistsByCategory()
-        {
-            List<Playlist> listPlaylist = playlistLogic.GetPlaylistsByCategory(category.Id);
-            Assert.AreEqual(playlist, listPlaylist[0]);
-        }
+        
     }
 }
