@@ -54,6 +54,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             user.Surname = "";
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
         }
+        [TestMethod]
+        public void AddUserEmailEmpty()
+        {
+            user.Email = "";
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
+        }
 
     }
 }
