@@ -71,6 +71,22 @@ namespace MSP.BetterCalm.DataAccessTest
             context.Database.EnsureDeleted();
             Assert.AreEqual(listPsychologist[0].Id, playlist.Id);
         }
+        [TestMethod]
+        public void UpdatePsychologist()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listPsychologist.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new PsychologistRepository(context);
+            listPsychologist[0].Name = "Pop";
+            repository.Update(listPsychologist[0]);
+            var psy = repository.Get(listPsychologist[0].Id);
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(psy.Name, "Pop");
+        }
 
     }
 }

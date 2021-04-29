@@ -44,7 +44,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(Psychologist entity)
         {
-            throw new NotImplementedException();
+            _context.Psychologist.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
