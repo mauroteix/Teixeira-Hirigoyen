@@ -13,5 +13,25 @@ namespace MSP.BetterCalm.Domain
         public string Email { get; set; }
         public string Cellphone { get; set; }
         public ICollection<Meeting> Meeting { get; set; }
+
+        public User()
+        {
+        }
+        public bool NameEmpty()
+        {
+            return this.Name.Length == 0;
+        }
+        public bool SurnameEmpty()
+        {
+            return this.Surname.Length == 0;
+        }
+        public bool CellphoneEmpty()
+        {
+            return this.Cellphone.Length == 0;
+        }
+        public bool MeetingEmpty()
+        {
+            return this.Meeting.Count == 0;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace MSP.BetterCalm.DomainTest
                 Birthday = new DateTime(1996,1,1),
                 Email = "mauroGil@gmail.com",
                 Cellphone = "099156189",
+                Meeting = new List<Meeting>(),
 
             };
             
@@ -51,6 +52,29 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterCellphone()
         {
             Assert.AreEqual("099156189", user.Cellphone);
+        }
+        [TestMethod]
+        public void NameEmpty()
+        {
+            user.Name = "";
+            Assert.IsTrue(user.NameEmpty());
+        }
+        [TestMethod]
+        public void SurnameEmpty()
+        {
+            user.Surname = "";
+            Assert.IsTrue(user.SurnameEmpty());
+        }
+        [TestMethod]
+        public void CellphoneEmpty()
+        {
+            user.Cellphone = "";
+            Assert.IsTrue(user.CellphoneEmpty());
+        }
+        [TestMethod]
+        public void MeetingEmpty()
+        {
+            Assert.IsTrue(user.MeetingEmpty());
         }
     }
 }
