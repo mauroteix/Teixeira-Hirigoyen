@@ -13,5 +13,18 @@ namespace MSP.BetterCalm.Domain
 
         public PlaylistCategory()
         { }
+
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                PlaylistCategory playlistCategory = (PlaylistCategory)obj;
+                return (this.IdCategory == playlistCategory.IdCategory && this.IdPlaylist == playlistCategory.IdPlaylist);
+            }
+        }
     }
 }
