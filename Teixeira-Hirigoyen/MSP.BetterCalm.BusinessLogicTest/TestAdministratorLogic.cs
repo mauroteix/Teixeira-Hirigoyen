@@ -50,5 +50,18 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             Assert.ThrowsException<EntityNotExists>(() => adminLogic.Get(2));
         }
+
+        [TestMethod]
+        public void AddAdministratorOk()
+        {
+            Administrator newAdmin = new Administrator
+            {
+                Id = 2,
+                Name = "Rodrigo",
+                Email = "rodri@hotmail.com",
+                Password = "123455"
+            };
+            adminLogic.Add(newAdmin);
+        }
     }
 }
