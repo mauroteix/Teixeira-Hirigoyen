@@ -29,7 +29,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public Administrator Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Administrator
+                .FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<Administrator> GetAll()

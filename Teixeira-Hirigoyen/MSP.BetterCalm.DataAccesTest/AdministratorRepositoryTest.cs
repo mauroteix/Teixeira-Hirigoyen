@@ -54,6 +54,19 @@ namespace MSP.BetterCalm.DataAccessTest
             Assert.AreEqual(initial + 1, final);
         }
 
+        [TestMethod]
+        public void GetOneAdministrator()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listAdministrators.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new AdministratorRepository(context);
+            var category = repository.Get(listAdministrators[0].Id);
+            context.Database.EnsureDeleted();
+            Assert.AreEqual(listAdministrators[0].Id, category.Id);
+        }
 
     }
 }
