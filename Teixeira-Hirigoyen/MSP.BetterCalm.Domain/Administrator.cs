@@ -13,5 +13,31 @@ namespace MSP.BetterCalm.Domain
 
         public Administrator()
         { }
+
+        public bool NameEmpty()
+        {
+            return this.Name == null || this.Name.Length == 0;
+        }
+        public bool EmailEmpty()
+        {
+            return this.Email == null || this.Email.Length == 0;
+        }
+        public bool PasswordEmpty()
+        {
+            return this.Password == null || this.Password.Length == 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Administrator admin = (Administrator)obj;
+                return (this.Id == admin.Id);
+            }
+        }
     }
 }

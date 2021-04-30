@@ -42,7 +42,7 @@ namespace MSP.BetterCalm.Domain
         }
         public bool CategoryTrackEmpty()
         {
-            return this.CategoryTrack.Count == 0;
+            return this.CategoryTrack == null || this.CategoryTrack.Count == 0;
         }
 
         public override bool Equals(object obj)

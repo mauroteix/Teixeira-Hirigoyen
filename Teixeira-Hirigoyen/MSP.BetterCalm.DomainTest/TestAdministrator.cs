@@ -37,5 +37,25 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual("123", administrator.Password);
         }
 
+        [TestMethod]
+        public void NameEmpty()
+        {
+            administrator.Name = "";
+            Assert.IsTrue(administrator.NameEmpty());
+        }
+
+        [TestMethod]
+        public void EmailEmpty()
+        {
+            administrator.Email = "";
+            Assert.IsTrue(administrator.EmailEmpty());
+        }
+
+        [TestMethod]
+        public void PasswordEmpty()
+        {
+            administrator.Password = "";
+            Assert.IsTrue(administrator.PasswordEmpty());
+        }
     }
 }
