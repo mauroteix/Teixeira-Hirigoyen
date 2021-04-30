@@ -52,6 +52,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Psychologist newPsychologist = psychologistLogic.Get(psychologist.Id);
             Assert.AreEqual(psychologist, newPsychologist);
         }
+        [TestMethod]
+        public void GetAllPsychologist()
+        {
+            List<Psychologist> psyList = psychologistLogic.GetAll();
+            Assert.AreEqual(psyList.Count, 1);
+        }
 
     }
 }
