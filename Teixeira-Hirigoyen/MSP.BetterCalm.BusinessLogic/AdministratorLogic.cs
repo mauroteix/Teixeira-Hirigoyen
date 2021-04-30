@@ -31,6 +31,12 @@ namespace MSP.BetterCalm.BusinessLogic
             repositoryAdministrator.Add(administrator);
         }
 
+        public void Delete(Administrator administrator)
+        {
+            ExistAdministrator(administrator.Id);
+            repositoryAdministrator.Delete(administrator);
+        }
+
         private void ValidateAdministrator(Administrator admin)
         {
             if (admin.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
@@ -42,6 +48,7 @@ namespace MSP.BetterCalm.BusinessLogic
             admin.Email = admin.Email.ToLower();
         }
         //Ver el tema de la primary key en la database
+
         private void ValidateEmailUnique(string email)
         {
             bool existEmail = false;
@@ -55,8 +62,6 @@ namespace MSP.BetterCalm.BusinessLogic
             if(existEmail) throw new FieldEnteredNotCorrect("The email already exist");
         }
    
-
-
         private void ExistAdministrator(int id)
         {
             Administrator unAdmin = repositoryAdministrator.Get(id);

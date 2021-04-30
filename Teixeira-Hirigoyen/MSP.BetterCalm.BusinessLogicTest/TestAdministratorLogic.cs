@@ -89,5 +89,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => adminLogic.Add(newAdmin));
         }
+
+        [TestMethod]
+        public void DeleteAdministrator()
+        {
+            adminLogic.Delete(admin);
+            var getAdmin = adminLogic.Get(admin.Id);
+        }
     }
 }
