@@ -58,6 +58,21 @@ namespace MSP.BetterCalm.BusinessLogicTest
             List<Psychologist> psyList = psychologistLogic.GetAll();
             Assert.AreEqual(psyList.Count, 1);
         }
+        [TestMethod]
+        public void AddPsychologistOk()
+        {
+            Psychologist psy = new Psychologist
+            {
+                Name = "Mauro",
+                Id = 1,
+                MeetingType = meetingType.Virtual,
+                AdressMeeting = "Horacio 7895",
+                Expertise = new List<Expertise>(),
+                Meeting = new List<Meeting>()
+            };
+            psychologistLogic.Add(psy);
+        }
+
 
     }
 }

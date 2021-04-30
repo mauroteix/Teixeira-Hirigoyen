@@ -18,7 +18,7 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         public void Add(Psychologist psychologist)
         {
-            throw new NotImplementedException();
+            _repository.Add(psychologist);
         }
 
         public void Delete(Psychologist psychologist)
