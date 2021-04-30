@@ -18,19 +18,19 @@ namespace MSP.BetterCalm.Domain
 
         public bool NameEmpty()
         {
-            return this.Name.Length == 0;
+            return this.Name == null || this.Name.Length == 0;
         }
         public bool AuthorEmpty()
         {
-            return this.Author.Length == 0;
+            return this.Author == null || this.Author.Length == 0;
         }
         public bool ImageEmpty()
         {
-            return this.Image.Length == 0;
+            return this.Image == null || this.Image.Length == 0;
         }
         public bool SoundEmpty()
         {
-            return this.Sound.Length == 0;
+            return this.Sound == null || this.Sound.Length == 0;
         }
 
         public bool HourIsEmpty()

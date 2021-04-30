@@ -34,6 +34,8 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             ValidateTrack(track);
             ValidateCategoriesId(track.CategoryTrack.ToList());
+            ValidateCategoryUnique(track);
+            ValidatePlaylistUnique(track);
             Track unTrack = ToEntity(track);
             _repository.Add(unTrack);
         }
@@ -74,6 +76,38 @@ namespace MSP.BetterCalm.BusinessLogic
             unTrack.CategoryTrack = list;
             unTrack.PlaylistTrack = listTrack;
             return unTrack;
+        }
+
+        private void ValidateCategoryUnique(Track track)
+        {
+            var list = track.CategoryTrack.ToList();
+            var repetidos = false;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = true;
+                }
+
+                iterador++;
+            });
+            if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal categories");
+        }
+
+        private void ValidatePlaylistUnique(Track track)
+        {
+            var list = track.PlaylistTrack.ToList();
+            var repetidos = false;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = true;
+                }
+
+                iterador++;
+            });
+            if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal playlist");
         }
         private void ValidateCategoriesId(List<CategoryTrack> list)
         {
