@@ -51,6 +51,12 @@ namespace MSP.BetterCalm.DomainTest
             psychologist.Name = "";
             Assert.IsTrue(psychologist.NameEmpty());
         }
+        [TestMethod]
+        public void AdressEmpty()
+        {
+            psychologist.AdressMeeting = "";
+            Assert.IsTrue(psychologist.AdressEmpty());
+        }
 
     }
 }
