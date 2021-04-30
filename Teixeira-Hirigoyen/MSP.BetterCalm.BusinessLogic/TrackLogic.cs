@@ -33,7 +33,8 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Track track)
         {
             ValidateTrack(track);
-            ValidateCategoriesId(track.CategoryTrack.ToList());
+            ValidateCategoriesId(track);
+            ValidatePlaylistId(track);
             ValidateCategoryUnique(track);
             ValidatePlaylistUnique(track);
             Track unTrack = ToEntity(track);
@@ -77,8 +78,21 @@ namespace MSP.BetterCalm.BusinessLogic
             unTrack.PlaylistTrack = listTrack;
             return unTrack;
         }
+        private void ValidatePlaylistId(Track track)
+        {
+            var playlistList = playlistRepository.GetAll().Select(u => u.Id).ToList();
+            var list = track.PlaylistTrack.ToList();
+            var exist = true;
+            list.ForEach(c => {
+                if (!playlistList.Contains(c.IdPlaylist))
+                {
+                    exist = false;
+                }
+            });
+            if (!exist) throw new FieldEnteredNotCorrect("One ore more playlist do not exist");
+        }
 
-        private void ValidateCategoryUnique(Track track)
+            private void ValidateCategoryUnique(Track track)
         {
             var list = track.CategoryTrack.ToList();
             var repetidos = false;
@@ -109,29 +123,19 @@ namespace MSP.BetterCalm.BusinessLogic
             });
             if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal playlist");
         }
-        private void ValidateCategoriesId(List<CategoryTrack> list)
+        private void ValidateCategoriesId(Track track)
         {
-            int largeList = list.Count;
-            var listCategories = categoryRepository.GetAll().ToList();
-            int largelistCategories = listCategories.Count;
-            bool state = false;
-            for (int categoryTrack = 0; categoryTrack < largeList; categoryTrack++)
-            {
-                for (int category = 0; category < largelistCategories; category++)
+            var categoryList = categoryRepository.GetAll().Select(c => c.Id).ToList();
+            var list = track.CategoryTrack.ToList();
+            var exist = true;
+            list.ForEach(c => {
+                if (!categoryList.Contains(c.IdCategory))
                 {
-                        if ((listCategories[category].Id == list[categoryTrack].IdCategory))
-                        {
-                            state = true;
-                            category = largelistCategories;
-                        }
+                    exist = false;
                 }
-                if (!state)
-                { 
-                    throw new FieldEnteredNotCorrect("The category that you add do not exist");
-                }
-                state = false;
-            }
-           
+            });
+            if (!exist) throw new FieldEnteredNotCorrect("One ore more category do not exist");
+
         }
 
         public void Delete(Track track)
