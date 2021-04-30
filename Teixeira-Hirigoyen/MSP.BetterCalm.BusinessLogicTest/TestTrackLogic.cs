@@ -53,6 +53,11 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 CategoryTrack = new List<CategoryTrack>(),
                 PlaylistTrack = new List<PlaylistTrack>()
             };
+            CategoryTrack categoryTrack = new CategoryTrack
+            {
+                IdCategory = 1
+            };
+            track.CategoryTrack.Add(categoryTrack);
             trackList.Add(track);
             repositoryTrack = new Mock<IData<Track>>();
             repositoryCategory = new Mock<IData<Category>>();
@@ -220,5 +225,15 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             Assert.ThrowsException<EntityNotExists>(() => trackLogic.Delete(trackToDelete));
         }
+
+        [TestMethod]
+        public void UpdateTrack()
+        {
+            track.Name = "Primavera";
+            track.Author = "Armandinho";
+            trackLogic.Update(track, track.Id);
+            Assert.AreEqual("Primavera", trackLogic.Get(0).Name);
+        }
+
     }
 }
