@@ -24,7 +24,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(Administrator entity)
         {
-            throw new NotImplementedException();
+            _context.Administrator.Remove(_context.Administrator.Find(entity.Id));
+            _context.SaveChanges();
         }
 
         public Administrator Get(int id)

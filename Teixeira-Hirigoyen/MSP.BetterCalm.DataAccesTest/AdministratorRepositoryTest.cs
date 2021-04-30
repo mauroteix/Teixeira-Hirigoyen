@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,22 @@ namespace MSP.BetterCalm.DataAccessTest
             var category = repository.Get(listAdministrators[0].Id);
             context.Database.EnsureDeleted();
             Assert.AreEqual(listAdministrators[0].Id, category.Id);
+        }
+
+        [TestMethod]
+        public void DeleteAdministrator()
+        {
+           
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+               .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listAdministrators.ForEach(track => context.Add(track));
+            context.SaveChanges();
+            repository = new AdministratorRepository(context);
+            repository.Delete(listAdministrators[0]);
+            context.Database.EnsureDeleted();
+            Administrator getAdmin = repository.Get(1);
+            Assert.AreEqual(null, getAdmin);
         }
 
     }
