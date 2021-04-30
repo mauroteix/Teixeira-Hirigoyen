@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
@@ -16,13 +17,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         Administrator admin;
         List<Administrator> adminList = new List<Administrator>();
         Mock<IData<Administrator>> repositoryAdmin;
-        //Mock<IData<Category>> repositoryCategory;
-       // Mock<IData<Track>> repositoryTrack;
         AdministratorLogic adminLogic;
-       // List<Category> categoryList = new List<Category>();
-       // List<Track> trackList = new List<Track>();
-       // Category category;
-       // Category secondCategory;
 
         [TestInitialize]
         public void Initialize()
@@ -36,22 +31,11 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             adminList = new List<Administrator>();
             adminList.Add(admin);
-            
-           
             repositoryAdmin = new Mock<IData<Administrator>>();
-            //repositoryCategory = new Mock<IData<Category>>();
-            //repositoryTrack = new Mock<IData<Track>>();
-
             repositoryAdmin.Setup(r => r.GetAll()).Returns(adminList);
-            /*
-            repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
-            repositoryTrack.Setup(r => r.GetAll()).Returns(trackList);
-            */
             repositoryAdmin.Setup(play => play.Get(1)).Returns(admin);
-            
             repositoryAdmin.Setup(play => play.Add(admin));
             adminLogic = new AdministratorLogic(repositoryAdmin.Object);
-
         }
 
         [TestMethod]
@@ -59,6 +43,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             Administrator newAdministrator = adminLogic.Get(admin.Id);
             Assert.AreEqual(admin, newAdministrator);
+        }
+
+        [TestMethod]
+        public void GetAdministratorNotExist()
+        {
+            Assert.ThrowsException<EntityNotExists>(() => adminLogic.Get(2));
         }
     }
 }

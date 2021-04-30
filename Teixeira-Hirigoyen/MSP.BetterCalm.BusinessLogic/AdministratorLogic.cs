@@ -2,9 +2,12 @@
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
@@ -21,6 +24,38 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistAdministrator(id);
             return repositoryAdministrator.Get(id);
         }
+
+        public void Add(Administrator administrator)
+        {
+            ValidateAdministrator(administrator);
+            repositoryAdministrator.Add(administrator);
+        }
+
+        private void ValidateAdministrator(Administrator admin)
+        {
+            if (admin.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
+            if (admin.EmailEmpty()) throw new FieldEnteredNotCorrect("The email cannot be empty");
+            if (admin.PasswordEmpty()) throw new FieldEnteredNotCorrect("The password cannot be empty");
+            Regex regexEmail = new Regex(@"^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
+            if (!regexEmail.IsMatch(admin.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
+            ValidateEmailUnique(admin.Email);
+            admin.Email = admin.Email.ToLower();
+        }
+        //Ver el tema de la primary key en la database
+        private void ValidateEmailUnique(string email)
+        {
+            bool existEmail = false;
+            var listAdmin = repositoryAdministrator.GetAll().Select(u => u.Email).ToList();
+            listAdmin.ForEach(c => {
+                if (listAdmin.Contains(email.ToLower()))
+                {
+                    existEmail = true;
+                }
+            });
+            if(existEmail) throw new FieldEnteredNotCorrect("The email already exist");
+        }
+   
+
 
         private void ExistAdministrator(int id)
         {
