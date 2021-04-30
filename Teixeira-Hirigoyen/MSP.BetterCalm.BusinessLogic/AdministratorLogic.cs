@@ -28,6 +28,8 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Administrator administrator)
         {
             ValidateAdministrator(administrator);
+            ValidateEmailUnique(administrator.Email);
+            administrator.Email = administrator.Email.ToLower();
             repositoryAdministrator.Add(administrator);
         }
 
@@ -37,6 +39,19 @@ namespace MSP.BetterCalm.BusinessLogic
             repositoryAdministrator.Delete(administrator);
         }
 
+        public void Update(Administrator admin, int id)
+        {
+            ExistAdministrator(id);
+            Administrator unAdministrator = repositoryAdministrator.Get(id);
+            ValidateAdministrator(admin);
+            if (!unAdministrator.Email.Equals(admin.Email)) ValidateEmailUnique(admin.Email);
+            unAdministrator.Name = admin.Name;
+            unAdministrator.Password = admin.Password;
+            unAdministrator.Email = admin.Email.ToLower();
+            repositoryAdministrator.Update(unAdministrator);
+        }
+
+
         private void ValidateAdministrator(Administrator admin)
         {
             if (admin.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
@@ -44,8 +59,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (admin.PasswordEmpty()) throw new FieldEnteredNotCorrect("The password cannot be empty");
             Regex regexEmail = new Regex(@"^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
             if (!regexEmail.IsMatch(admin.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
-            ValidateEmailUnique(admin.Email);
-            admin.Email = admin.Email.ToLower();
+            
         }
         //Ver el tema de la primary key en la database
 

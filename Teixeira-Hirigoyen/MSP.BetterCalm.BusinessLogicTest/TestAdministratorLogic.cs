@@ -96,5 +96,13 @@ namespace MSP.BetterCalm.BusinessLogicTest
             adminLogic.Delete(admin);
             var getAdmin = adminLogic.Get(admin.Id);
         }
+
+        [TestMethod]
+        public void UpdateAdministrator()
+        {
+            admin.Name = "Federico";
+            admin.Password = "456";
+            adminLogic.Update(admin, admin.Id);
+        }
     }
 }
