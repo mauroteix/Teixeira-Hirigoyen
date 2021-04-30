@@ -44,5 +44,12 @@ namespace MSP.BetterCalm.DomainTest
             Assert.IsTrue(administrator.NameEmpty());
         }
 
+        [TestMethod]
+        public void EmailEmpty()
+        {
+            administrator.Email = "";
+            Assert.IsTrue(administrator.EmailEmpty());
+        }
+
     }
 }
