@@ -104,5 +104,13 @@ namespace MSP.BetterCalm.BusinessLogicTest
             admin.Password = "456";
             adminLogic.Update(admin, admin.Id);
         }
+
+        [TestMethod]
+        public void UpdateAdministratorEmailWrong()
+        {
+            admin.Name = "Federico";
+            admin.Email = "fede@";
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => adminLogic.Update(admin, admin.Id));
+        }
     }
 }
