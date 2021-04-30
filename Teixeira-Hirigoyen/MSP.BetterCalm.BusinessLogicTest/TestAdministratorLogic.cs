@@ -4,6 +4,7 @@ using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -62,6 +63,18 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Password = "123455"
             };
             adminLogic.Add(newAdmin);
+        }
+        [TestMethod]
+        public void AddAdministratorNameEmpty()
+        {
+            Administrator newAdmin = new Administrator
+            {
+                Id = 2,
+                Name = "",
+                Email = "rodri@hotmail.com",
+                Password = "123455"
+            };
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => adminLogic.Add(newAdmin));
         }
     }
 }
