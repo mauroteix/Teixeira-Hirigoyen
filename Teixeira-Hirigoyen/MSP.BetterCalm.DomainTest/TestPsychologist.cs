@@ -45,6 +45,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual("Horacio 7895", psychologist.AdressMeeting);
         }
+        [TestMethod]
+        public void NameEmpty()
+        {
+            psychologist.Name = "";
+            Assert.IsTrue(psychologist.NameEmpty());
+        }
 
     }
 }
