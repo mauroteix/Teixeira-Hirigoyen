@@ -23,6 +23,11 @@ namespace MSP.BetterCalm.Domain
         {
             return this.AdressMeeting == null || this.AdressMeeting.Length == 0;
         }
+        public bool ExpertiseEmpty()
+        {
+            return this.Expertise == null || this.Expertise.Count == 0;
+        }
+
 
     }
 }
