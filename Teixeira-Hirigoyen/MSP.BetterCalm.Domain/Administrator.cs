@@ -22,6 +22,9 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Email == null || this.Email.Length == 0;
         }
-        
+        public bool PasswordEmpty()
+        {
+            return this.Password == null || this.Password.Length == 0;
+        }
     }
 }
