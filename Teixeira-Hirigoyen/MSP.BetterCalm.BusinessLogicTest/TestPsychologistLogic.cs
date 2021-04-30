@@ -23,6 +23,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         public void Initialize()
         {
             psychologistList = new List<Psychologist>();
+            List<Expertise> expertiseList =  new List<Expertise>();
+            MedicalCondition medicalCondition1 = new MedicalCondition()
+            {
+                Id = 1,
+                Name = "Depresion"
+            };
             psychologist = new Psychologist
             {
                 Name = "Mauro",
@@ -33,7 +39,15 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Meeting = new List<Meeting>()
 
             };
-            
+            Expertise expertise = new Expertise()
+            {
+                IdMedicalCondition = medicalCondition1.Id,
+                MedicalCondition = medicalCondition1,
+                IdPsychologist = psychologist.Id,
+                Psychologist = psychologist
+            };
+            expertiseList.Add(expertise);
+            psychologist.Expertise = expertiseList;
             psychologistList.Add(psychologist);
             
             repositoryPsychologist = new Mock<IData<Psychologist>>();
@@ -61,16 +75,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         [TestMethod]
         public void AddPsychologistOk()
         {
-            Psychologist psy = new Psychologist
-            {
-                Name = "Mauro",
-                Id = 1,
-                MeetingType = meetingType.Virtual,
-                AdressMeeting = "Horacio 7895",
-                Expertise = new List<Expertise>(),
-                Meeting = new List<Meeting>()
-            };
-            psychologistLogic.Add(psy);
+            psychologistLogic.Add(psychologist);
         }
         [TestMethod]
         public void DeletePsychologist()
