@@ -76,5 +76,18 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => adminLogic.Add(newAdmin));
         }
+
+        [TestMethod]
+        public void AddAdministratorEmailNotUnique()
+        {
+            Administrator newAdmin = new Administrator
+            {
+                Id = 2,
+                Name = "Rodrigo",
+                Email = "mauro@hotmail.com",
+                Password = "123455"
+            };
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => adminLogic.Add(newAdmin));
+        }
     }
 }
