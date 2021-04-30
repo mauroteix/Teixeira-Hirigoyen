@@ -25,20 +25,21 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Track Get(int id)
         {
-            Track unTrack = _repository.Get(id);
-            if (unTrack == null) throw new EntityNotExists("The track with id: " + id + " does not exist");
+            ExistTrack(id);
             return _repository.Get(id);
         }
 
         public void Add(Track track)
         {
             ValidateTrack(track);
-            ValidateCategoriesId(track);
-            ValidatePlaylistId(track);
-            ValidateCategoryUnique(track);
-            ValidatePlaylistUnique(track);
             Track unTrack = ToEntity(track);
             _repository.Add(unTrack);
+        }
+
+        private void ExistTrack(int id)
+        {
+            Track unTrack = _repository.Get(id);
+            if (unTrack == null) throw new EntityNotExists("The track with id: " + id + " does not exist");
         }
 
         private void ValidateTrack(Track track)
@@ -47,6 +48,10 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.AuthorEmpty()) throw new FieldEnteredNotCorrect("The author cannot be empty");
             if (track.SoundEmpty()) throw new FieldEnteredNotCorrect("The sound cannot be empty");
             if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
+            ValidateCategoriesId(track);
+            ValidatePlaylistId(track);
+            ValidateCategoryUnique(track);
+            ValidatePlaylistUnique(track);
         }
         
         private Track ToEntity(Track track)
@@ -140,10 +145,25 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void Delete(Track track)
         {
-            Track unTrack = _repository.Get(track.Id);
-            if (unTrack == null) throw new EntityNotExists("The track with id: " + track.Id + " does not exist");
-            _repository.Delete(unTrack);
+            ExistTrack(track.Id);
+            _repository.Delete(track);
         }
+
+        public void Update(Track track, int id)
+        {
+            ExistTrack(id);
+            Track unTrack = _repository.Get(id);
+            ValidateTrack(track);
+            unTrack.Name = track.Name;
+            unTrack.Image = track.Image;
+            unTrack.Author = track.Author;
+            unTrack.MinSeconds = track.MinSeconds;
+            unTrack.Hour = track.Hour;
+            unTrack.CategoryTrack = track.CategoryTrack;
+            unTrack.PlaylistTrack = track.PlaylistTrack;
+            _repository.Update(unTrack);
+        }
+
 
     }
 }
