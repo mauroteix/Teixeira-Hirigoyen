@@ -25,17 +25,21 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Track Get(int id)
         {
-            Track unTrack = _repository.Get(id);
-            if (unTrack == null) throw new EntityNotExists("The track with id: " + id + " does not exist");
+            ExistTrack(id);
             return _repository.Get(id);
         }
 
         public void Add(Track track)
         {
             ValidateTrack(track);
-            ValidateCategoriesId(track.CategoryTrack.ToList());
             Track unTrack = ToEntity(track);
             _repository.Add(unTrack);
+        }
+
+        private void ExistTrack(int id)
+        {
+            Track unTrack = _repository.Get(id);
+            if (unTrack == null) throw new EntityNotExists("The track with id: " + id + " does not exist");
         }
 
         private void ValidateTrack(Track track)
@@ -44,6 +48,10 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.AuthorEmpty()) throw new FieldEnteredNotCorrect("The author cannot be empty");
             if (track.SoundEmpty()) throw new FieldEnteredNotCorrect("The sound cannot be empty");
             if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
+            ValidateCategoriesId(track);
+            ValidatePlaylistId(track);
+            ValidateCategoryUnique(track);
+            ValidatePlaylistUnique(track);
         }
         
         private Track ToEntity(Track track)
@@ -75,37 +83,87 @@ namespace MSP.BetterCalm.BusinessLogic
             unTrack.PlaylistTrack = listTrack;
             return unTrack;
         }
-        private void ValidateCategoriesId(List<CategoryTrack> list)
+        private void ValidatePlaylistId(Track track)
         {
-            int largeList = list.Count;
-            var listCategories = categoryRepository.GetAll().ToList();
-            int largelistCategories = listCategories.Count;
-            bool state = false;
-            for (int categoryTrack = 0; categoryTrack < largeList; categoryTrack++)
-            {
-                for (int category = 0; category < largelistCategories; category++)
+            var playlistList = playlistRepository.GetAll().Select(u => u.Id).ToList();
+            var list = track.PlaylistTrack.ToList();
+            var exist = true;
+            list.ForEach(c => {
+                if (!playlistList.Contains(c.IdPlaylist))
                 {
-                        if ((listCategories[category].Id == list[categoryTrack].IdCategory))
-                        {
-                            state = true;
-                            category = largelistCategories;
-                        }
+                    exist = false;
                 }
-                if (!state)
-                { 
-                    throw new FieldEnteredNotCorrect("The category that you add do not exist");
+            });
+            if (!exist) throw new FieldEnteredNotCorrect("One ore more playlist do not exist");
+        }
+
+            private void ValidateCategoryUnique(Track track)
+        {
+            var list = track.CategoryTrack.ToList();
+            var repetidos = false;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = true;
                 }
-                state = false;
-            }
-           
+
+                iterador++;
+            });
+            if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal categories");
+        }
+
+        private void ValidatePlaylistUnique(Track track)
+        {
+            var list = track.PlaylistTrack.ToList();
+            var repetidos = false;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = true;
+                }
+
+                iterador++;
+            });
+            if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal playlist");
+        }
+        private void ValidateCategoriesId(Track track)
+        {
+            var categoryList = categoryRepository.GetAll().Select(c => c.Id).ToList();
+            var list = track.CategoryTrack.ToList();
+            var exist = true;
+            list.ForEach(c => {
+                if (!categoryList.Contains(c.IdCategory))
+                {
+                    exist = false;
+                }
+            });
+            if (!exist) throw new FieldEnteredNotCorrect("One ore more category do not exist");
+
         }
 
         public void Delete(Track track)
         {
-            Track unTrack = _repository.Get(track.Id);
-            if (unTrack == null) throw new EntityNotExists("The track with id: " + track.Id + " does not exist");
-            _repository.Delete(unTrack);
+            ExistTrack(track.Id);
+            _repository.Delete(track);
         }
+
+        public void Update(Track track, int id)
+        {
+            ExistTrack(id);
+            Track unTrack = _repository.Get(id);
+            ValidateTrack(track);
+            unTrack.Name = track.Name;
+            unTrack.Image = track.Image;
+            unTrack.Author = track.Author;
+            unTrack.MinSeconds = track.MinSeconds;
+            unTrack.Hour = track.Hour;
+            unTrack.CategoryTrack = track.CategoryTrack;
+            unTrack.PlaylistTrack = track.PlaylistTrack;
+            _repository.Update(unTrack);
+        }
+
 
     }
 }

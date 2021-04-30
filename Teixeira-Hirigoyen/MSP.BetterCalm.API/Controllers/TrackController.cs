@@ -52,5 +52,23 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Track newTrack)
+        {
+            try
+            {
+                _trackLogic.Update(newTrack, id);
+                return Ok("Updated successfully");
+            }
+            catch (FieldEnteredNotCorrect en)
+            {
+                return UnprocessableEntity(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
     }
 }

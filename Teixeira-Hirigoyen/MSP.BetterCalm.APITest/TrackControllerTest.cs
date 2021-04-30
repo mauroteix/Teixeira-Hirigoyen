@@ -19,6 +19,11 @@ namespace MSP.BetterCalm.APITest
         [TestInitialize]
         public void Initialize()
         {
+            Category category = new Category
+            {
+                Name = "Musica",
+                Id = 2
+            };
             Track track = new Track()
             {
                 Id = 1,
@@ -30,6 +35,11 @@ namespace MSP.BetterCalm.APITest
                 CategoryTrack = new List<CategoryTrack>(),
                 PlaylistTrack = new List<PlaylistTrack>()
             };
+            CategoryTrack categoryTrack = new CategoryTrack
+            {
+                IdCategory = category.Id
+            };
+            track.CategoryTrack.Add(categoryTrack);
             trackList = new List<Track>();
             trackList.Add(track);
         }
@@ -80,6 +90,25 @@ namespace MSP.BetterCalm.APITest
             TrackController controller = new TrackController(mockTrack.Object);
             var result = controller.Add(trackList[0]);
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdateTrack()
+        {
+            Track newTrack = new Track()
+            {
+                Name = "Puntos",
+                Author = "Rodri"
+            };
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(l => l.Get(trackList[0].Id)).Returns(trackList[0]);
+            mockTrack.Setup(l => l.Add(trackList[0]));
+            var controller = new TrackController(mockTrack.Object);
+            trackList[0].Name = newTrack.Name;
+            trackList[0].Author = newTrack.Author;
+            var result = controller.Update(trackList[0].Id, trackList[0]);
+            Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
         }
     }
 }

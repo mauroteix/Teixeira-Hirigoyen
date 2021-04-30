@@ -14,14 +14,12 @@ namespace MSP.BetterCalm.BusinessLogic
         IData<Playlist> _repository;
         IData<Category> _repositoryCategory;
         IData<Track> _repositoryTrack;
-        ITrackLogic trackLogic;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack ,ITrackLogic unTrackLogic)
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack )
         {
             _repository = repository;
             _repositoryCategory = reposCategory;
             _repositoryTrack = repositoryTrack;
-            trackLogic = unTrackLogic;
         }
 
         public Playlist Get(int id)
