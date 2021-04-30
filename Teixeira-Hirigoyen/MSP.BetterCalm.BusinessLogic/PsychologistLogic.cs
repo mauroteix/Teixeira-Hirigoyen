@@ -23,7 +23,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void Delete(Psychologist psychologist)
         {
-            throw new NotImplementedException();
+            _repository.Delete(psychologist);
         }
 
         public Psychologist Get(int id)

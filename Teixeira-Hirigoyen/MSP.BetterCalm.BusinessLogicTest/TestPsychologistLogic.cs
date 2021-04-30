@@ -72,6 +72,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
             };
             psychologistLogic.Add(psy);
         }
+        [TestMethod]
+        public void DeletePsychologist()
+        {
+            psychologistLogic.Delete(psychologist);
+            var getLodg = psychologistLogic.Get(psychologist.Id);
+        }
 
 
     }
