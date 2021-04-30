@@ -72,7 +72,6 @@ namespace MSP.BetterCalm.DataAccessTest
         [TestMethod]
         public void DeleteAdministrator()
         {
-           
             var options = new DbContextOptionsBuilder<BetterCalmContext>()
                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
             var context = new BetterCalmContext(options);
@@ -83,6 +82,22 @@ namespace MSP.BetterCalm.DataAccessTest
             context.Database.EnsureDeleted();
             Administrator getAdmin = repository.Get(1);
             Assert.AreEqual(null, getAdmin);
+        }
+
+        [TestMethod]
+        public void UpdateAdministrator()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listAdministrators.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new AdministratorRepository(context);
+            listAdministrators[0].Name = "Nicolas";
+            repository.Update(listAdministrators[0]);
+            var admin = repository.Get(listAdministrators[0].Id);
+            context.Database.EnsureDeleted();
+            Assert.AreEqual(admin.Name, "Nicolas");
         }
 
     }

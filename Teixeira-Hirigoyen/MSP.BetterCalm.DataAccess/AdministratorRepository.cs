@@ -41,7 +41,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(Administrator entity)
         {
-            throw new NotImplementedException();
+            _context.Administrator.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
