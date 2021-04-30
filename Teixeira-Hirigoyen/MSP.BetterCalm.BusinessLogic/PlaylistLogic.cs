@@ -31,10 +31,6 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Playlist playlist)
         {
             ValidatePlaylist(playlist);
-            ValidateCategoriesId(playlist.PlaylistCategory.ToList());
-            ValidateTrackId(playlist);
-            ValidateCategoryUnique(playlist);
-            ValidateTrackUnique(playlist);
             Playlist play = ToEntity(playlist);
             _repository.Add(play);
         }
@@ -44,6 +40,10 @@ namespace MSP.BetterCalm.BusinessLogic
             if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
             if (!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
             if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
+            ValidateCategoriesId(playlist);
+            ValidateTrackId(playlist);
+            ValidateCategoryUnique(playlist);
+            ValidateTrackUnique(playlist);
         }
 
         public List<Playlist> GetAll()
@@ -109,28 +109,18 @@ namespace MSP.BetterCalm.BusinessLogic
             if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal tracks");
         }
 
-        private void ValidateCategoriesId(List<PlaylistCategory> list)
+        private void ValidateCategoriesId(Playlist playlist)
         {
-            int largeList = list.Count;
-            var listCategories = _repositoryCategory.GetAll().ToList();
-            int largelistCategories = listCategories.Count;
-            bool state = false;
-            for (int categoryTrack = 0; categoryTrack < largeList; categoryTrack++)
-            {
-                for (int category = 0; category < largelistCategories; category++)
+            var categoryList = _repositoryCategory.GetAll().Select(c => c.Id).ToList();
+            var list = playlist.PlaylistCategory.ToList();
+            var exist = true;
+            list.ForEach(c => {
+                if (!categoryList.Contains(c.IdCategory))
                 {
-                    if ((listCategories[category].Id == list[categoryTrack].IdCategory))
-                    {
-                        state = true;
-                        category = largelistCategories;
-                    }
+                    exist = false;
                 }
-                if (!state)
-                {
-                    throw new FieldEnteredNotCorrect("The category that you add do not exist");
-                }
-                state = false;
-            }
+            });
+            if (!exist) throw new FieldEnteredNotCorrect("One ore more category do not exist");
 
         }
 
@@ -165,7 +155,6 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistPlaylist(id);
             Playlist unPlaylist = _repository.Get(id);
             ValidatePlaylist(playlist);
-            ValidateCategoriesId(playlist.PlaylistCategory.ToList());
             unPlaylist.Name = playlist.Name;
             unPlaylist.Description = playlist.Description;
             unPlaylist.Image = playlist.Image;

@@ -17,7 +17,7 @@ namespace MSP.BetterCalm.Domain
         { }
         public bool NameEmpty()
         {
-            return this.Name.Length == 0;
+            return this.Name == null || this.Name.Length == 0;
         }
         public bool DescriptionLength()
         {
@@ -29,7 +29,7 @@ namespace MSP.BetterCalm.Domain
         }
         public bool ImageEmpty()
         {
-            return this.Image.Length == 0;
+            return this.Name == null || this.Image.Length == 0;
         }
 
         public bool PlaylistCategoryEmpty()
