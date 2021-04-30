@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.BusinessLogicInterface;
+﻿using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using System;
@@ -15,10 +16,16 @@ namespace MSP.BetterCalm.BusinessLogic
             repositoryAdministrator = repository;
         }
 
-       /* public Administrator Get(int id)
+        public Administrator Get(int id)
         {
             ExistAdministrator(id);
             return repositoryAdministrator.Get(id);
-        }*/
+        }
+
+        private void ExistAdministrator(int id)
+        {
+            Administrator unAdmin = repositoryAdministrator.Get(id);
+            if (unAdmin == null) throw new EntityNotExists("The admin with id: " + id + " does not exist");
+        }
     }
 }

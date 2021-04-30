@@ -26,5 +26,18 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Password == null || this.Password.Length == 0;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Administrator admin = (Administrator)obj;
+                return (this.Id == admin.Id);
+            }
+        }
     }
 }
