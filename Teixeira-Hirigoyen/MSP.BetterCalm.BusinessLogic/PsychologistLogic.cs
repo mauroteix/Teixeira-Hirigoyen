@@ -1,13 +1,21 @@
 ﻿using MSP.BetterCalm.BusinessLogicInterface;
+using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
     public class PsychologistLogic : IPsychologistLogic
     {
+        IData<Psychologist> _repository;
+        public PsychologistLogic(IData<Psychologist> repository)
+        {
+            _repository = repository;
+
+        }
         public void Add(Psychologist psychologist)
         {
             throw new NotImplementedException();
@@ -20,12 +28,12 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Psychologist Get(int id)
         {
-            throw new NotImplementedException();
+            return _repository.Get(id);
         }
 
         public List<Psychologist> GetAll()
         {
-            throw new NotImplementedException();
+            return _repository.GetAll().ToList();
         }
 
         public void Update(Psychologist psychologist, int id)
