@@ -63,5 +63,22 @@ namespace MSP.BetterCalm.DataAccessTest
 
             Assert.AreEqual(initial + 1, final);
         }
+        [TestMethod]
+        public void UpdateMedicalCondition()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listMedicalCondition.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new MedicalConditionRepository(context);
+            listMedicalCondition[0].Name = "Musica";
+            repository.Update(listMedicalCondition[0]);
+            var category = repository.Get(listMedicalCondition[0].Id);
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(category.Name, "Musica");
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(MedicalCondition entity)
         {
-            throw new NotImplementedException();
+            throw new CannotBePerformed("You cannot delete medicalCondition " + entity.Name);
         }
 
         public MedicalCondition Get(int id)
@@ -43,7 +44,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(MedicalCondition entity)
         {
-            throw new NotImplementedException();
+            _context.MedicalCondition.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
