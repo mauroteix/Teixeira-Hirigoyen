@@ -1,0 +1,45 @@
+﻿using MSP.BetterCalm.DataAccessInterface;
+using MSP.BetterCalm.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+
+namespace MSP.BetterCalm.DataAccess
+{
+    public class MedicalConditionRepository : IData<MedicalCondition>
+    {
+        readonly BetterCalmContext _context;
+
+        public MedicalConditionRepository(BetterCalmContext context)
+        {
+            _context = context;
+        }
+
+        public void Add(MedicalCondition entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(MedicalCondition entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MedicalCondition Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MedicalCondition> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(MedicalCondition entity)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
