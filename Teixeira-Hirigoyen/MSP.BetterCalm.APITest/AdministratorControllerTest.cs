@@ -78,5 +78,18 @@ namespace MSP.BetterCalm.APITest
                 result.ToString());
         }
 
+        [TestMethod]
+        public void DeleteAdministratorNotExists()
+        {
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(l => l.Get(2)).Returns(adminList[0]);
+            var controller = new AdministratorController(mockAdmin.Object);
+
+            var result = controller.Delete(3);
+            Assert.AreEqual(new ObjectResult("").ToString(),
+                result.ToString());
+        }
+
+
     }
 }
