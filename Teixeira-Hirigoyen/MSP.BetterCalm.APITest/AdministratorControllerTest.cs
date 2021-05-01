@@ -67,5 +67,16 @@ namespace MSP.BetterCalm.APITest
                 result.ToString());
         }
 
+        [TestMethod]
+        public void DeleteAdministratorIdNegative()
+        {
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            var controller = new AdministratorController(mockAdmin.Object);
+            controller.Add(adminList[0]);
+            var result = controller.Delete(-2);
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
+                result.ToString());
+        }
+
     }
 }
