@@ -53,6 +53,16 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(psychologistList[0]).ToString());
         }
         [TestMethod]
+        public void AddPsychologistError()
+        {
+            psychologistList[0].Name = "";
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(r => r.Add(psychologistList[0])).Throws(new FieldEnteredNotCorrect(""));
+            PsychologistController controller = new PsychologistController(mockPsychologist.Object);
+            var result = controller.Add(psychologistList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+        [TestMethod]
         public void DeletePsychologistOk()
         {
             var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
