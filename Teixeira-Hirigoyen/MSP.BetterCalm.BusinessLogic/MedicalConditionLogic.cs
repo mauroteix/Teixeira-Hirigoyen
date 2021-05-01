@@ -18,5 +18,9 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return _repository.GetAll().ToList();
         }
+        public MedicalCondition Get(int id)
+        {
+            return _repository.Get(id);
+        }
     }
 }

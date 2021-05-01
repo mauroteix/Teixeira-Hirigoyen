@@ -44,5 +44,11 @@ namespace MSP.BetterCalm.BusinessLogicTest
             List<MedicalCondition> list = medicalConditionLogic.GetAll();
             Assert.AreEqual(list.Count, 2);
         }
+        [TestMethod]
+        public void GetMedicalCondition()
+        {
+            MedicalCondition newMedicalCondition = medicalConditionLogic.Get(medicalCondition.Id);
+            Assert.AreEqual(medicalCondition, newMedicalCondition);
+        }
     }
 }
