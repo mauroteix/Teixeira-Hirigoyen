@@ -54,5 +54,18 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
         }
 
+        [TestMethod]
+        public void DeleteAdministratorOk()
+        {
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(t => t.Get(1)).Returns(adminList[0]);
+            mockAdmin.Setup(t => t.Delete(adminList[0]));
+            var controller = new AdministratorController(mockAdmin.Object);
+            controller.Add(adminList[0]);
+            var result = controller.Delete(1);
+            Assert.AreEqual(new OkObjectResult("").ToString(),
+                result.ToString());
+        }
+
     }
 }

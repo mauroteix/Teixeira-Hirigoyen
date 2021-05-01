@@ -42,5 +42,27 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (id < 0)
+            {
+                return NotFound("Id not valid");
+            }
+            else
+            {
+                try
+                {
+                    Administrator admin = adminLogic.Get(id);
+                    adminLogic.Delete(admin);
+                    return Ok("Erased successfully");
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+        }
     }
 }
