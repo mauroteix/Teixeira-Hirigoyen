@@ -52,6 +52,8 @@ namespace MSP.BetterCalm.API
             services.AddScoped<PlaylistCategory>();
             services.AddScoped<IData<User>, UserRepository>();
             services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<IData<MedicalCondition>, MedicalConditionRepository>();
+            services.AddScoped<IMedicalConditionLogic, MedicalConditionLogic>();
             services.AddScoped<IData<Track>, TrackRepository>();
             services.AddScoped<ITrackLogic, TrackLogic>();
 
