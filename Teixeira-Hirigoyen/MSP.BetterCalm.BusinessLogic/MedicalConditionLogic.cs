@@ -1,4 +1,5 @@
 ﻿using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using System;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class MedicalConditionLogic
+    public class MedicalConditionLogic : IMedicalConditionLogic
     {
         IData<MedicalCondition> _repository;
         public MedicalConditionLogic(IData<MedicalCondition> repository)

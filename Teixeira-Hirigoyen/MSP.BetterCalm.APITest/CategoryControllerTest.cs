@@ -29,9 +29,9 @@ namespace MSP.BetterCalm.APITest
         [TestMethod]
         public void GetAllCategories()
         {
-            var mockUser = new Mock<ICategoryLogic>(MockBehavior.Strict);
-            mockUser.Setup(u => u.GetAll()).Returns(categoryList.Select(c => new CategoryDTO {Name = c.Name , Id = c.Id}).ToList());
-            var categoryController = new CategoryController(mockUser.Object);
+            var mockCategory = new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategory.Setup(u => u.GetAll()).Returns(categoryList.Select(c => new CategoryDTO {Name = c.Name , Id = c.Id}).ToList());
+            var categoryController = new CategoryController(mockCategory.Object);
             Assert.AreEqual(new OkObjectResult("").ToString(), categoryController.GetAll().ToString());
         }
 
