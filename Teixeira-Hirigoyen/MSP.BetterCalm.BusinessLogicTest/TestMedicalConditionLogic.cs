@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
@@ -49,6 +50,11 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             MedicalCondition newMedicalCondition = medicalConditionLogic.Get(medicalCondition.Id);
             Assert.AreEqual(medicalCondition, newMedicalCondition);
+        }
+        [TestMethod]
+        public void GetMedicalConditionNotExist()
+        {
+            Assert.ThrowsException<EntityNotExists>(() => medicalConditionLogic.Get(10));
         }
     }
 }

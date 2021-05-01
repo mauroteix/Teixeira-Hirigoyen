@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.DataAccessInterface;
+﻿using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,13 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         public MedicalCondition Get(int id)
         {
+            ExistMedicalCondition(id);
             return _repository.Get(id);
+        }
+        private void ExistMedicalCondition(int id)
+        {
+            MedicalCondition unMedicalCondition = _repository.Get(id);
+            if (unMedicalCondition == null) throw new EntityNotExists("The medical condition with id: " + id + " does not exist");
         }
     }
 }
