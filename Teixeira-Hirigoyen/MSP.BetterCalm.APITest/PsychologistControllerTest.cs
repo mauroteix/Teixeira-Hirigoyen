@@ -40,6 +40,30 @@ namespace MSP.BetterCalm.APITest
             mockPsychologist.VerifyAll();
             Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
         }
+        [TestMethod]
+        public void AddOnePlaylist()
+        {
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(res => res.Get(psychologistList[0].Id)).Returns(psychologistList[0]);
+            PsychologistController controller = new PsychologistController(mockPsychologist.Object);
+
+            var result = controller.Add(psychologistList[0]);
+            var okResult = result as OkObjectResult;
+
+            Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(psychologistList[0]).ToString());
+        }
+        [TestMethod]
+        public void DeletePlaylistOk()
+        {
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(t => t.Get(1)).Returns(psychologistList[0]);
+            mockPsychologist.Setup(t => t.Delete(psychologistList[0]));
+            var controller = new PsychologistController(mockPsychologist.Object);
+            controller.Add(psychologistList[0]);
+            var result = controller.DeletePsychologist(1);
+            Assert.AreEqual(new OkObjectResult("").ToString(),
+                result.ToString());
+        }
 
     }
 }

@@ -38,5 +38,47 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+        [HttpPost()]
+        public IActionResult Add([FromBody] Psychologist psychologist)
+        {
+            try
+            {
+                _psychologistLogic.Add(psychologist);
+                return Ok("Successfully added psychologist name:" + psychologist.Name);
+            }
+            catch (FieldEnteredNotCorrect fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeletePsychologist(int id)
+        {
+            if (id < 0)
+            {
+                return NotFound("Id not valid");
+            }
+            else
+            {
+                try
+                {
+                    Psychologist psychologist = _psychologistLogic.Get(id);
+                    _psychologistLogic.Delete(psychologist);
+                    return Ok("Erased successfully");
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+        }
     }
 }
