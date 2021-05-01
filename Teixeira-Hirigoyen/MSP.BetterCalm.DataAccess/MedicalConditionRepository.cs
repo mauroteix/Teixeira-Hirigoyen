@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.DataAccessInterface;
+﻿using Microsoft.EntityFrameworkCore;
+using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,14 @@ namespace MSP.BetterCalm.DataAccess
 
         public MedicalCondition Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.MedicalCondition
+                .Include(t => t.Expertise).ThenInclude(u => u.Psychologist)
+               .FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<MedicalCondition> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.MedicalCondition.ToList();
         }
 
         public void Update(MedicalCondition entity)
