@@ -8,5 +8,8 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface IAdministratorLogic
     {
         public Administrator Get(int id);
+        public void Add(Administrator administrator);
+        public void Delete(Administrator administrator);
+        public void Update(Administrator admin, int id);
     }
 }
