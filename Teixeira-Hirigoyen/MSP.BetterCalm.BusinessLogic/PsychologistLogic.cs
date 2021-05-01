@@ -108,7 +108,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void Update(Psychologist psychologist, int id)
         {
-            ExistPsychologist(psychologist.Id);
+            ExistPsychologist(id);
             Psychologist unPsychologist = _repository.Get(id);
             ValidatePsychologist(psychologist);
             unPsychologist.Name = psychologist.Name;
