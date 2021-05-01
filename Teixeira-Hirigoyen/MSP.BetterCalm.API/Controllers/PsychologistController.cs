@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MSP.BetterCalm.API.Controllers
 {
-    [Route("api/playlist")]
+    [Route("api/psychologist")]
     [ApiController]
     public class PsychologistController : ControllerBase
     {
@@ -21,6 +21,23 @@ namespace MSP.BetterCalm.API.Controllers
         {
             _psychologistLogic = psychologistLogic;
         }
+        [HttpGet()]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_psychologistLogic.GetAll());
+            }
+            catch (EntityNotExists en)
+            {
+                return NotFound(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
