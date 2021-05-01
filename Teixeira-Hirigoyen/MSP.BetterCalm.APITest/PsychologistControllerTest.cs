@@ -85,6 +85,29 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("").ToString(),
                 result.ToString());
         }
+        [TestMethod]
+        public void UpdatePsychologist()
+        {
+            Psychologist newPsychologist = new Psychologist()
+            {
+                Name = "PEPErulo",
+                AdressMeeting = "asdas 3251",
+                Expertise = new List<Expertise>(),
+                Meeting = new List<Meeting>()
+            };
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(l => l.Get(psychologistList[0].Id)).Returns(psychologistList[0]);
+            mockPsychologist.Setup(l => l.Add(psychologistList[0]));
+            var controller = new PsychologistController(mockPsychologist.Object);
+            psychologistList[0].Name = newPsychologist.Name;
+            psychologistList[0].AdressMeeting = newPsychologist.AdressMeeting;
+            psychologistList[0].Expertise = newPsychologist.Expertise;
+            psychologistList[0].Meeting = newPsychologist.Meeting;
+
+            var result = controller.UpdatePsychologist(psychologistList[0].Id, psychologistList[0]);
+            Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
+        }
 
     }
 }

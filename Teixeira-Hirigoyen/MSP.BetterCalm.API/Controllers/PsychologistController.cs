@@ -80,5 +80,22 @@ namespace MSP.BetterCalm.API.Controllers
                 }
             }
         }
+        [HttpPut("{id}")]
+        public IActionResult UpdatePsychologist(int id, [FromBody] Psychologist newPsychologist)
+        {
+            try
+            {
+                _psychologistLogic.Update(newPsychologist, id);
+                return Ok("Updated successfully");
+            }
+            catch (FieldEnteredNotCorrect en)
+            {
+                return UnprocessableEntity(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }
