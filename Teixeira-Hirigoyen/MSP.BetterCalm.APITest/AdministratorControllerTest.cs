@@ -4,6 +4,7 @@ using Moq;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -41,5 +42,17 @@ namespace MSP.BetterCalm.APITest
 
             Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(adminList[0]).ToString());
         }
+
+        [TestMethod]
+        public void AddAdministratorError()
+        {
+            adminList[0].Name = "";
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(r => r.Add(adminList[0])).Throws(new FieldEnteredNotCorrect(""));
+            AdministratorController controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Add(adminList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+
     }
 }
