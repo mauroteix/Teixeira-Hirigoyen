@@ -20,7 +20,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Add(MedicalCondition entity)
         {
-            throw new NotImplementedException();
+            _context.MedicalCondition.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(MedicalCondition entity)
