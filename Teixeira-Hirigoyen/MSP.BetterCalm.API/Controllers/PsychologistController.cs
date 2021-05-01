@@ -21,5 +21,22 @@ namespace MSP.BetterCalm.API.Controllers
         {
             _psychologistLogic = psychologistLogic;
         }
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                Psychologist psychologist = _psychologistLogic.Get(id);
+                return Ok(psychologist);
+            }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }
