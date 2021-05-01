@@ -90,6 +90,22 @@ namespace MSP.BetterCalm.APITest
                 result.ToString());
         }
 
+        [TestMethod]
+        public void UpdateAdministrator()
+        {
+            Administrator newAdmin = new Administrator()
+            {
+                Name = "Rodri",
+                Password = "0123"
+            };
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(l => l.Get(adminList[0].Id)).Returns(adminList[0]);
+            mockAdmin.Setup(l => l.Add(adminList[0]));
+            var controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Update(adminList[0].Id, newAdmin);
+            Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
+        }
 
     }
 }

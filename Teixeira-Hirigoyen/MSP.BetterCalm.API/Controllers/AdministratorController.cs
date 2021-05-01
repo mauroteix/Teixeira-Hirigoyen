@@ -64,5 +64,23 @@ namespace MSP.BetterCalm.API.Controllers
                 }
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Administrator newAdmin)
+        {
+            try
+            {
+                adminLogic.Update(newAdmin, id);
+                return Ok("Updated successfully");
+            }
+            catch (FieldEnteredNotCorrect en)
+            {
+                return UnprocessableEntity(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }
