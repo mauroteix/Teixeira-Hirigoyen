@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace MSP.BetterCalm.API.Controllers
 {
 
@@ -21,5 +22,39 @@ namespace MSP.BetterCalm.API.Controllers
         {
             _medicalConditionLogic = medicalConditionLogic;
         }
+        [HttpGet()]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_medicalConditionLogic.GetAll());
+            }
+            catch (EntityNotExists en)
+            {
+                return NotFound(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                MedicalCondition medicalCondition = _medicalConditionLogic.Get(id);
+                return Ok(medicalCondition);
+            }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
     }
 }
