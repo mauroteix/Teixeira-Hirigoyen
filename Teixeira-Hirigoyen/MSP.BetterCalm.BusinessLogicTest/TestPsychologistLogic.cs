@@ -18,6 +18,8 @@ namespace MSP.BetterCalm.BusinessLogicTest
         List<Psychologist> psychologistList;
         Mock<IData<Psychologist>> repositoryPsychologist;
         PsychologistLogic psychologistLogic;
+        List<MedicalCondition> medicalConditionList = new List<MedicalCondition>();
+        Mock<IData<MedicalCondition>> repositoryMedicalCondition;
 
         [TestInitialize]
         public void Initialize()
@@ -51,12 +53,13 @@ namespace MSP.BetterCalm.BusinessLogicTest
             psychologistList.Add(psychologist);
             
             repositoryPsychologist = new Mock<IData<Psychologist>>();
+            repositoryMedicalCondition = new Mock<IData<MedicalCondition>>();
 
             repositoryPsychologist.Setup(r => r.GetAll()).Returns(psychologistList);
             repositoryPsychologist.Setup(py => py.Get(1)).Returns(psychologist);
             repositoryPsychologist.Setup(py => py.Add(psychologist));
 
-            psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object);
+            psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object, repositoryMedicalCondition.Object);
 
 
         }
