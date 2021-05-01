@@ -1,4 +1,5 @@
-﻿using MSP.BetterCalm.BusinessLogicInterface;
+﻿using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -82,14 +83,21 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!exist) throw new FieldEnteredNotCorrect("One ore more medical condition do not exist");
 
         }
+        private void ExistPsychologist(int id)
+        {
+            Psychologist unPsychologist = _repository.Get(id);
+            if (unPsychologist == null) throw new EntityNotExists("The psychologist with id: " + id + " does not exist");
+        }
 
         public void Delete(Psychologist psychologist)
         {
+            ExistPsychologist(psychologist.Id);
             _repository.Delete(psychologist);
         }
 
         public Psychologist Get(int id)
         {
+            ExistPsychologist(id);
             return _repository.Get(id);
         }
 
@@ -100,6 +108,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void Update(Psychologist psychologist, int id)
         {
+            ExistPsychologist(psychologist.Id);
             throw new NotImplementedException();
         }
     }
