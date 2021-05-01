@@ -18,7 +18,7 @@ namespace MSP.BetterCalm.Domain
             else
             {
                 MedicalCondition medicalCondition = (MedicalCondition)obj;
-                return (this.Name.Equals(medicalCondition.Name));
+                return (this.Id == medicalCondition.Id);
             }
         }
     }

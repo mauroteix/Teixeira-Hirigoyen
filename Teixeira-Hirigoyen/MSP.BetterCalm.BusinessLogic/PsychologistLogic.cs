@@ -50,7 +50,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (psychologist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
             if (psychologist.AdressEmpty()) throw new FieldEnteredNotCorrect("The adress meeting cannot be empty");
             if (psychologist.ExpertiseEmpty()) throw new FieldEnteredNotCorrect("The expertise cannot be empty");
-            if (psychologist.Expertise.Count < 4) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
+            if (psychologist.Expertise.Count > 3) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
             ValidateMedicalConditionUnique(psychologist);
             ValidateMedicalConditionId(psychologist);
         }
@@ -109,7 +109,14 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Update(Psychologist psychologist, int id)
         {
             ExistPsychologist(psychologist.Id);
-            throw new NotImplementedException();
+            Psychologist unPsychologist = _repository.Get(id);
+            ValidatePsychologist(psychologist);
+            unPsychologist.Name = psychologist.Name;
+            unPsychologist.MeetingType = psychologist.MeetingType;
+            unPsychologist.Meeting = psychologist.Meeting;
+            unPsychologist.Expertise = psychologist.Expertise;
+
+            _repository.Update(unPsychologist);
         }
     }
 }
