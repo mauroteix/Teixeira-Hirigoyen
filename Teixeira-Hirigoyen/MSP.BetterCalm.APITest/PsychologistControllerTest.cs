@@ -74,6 +74,17 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new NotFoundObjectResult("").ToString(),
                 result.ToString());
         }
+        [TestMethod]
+        public void DeletePsychologistNotExists()
+        {
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(l => l.Get(1)).Returns(psychologistList[0]);
+            var controller = new PsychologistController(mockPsychologist.Object);
+
+            var result = controller.DeletePsychologist(3);
+            Assert.AreEqual(new ObjectResult("").ToString(),
+                result.ToString());
+        }
 
     }
 }
