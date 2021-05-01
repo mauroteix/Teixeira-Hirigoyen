@@ -41,7 +41,7 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
         }
         [TestMethod]
-        public void AddOnePlaylist()
+        public void AddOnePsychologist()
         {
             var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             mockPsychologist.Setup(res => res.Get(psychologistList[0].Id)).Returns(psychologistList[0]);
@@ -53,7 +53,7 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(psychologistList[0]).ToString());
         }
         [TestMethod]
-        public void DeletePlaylistOk()
+        public void DeletePsychologistOk()
         {
             var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             mockPsychologist.Setup(t => t.Get(1)).Returns(psychologistList[0]);
@@ -62,6 +62,16 @@ namespace MSP.BetterCalm.APITest
             controller.Add(psychologistList[0]);
             var result = controller.DeletePsychologist(1);
             Assert.AreEqual(new OkObjectResult("").ToString(),
+                result.ToString());
+        }
+        [TestMethod]
+        public void DeletePsychologistIdNegative()
+        {
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            var controller = new PsychologistController(mockPsychologist.Object);
+            controller.Add(psychologistList[0]);
+            var result = controller.DeletePsychologist(-2);
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
                 result.ToString());
         }
 
