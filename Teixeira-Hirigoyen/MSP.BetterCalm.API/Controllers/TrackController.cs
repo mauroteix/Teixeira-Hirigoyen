@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -34,6 +35,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Track track)
         {
