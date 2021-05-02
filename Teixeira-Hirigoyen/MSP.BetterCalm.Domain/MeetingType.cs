@@ -6,7 +6,7 @@ namespace MSP.BetterCalm.Domain
 {
     public enum meetingType
     {
-        Virtual,FaceToFace
+        Virtual=1,FaceToFace
     }
 
 }

@@ -15,15 +15,18 @@ namespace MSP.BetterCalm.API.Controllers
     public class UserController : ControllerBase
     {
         IUserLogic _userLogic;
-        public UserController(IUserLogic userLogic)
+        IPsychologistLogic _psychologistLogic;
+        public UserController(IUserLogic userLogic, IPsychologistLogic psychologistLogic)
         {
             _userLogic = userLogic;
+            _psychologistLogic = psychologistLogic;
         }
         [HttpPost()]
         public IActionResult Add([FromBody] User user)
         {
             try
             {
+
                 _userLogic.Add(user);
                 return Ok("Successfully added user name:" + user.Name);
             }

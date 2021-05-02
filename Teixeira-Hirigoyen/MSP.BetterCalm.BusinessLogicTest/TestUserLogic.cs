@@ -17,6 +17,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         List<User> userList = new List<User>();
         Mock<IData<User>> repositoryUser;
         UserLogic userLogic;
+        PsychologistLogic psychologistLogic;
         [TestInitialize]
         public void Initialize()
         {
@@ -33,9 +34,9 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             userList = new List<User>();
             userList.Add(user);
-            repositoryUser = new Mock<IData<User>>();
-            userLogic = new UserLogic(repositoryUser.Object);
+            repositoryUser = new Mock<IData<User>>(); 
             repositoryUser.Setup(r => r.GetAll()).Returns(userList);
+            userLogic = new UserLogic(repositoryUser.Object,psychologistLogic);
         }
         [TestMethod]
         public void AddUserOk()

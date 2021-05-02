@@ -45,6 +45,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
             return psychologist;
         }
+     
         private void ValidatePsychologist(Psychologist psychologist)
         {
             if (psychologist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
@@ -118,12 +119,14 @@ namespace MSP.BetterCalm.BusinessLogic
 
             _repository.Update(unPsychologist);
         }
-        public User createMeeting(User user)
+        public User CreateMeeting(User user)
         {
-            var medicalCondition = user.MedicalCondition;
+            
+            var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
+            user.MedicalCondition = medicalCondition;
             var date = DateTime.Now;
             date = changeDate(date);
-            var list = ListOfPsychologist(user.MedicalCondition);
+            var list = ListOfPsychologist(medicalCondition);
             var listFreePsy = ListFreePsychologist(list, date);
             Psychologist psy = new Psychologist();
             while(listFreePsy.Count == 0)
@@ -140,6 +143,7 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 psy = listFreePsy[0];
             }
+            psy = _repository.Get(psy.Id);
             Meeting meeting = new Meeting();
             meeting.IdUser = user.Id;
             meeting.User = user;
@@ -160,21 +164,23 @@ namespace MSP.BetterCalm.BusinessLogic
         public List<Psychologist> ListOfPsychologist(MedicalCondition medicalCondition)
         {
             var list = medicalCondition.Expertise.ToList();
-            List <Psychologist> listPsy = new List<Psychologist>();
-            list.ForEach(c => listPsy.Add(c.Psychologist));
-            return listPsy;
+            List <Psychologist> listPsychologist = new List<Psychologist>();
+            list.ForEach(c => listPsychologist.Add(c.Psychologist));
+            return listPsychologist;
         }
         public List<Psychologist> ListFreePsychologist(List<Psychologist> listPsychologist,DateTime date)
         {
             var list = new List<Psychologist>();
             listPsychologist.ForEach(c =>
             {
+                if (c.Meeting == null) c.Meeting = new List<Meeting>();
                 if (isFreeForMeeting(c,date)) list.Add(c);
+
             });
             return list;
         }
-        public bool isFreeForMeeting(Psychologist psy,DateTime date) {
-            var list = psy.Meeting.ToList();
+        public bool isFreeForMeeting(Psychologist psychologist,DateTime date) {
+            var list = psychologist.Meeting.ToList();
             var listMeetingDate = new List<Meeting>();
             list.ForEach(c => 
             {

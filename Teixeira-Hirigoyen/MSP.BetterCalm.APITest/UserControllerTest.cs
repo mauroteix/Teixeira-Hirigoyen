@@ -35,8 +35,9 @@ namespace MSP.BetterCalm.APITest
         public void AddOneUser()
         {
             var mockUser = new Mock<IUserLogic>(MockBehavior.Strict);
+            var mockPsy = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             mockUser.Setup(res => res.Add(userlistList[0]));
-            UserController controller = new UserController(mockUser.Object);
+            UserController controller = new UserController(mockUser.Object,mockPsy.Object);
 
             var result = controller.Add(userlistList[0]);
             var okResult = result as OkObjectResult;
