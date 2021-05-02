@@ -29,10 +29,12 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         private Psychologist ToEntity(Psychologist psychologist)
         {
+            if ((int)psychologist.MeetingType == 1) psychologist.AdressMeeting = "";
             Psychologist play = new Psychologist()
             {
                 Name = psychologist.Name,
                 MeetingType = psychologist.MeetingType,
+                AdressMeeting = psychologist.AdressMeeting
             };
             List<Expertise> listExpertise = psychologist.Expertise.Select(py => new Expertise()
             {
@@ -52,6 +54,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (psychologist.ExpertiseEmpty()) throw new FieldEnteredNotCorrect("The expertise cannot be empty");
             if (psychologist.Expertise.Count > 3) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
             if(!ValidateMeetingType(psychologist)) throw new FieldEnteredNotCorrect("Only 2 types of meetingType");
+            if(psychologist.AdressMeetingEmpty() && (int)psychologist.MeetingType == 2) throw new FieldEnteredNotCorrect("Need to have an adress when is face to face");
             ValidateMedicalConditionUnique(psychologist);
             ValidateMedicalConditionId(psychologist);
         }
@@ -120,56 +123,68 @@ namespace MSP.BetterCalm.BusinessLogic
             ValidatePsychologist(psychologist);
             unPsychologist.Name = psychologist.Name;
             unPsychologist.MeetingType = psychologist.MeetingType;
-            unPsychologist.Meeting = psychologist.Meeting;
+            unPsychologist.AdressMeeting = CreateAdress(psychologist);
             unPsychologist.Expertise = psychologist.Expertise;
 
             _repository.Update(unPsychologist);
         }
         public User CreateMeeting(User user)
         {
-            
             var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
             user.MedicalCondition = medicalCondition;
             var date = DateTime.Now;
-            date = changeDate(date);
+            date = ChangeDate(date);
             var list = ListOfPsychologist(medicalCondition);
-            var listFreePsy = ListFreePsychologist(list, date);
-            Psychologist psy = new Psychologist();
-            while(listFreePsy.Count == 0)
-            {
-                date = date.AddDays(1);
-                date = changeDate(date);
-                listFreePsy = ListFreePsychologist(list, date);
-            }
-            if(listFreePsy.Count > 1)
-            {
-                psy = SelectOlderPsychologist(listFreePsy);
-            }
-            else
-            {
-                psy = listFreePsy[0];
-            }
-            psy = _repository.Get(psy.Id);
+            Psychologist unPsychologist = FreePsychologist(list, date);
             Meeting meeting = new Meeting();
             meeting.IdUser = user.Id;
             meeting.User = user;
-            meeting.Psychologist = psy;
-            meeting.IdPsychologist = psy.Id;
+            meeting.Psychologist = unPsychologist;
+            meeting.IdPsychologist = unPsychologist.Id;
             meeting.Date = date;
-            meeting.AdressMeeting = "";
+            meeting.AdressMeeting = CreateAdress(unPsychologist);
             user.Meeting.Add(meeting);
-
             return user;
+        }
+        private Psychologist FreePsychologist(List<Psychologist> list,DateTime date)
+        {
+            var listFreePsy = ListFreePsychologist(list, date);
+            Psychologist psychologist = new Psychologist();
+            while (listFreePsy.Count == 0)
+            {
+                date = date.AddDays(1);
+                date = ChangeDate(date);
+                listFreePsy = ListFreePsychologist(list, date);
+            }
+            if (listFreePsy.Count > 1)
+            {
+                psychologist = SelectOlderPsychologist(listFreePsy);
+            }
+            else
+            {
+                psychologist = listFreePsy[0];
+            }
+            psychologist = _repository.Get(psychologist.Id);
+            return psychologist;
         }
         public string CreateAdress(Psychologist psychologist)
         {
-            string adress = "https://bettercalm.com.uy/meeting/";
-            var valor = psychologist.Id+200;
-            var codigo = valor + "";
-            adress = adress + codigo;
+            string adress = "";
+            Guid guid = Guid.NewGuid();
+            if((int)psychologist.MeetingType == 1)
+            {
+                adress = "https://bettercalm.com.uy/meeting/";
+                var valor = guid;
+                adress = adress + valor;
+            }
+            else
+            {
+                adress = psychologist.AdressMeeting;
+            }
+          
             return adress;
         }
-        public DateTime  changeDate(DateTime date)
+        private DateTime  ChangeDate(DateTime date)
         {
             while (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
@@ -177,25 +192,27 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             return date;
         }
-        public List<Psychologist> ListOfPsychologist(MedicalCondition medicalCondition)
+        private List<Psychologist> ListOfPsychologist(MedicalCondition medicalCondition)
         {
             var list = medicalCondition.Expertise.ToList();
             List <Psychologist> listPsychologist = new List<Psychologist>();
+            if (medicalCondition.Name.Equals("Otros")) return _repository.GetAll().ToList();
+            
             list.ForEach(c => listPsychologist.Add(c.Psychologist));
             return listPsychologist;
         }
-        public List<Psychologist> ListFreePsychologist(List<Psychologist> listPsychologist,DateTime date)
+        private List<Psychologist> ListFreePsychologist(List<Psychologist> listPsychologist,DateTime date)
         {
             var list = new List<Psychologist>();
             listPsychologist.ForEach(c =>
             {
                 if (c.Meeting == null) c.Meeting = new List<Meeting>();
-                if (isFreeForMeeting(c,date)) list.Add(c);
+                if (IsFreeForMeeting(c,date)) list.Add(c);
 
             });
             return list;
         }
-        public bool isFreeForMeeting(Psychologist psychologist,DateTime date) {
+        private bool IsFreeForMeeting(Psychologist psychologist,DateTime date) {
             var list = psychologist.Meeting.ToList();
             var listMeetingDate = new List<Meeting>();
             list.ForEach(c => 
@@ -204,7 +221,7 @@ namespace MSP.BetterCalm.BusinessLogic
             });
             return listMeetingDate.Count < 6;
         }
-        public Psychologist SelectOlderPsychologist(List<Psychologist> list)
+        private Psychologist SelectOlderPsychologist(List<Psychologist> list)
         {
             int position = 0;
             int minId = list[0].Id;

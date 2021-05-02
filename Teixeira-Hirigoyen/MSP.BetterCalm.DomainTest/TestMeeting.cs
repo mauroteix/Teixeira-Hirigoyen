@@ -33,7 +33,6 @@ namespace MSP.BetterCalm.DomainTest
             };
             meeting = new Meeting
             {
-                IdMeeting = 1,
                 User = user,
                 IdUser = user.Id,
                 Psychologist = psychologist,

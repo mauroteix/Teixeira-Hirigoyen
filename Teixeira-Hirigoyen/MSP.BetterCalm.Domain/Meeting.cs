@@ -6,7 +6,6 @@ namespace MSP.BetterCalm.Domain
 {
     public class Meeting
     {
-        public int IdMeeting { get; set; }
         public User User { get; set; }
         public int IdUser { get; set; }
         public Psychologist Psychologist { get; set; }
@@ -22,7 +21,7 @@ namespace MSP.BetterCalm.Domain
             else
             {
                 Meeting meeting = (Meeting)obj;
-                return (this.IdMeeting.Equals(meeting.IdMeeting));
+                return (this.IdPsychologist ==  meeting.IdPsychologist && this.IdUser == meeting.IdUser);
             }
         }
 

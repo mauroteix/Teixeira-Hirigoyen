@@ -124,7 +124,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             Meeting meeting = new Meeting()
             {
-                IdMeeting = 1,
                 IdPsychologist = 1,
                 IdUser = 1,
                 Date = new DateTime(2018, 05, 15),
