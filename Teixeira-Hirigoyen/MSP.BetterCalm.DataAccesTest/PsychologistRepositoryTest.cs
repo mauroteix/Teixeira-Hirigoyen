@@ -25,7 +25,6 @@ namespace MSP.BetterCalm.DataAccessTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
-                AdressMeeting = "Horacio 7895",
                 Meeting = new List<Meeting>(),
 
             };
@@ -34,7 +33,6 @@ namespace MSP.BetterCalm.DataAccessTest
                 Name = "Jorgito",
                 Id = 2,
                 MeetingType = meetingType.FaceToFace,
-                AdressMeeting = "Horacio 7895",
                 Meeting = new List<Meeting>(),
 
             };
@@ -95,7 +93,6 @@ namespace MSP.BetterCalm.DataAccessTest
                 Name = "Mauro",
                 Id = 3,
                 MeetingType = meetingType.Virtual,
-                AdressMeeting = "Horacio 7895",
                 Meeting = new List<Meeting>(),
             };
             listPsychologist.Add(playlistDelete);

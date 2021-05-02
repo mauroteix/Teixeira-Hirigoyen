@@ -22,7 +22,6 @@ namespace MSP.BetterCalm.APITest
             {
                 Id = 1,
                 Name = "PEPE",
-                AdressMeeting = "pepe 3251",
                 Expertise= new List<Expertise>(),
                 Meeting = new List<Meeting>()
             };
@@ -101,7 +100,6 @@ namespace MSP.BetterCalm.APITest
             Psychologist newPsychologist = new Psychologist()
             {
                 Name = "PEPErulo",
-                AdressMeeting = "asdas 3251",
                 Expertise = new List<Expertise>(),
                 Meeting = new List<Meeting>()
             };
@@ -110,7 +108,6 @@ namespace MSP.BetterCalm.APITest
             mockPsychologist.Setup(l => l.Add(psychologistList[0]));
             var controller = new PsychologistController(mockPsychologist.Object);
             psychologistList[0].Name = newPsychologist.Name;
-            psychologistList[0].AdressMeeting = newPsychologist.AdressMeeting;
             psychologistList[0].Expertise = newPsychologist.Expertise;
             psychologistList[0].Meeting = newPsychologist.Meeting;
 

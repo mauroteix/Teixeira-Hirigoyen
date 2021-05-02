@@ -23,6 +23,7 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Psychologist psychologist)
         {
             ValidatePsychologist(psychologist);
+            if (psychologist.Meeting.Count > 0) throw new FieldEnteredNotCorrect("The meeting must be empty");
             Psychologist psy = ToEntity(psychologist);
             _repository.Add(psychologist);
         }
@@ -31,7 +32,6 @@ namespace MSP.BetterCalm.BusinessLogic
             Psychologist play = new Psychologist()
             {
                 Name = psychologist.Name,
-                AdressMeeting = psychologist.AdressMeeting,
                 MeetingType = psychologist.MeetingType,
             };
             List<Expertise> listExpertise = psychologist.Expertise.Select(py => new Expertise()
@@ -48,12 +48,18 @@ namespace MSP.BetterCalm.BusinessLogic
      
         private void ValidatePsychologist(Psychologist psychologist)
         {
-            if (psychologist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
-            if (psychologist.AdressEmpty()) throw new FieldEnteredNotCorrect("The adress meeting cannot be empty");
+            if (psychologist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");            
             if (psychologist.ExpertiseEmpty()) throw new FieldEnteredNotCorrect("The expertise cannot be empty");
             if (psychologist.Expertise.Count > 3) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
+            if(!ValidateMeetingType(psychologist)) throw new FieldEnteredNotCorrect("Only 2 types of meetingType");
             ValidateMedicalConditionUnique(psychologist);
             ValidateMedicalConditionId(psychologist);
+        }
+        private bool ValidateMeetingType(Psychologist psychologist)
+        {
+            int valor = (int)psychologist.MeetingType;
+            if (valor > 2 && valor < 1) return false;
+            return true;
         }
         private void ValidateMedicalConditionUnique(Psychologist psychologist) 
         {
@@ -149,9 +155,19 @@ namespace MSP.BetterCalm.BusinessLogic
             meeting.User = user;
             meeting.Psychologist = psy;
             meeting.IdPsychologist = psy.Id;
+            meeting.Date = date;
+            meeting.AdressMeeting = "";
             user.Meeting.Add(meeting);
 
             return user;
+        }
+        public string CreateAdress(Psychologist psychologist)
+        {
+            string adress = "https://bettercalm.com.uy/meeting/";
+            var valor = psychologist.Id+200;
+            var codigo = valor + "";
+            adress = adress + codigo;
+            return adress;
         }
         public DateTime  changeDate(DateTime date)
         {

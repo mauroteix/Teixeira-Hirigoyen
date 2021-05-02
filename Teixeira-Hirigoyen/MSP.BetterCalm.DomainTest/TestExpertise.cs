@@ -26,7 +26,6 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
-                AdressMeeting = "Horacio 7895",
             };
             Expertise = new Expertise
             {

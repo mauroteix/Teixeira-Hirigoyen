@@ -12,6 +12,7 @@ namespace MSP.BetterCalm.Domain
         public Psychologist Psychologist { get; set; }
         public int IdPsychologist { get; set; }
         public DateTime Date { get; set; }
+        public string AdressMeeting { get; set; }
         public override bool Equals(object obj)
         {
             if (!this.GetType().Equals(obj.GetType()))
