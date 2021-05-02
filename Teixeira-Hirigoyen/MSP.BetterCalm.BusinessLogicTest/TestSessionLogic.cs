@@ -40,5 +40,16 @@ namespace MSP.BetterCalm.BusinessLogicTest
             var isCorrect = this.sessionLogic.IsCorrectToken(guidToken);
             Assert.IsTrue(isCorrect);
         }
+
+        [TestMethod]
+        public void ValidateIncorrectToken()
+        {
+            var guidToken = Guid.NewGuid();
+
+            var isCorrect = this.sessionLogic.IsCorrectToken(guidToken);
+
+            Assert.IsFalse(isCorrect);
+        }
+
     }
 }
