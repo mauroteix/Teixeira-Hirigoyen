@@ -91,5 +91,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.IsTrue(user.MeetingEmpty());
         }
+        [TestMethod]
+        public void MedicalConditionEmpty()
+        {
+            user.MedicalCondition = null;
+
+            Assert.IsTrue(user.MedicalConditionEmpty());
+        }
     }
 }
