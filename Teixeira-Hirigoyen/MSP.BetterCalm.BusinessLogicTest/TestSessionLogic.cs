@@ -81,5 +81,17 @@ namespace MSP.BetterCalm.BusinessLogicTest
             var token = this.sessionLogic.Login(adminLog);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(FieldEnteredNotCorrect), "The email and password cannot be empty")]
+        public void ValidateNullEmailLogin()
+        {
+            var adminLog = new Administrator()
+            {
+                Email = null,
+                Password = "1234"
+            };
+
+            var token = this.sessionLogic.Login(adminLog);
+        }
     }
 }
