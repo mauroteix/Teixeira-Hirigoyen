@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MSP.BetterCalm.API.Controllers
 {
-    [Route("api/administrator")]
+    [Route("api/session")]
     [ApiController]
     public class SessionController : ControllerBase
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -21,6 +22,7 @@ namespace MSP.BetterCalm.API.Controllers
             adminLogic = _adminLogic;
         }
 
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Administrator admin)
         {
@@ -43,6 +45,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -65,6 +68,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Administrator newAdmin)
         {

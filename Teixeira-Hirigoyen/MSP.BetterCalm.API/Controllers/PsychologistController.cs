@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -55,6 +56,8 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Psychologist psychologist)
         {
@@ -76,6 +79,7 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult DeletePsychologist(int id)
         {
@@ -97,6 +101,8 @@ namespace MSP.BetterCalm.API.Controllers
                 }
             }
         }
+
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult UpdatePsychologist(int id, [FromBody] Psychologist newPsychologist)
         {
