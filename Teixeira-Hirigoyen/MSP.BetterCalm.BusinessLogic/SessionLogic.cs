@@ -29,14 +29,13 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 throw  new FieldEnteredNotCorrect("The email and password cannot be empty");
             }
-
             var adminLog = this.repositoryAdministrator.GetAll().ToList().FirstOrDefault(u =>
                 u.Email.ToLower().Equals(admin.Email.ToLower())
                 && u.Password.Equals(admin.Password));
 
             if (adminLog == null)
             {
-                throw new EntityNotExists("The login admin is incorrect");
+                throw new FieldEnteredNotCorrect("The login admin is incorrect");
             }
 
             return adminLog.Token;

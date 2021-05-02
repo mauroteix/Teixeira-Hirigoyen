@@ -4,6 +4,7 @@ using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,19 @@ namespace MSP.BetterCalm.BusinessLogicTest
             var token = this.sessionLogic.Login(admin);
 
             Assert.AreEqual(guidExpected, token);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FieldEnteredNotCorrect), "The email and password cannot be empty")]
+        public void ValidateNullPasswordLogin()
+        {
+            var adminLog = new Administrator()
+            {
+                Email = "mauro@hotmail.com",
+                Password = "null"
+            };
+
+            var token = this.sessionLogic.Login(adminLog);
         }
 
     }
