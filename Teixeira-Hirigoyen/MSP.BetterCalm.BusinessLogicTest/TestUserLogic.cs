@@ -17,9 +17,48 @@ namespace MSP.BetterCalm.BusinessLogicTest
         List<User> userList = new List<User>();
         Mock<IData<User>> repositoryUser;
         UserLogic userLogic;
+        PsychologistLogic psychologistLogic;
+        Mock<IData<MedicalCondition>> repositoryMedical;
+        Mock<IData<Psychologist>> repositoryPsychologist;
+        MedicalCondition medicalCondition;
+        List<MedicalCondition> listMedical = new List<MedicalCondition>();
+        Psychologist psychologist;
+        List<Psychologist> listPsychologist = new List<Psychologist>();
         [TestInitialize]
         public void Initialize()
         {
+            Expertise expertise = new Expertise();
+            medicalCondition = new MedicalCondition()
+            {
+                Id = 1,
+                Name = "Depresion",
+                Expertise = new List<Expertise>(),
+            };
+
+            psychologist = new Psychologist()
+            {
+                Id = 1,
+                Name = "PEPE",
+                MeetingType = meetingType.Virtual,
+                Meeting = new List<Meeting>(),
+                Expertise = new List<Expertise>()
+                {
+                    new Expertise()
+                    {
+                        MedicalCondition = medicalCondition,
+                        IdMedicalCondition = 1,
+                        Psychologist = psychologist,
+                        IdPsychologist = 1
+                    },
+                }
+            };
+            expertise.MedicalCondition = medicalCondition;
+            expertise.IdMedicalCondition = 1;
+            expertise.IdPsychologist = 1;
+            expertise.Psychologist = psychologist;
+            medicalCondition.Expertise.Add(expertise);
+
+       
             user = new User()
             {
                 Id = 1,
@@ -28,18 +67,32 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Cellphone = "099925927",
                 Email = "Hirigoyen@hotmail.com",
                 Meeting = new List<Meeting>(),
-                Birthday = new DateTime(2000,01,01),
+                Birthday = new DateTime(2000, 01, 01),
+                MedicalCondition = medicalCondition,
             };
+           
 
             userList = new List<User>();
+            listMedical.Add(medicalCondition);
+            listPsychologist.Add(psychologist);
             userList.Add(user);
             repositoryUser = new Mock<IData<User>>();
-            userLogic = new UserLogic(repositoryUser.Object);
+            repositoryPsychologist = new Mock<IData<Psychologist>>();
+            repositoryMedical = new Mock<IData<MedicalCondition>>();
             repositoryUser.Setup(r => r.GetAll()).Returns(userList);
+            repositoryPsychologist.Setup(r => r.Add(psychologist));
+            repositoryMedical.Setup(r => r.GetAll()).Returns(listMedical);
+            repositoryMedical.Setup(r => r.Get(medicalCondition.Id)).Returns(medicalCondition);
+            repositoryPsychologist.Setup(r => r.GetAll()).Returns(listPsychologist);
+            repositoryPsychologist.Setup(r => r.Get(psychologist.Id)).Returns(psychologist);
+
+            psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object,repositoryMedical.Object);
+            userLogic = new UserLogic(repositoryUser.Object,psychologistLogic);
         }
         [TestMethod]
         public void AddUserOk()
         {
+
             userLogic.Add(user);
         }
         [TestMethod]
@@ -71,7 +124,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             Meeting meeting = new Meeting()
             {
-                IdMeeting = 1,
                 IdPsychologist = 1,
                 IdUser = 1,
                 Date = new DateTime(2018, 05, 15),

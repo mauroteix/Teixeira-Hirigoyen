@@ -14,20 +14,28 @@ namespace MSP.BetterCalm.BusinessLogic
     public class UserLogic : IUserLogic
     {
         IData<User> _repository;
-        public UserLogic(IData<User> repository)
+        IPsychologistLogic _logicPsychologist;
+
+        public UserLogic(IData<User> repository, IPsychologistLogic logicPsychologist)
         {
             _repository = repository;
+            _logicPsychologist = logicPsychologist;
+
         }
         public void Add(User user)
         {
-            if(user.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
-            if(user.SurnameEmpty()) throw new FieldEnteredNotCorrect("The surname cannot be empty");
-            if(user.CellphoneEmpty()) throw new FieldEnteredNotCorrect("The cellphone cannot be empty");
+            ValidateUser(user);
+            User newUser = _logicPsychologist.CreateMeeting(user);
+            _repository.Add(newUser);
+        }
+        public void ValidateUser(User user)
+        {
+            if (user.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
+            if (user.SurnameEmpty()) throw new FieldEnteredNotCorrect("The surname cannot be empty");
+            if (user.CellphoneEmpty()) throw new FieldEnteredNotCorrect("The cellphone cannot be empty");
             if (!user.MeetingEmpty()) throw new FieldEnteredNotCorrect("The meeting has to be empty");
             Regex regexEmail = new Regex(@"^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
             if (!regexEmail.IsMatch(user.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
-
-            _repository.Add(user);
         }
     }
 }

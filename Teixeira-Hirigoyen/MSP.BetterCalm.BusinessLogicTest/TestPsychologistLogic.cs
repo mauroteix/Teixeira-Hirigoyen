@@ -39,7 +39,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
-                AdressMeeting = "Horacio 7895",
                 Expertise = new List<Expertise>(),
                 Meeting = new List<Meeting>()
 
@@ -98,7 +97,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             
             psychologist.Name = "Pepe";
-            psychologist.AdressMeeting = "asdas 4567";
             psychologistLogic.Update(psychologist, psychologist.Id);
         }
 

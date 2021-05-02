@@ -6,12 +6,12 @@ namespace MSP.BetterCalm.Domain
 {
     public class Meeting
     {
-        public int IdMeeting { get; set; }
         public User User { get; set; }
         public int IdUser { get; set; }
         public Psychologist Psychologist { get; set; }
         public int IdPsychologist { get; set; }
         public DateTime Date { get; set; }
+        public string AdressMeeting { get; set; }
         public override bool Equals(object obj)
         {
             if (!this.GetType().Equals(obj.GetType()))
@@ -21,7 +21,7 @@ namespace MSP.BetterCalm.Domain
             else
             {
                 Meeting meeting = (Meeting)obj;
-                return (this.IdMeeting.Equals(meeting.IdMeeting));
+                return (this.IdPsychologist ==  meeting.IdPsychologist && this.IdUser == meeting.IdUser);
             }
         }
 

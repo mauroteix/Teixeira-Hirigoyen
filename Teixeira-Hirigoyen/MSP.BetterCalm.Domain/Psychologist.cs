@@ -19,13 +19,13 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Name == null || this.Name.Length == 0;
         }
-        public bool AdressEmpty()
-        {
-            return this.AdressMeeting == null || this.AdressMeeting.Length == 0;
-        }
         public bool ExpertiseEmpty()
         {
             return this.Expertise == null || this.Expertise.Count == 0;
+        }
+        public bool AdressMeetingEmpty()
+        {
+            return this.AdressMeeting == null || this.AdressMeeting.Length == 0;
         }
         public override bool Equals(object obj)
         {

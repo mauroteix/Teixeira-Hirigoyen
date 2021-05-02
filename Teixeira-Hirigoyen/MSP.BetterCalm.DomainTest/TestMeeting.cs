@@ -30,16 +30,15 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
-                AdressMeeting = "Horacio 7895",
             };
             meeting = new Meeting
             {
-                IdMeeting = 1,
                 User = user,
                 IdUser = user.Id,
                 Psychologist = psychologist,
                 IdPsychologist = psychologist.Id,
                 Date = new DateTime(2021, 4, 18),
+                AdressMeeting = "Josesito"
             };
 
         }
@@ -68,6 +67,11 @@ namespace MSP.BetterCalm.DomainTest
         {
             DateTime date = new DateTime(2021, 4, 18);
             Assert.AreEqual(date, meeting.Date);
+        }
+        [TestMethod]
+        public void RegisterAdress()
+        {
+            Assert.AreEqual("Josesito", meeting.AdressMeeting);
         }
     }
 }
