@@ -11,5 +11,6 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public void Add(Track track);
         public void Delete(Track track);
         public void Update(Track track, int id);
+        public List<Track> GetAll();
     }
 }

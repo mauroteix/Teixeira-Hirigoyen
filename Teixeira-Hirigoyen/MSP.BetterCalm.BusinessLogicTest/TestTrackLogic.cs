@@ -235,5 +235,11 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Assert.AreEqual("Primavera", trackLogic.Get(0).Name);
         }
 
+        [TestMethod]
+        public void GetAllTrack()
+        {
+            List<Track> tracks = trackLogic.GetAll();
+            Assert.AreEqual(tracks.Count, 1);
+        }
     }
 }

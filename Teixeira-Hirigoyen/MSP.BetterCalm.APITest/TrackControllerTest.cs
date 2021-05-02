@@ -110,5 +110,50 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
                 result.ToString());
         }
+
+        [TestMethod]
+        public void DeleteTrackOk()
+        {
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(t => t.Get(1)).Returns(trackList[0]);
+            mockTrack.Setup(t => t.Delete(trackList[0]));
+            var controller = new TrackController(mockTrack.Object);
+            controller.Add(trackList[0]);
+            var result = controller.DeleteTrack(1);
+            Assert.AreEqual(new OkObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void DeleteTrackIdNegative()
+        {
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            var controller = new TrackController(mockTrack.Object);
+            controller.Add(trackList[0]);
+            var result = controller.DeleteTrack(-2);
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void DeleteTrackNotExists()
+        {
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(l => l.Get(1)).Returns(trackList[0]);
+            var controller = new TrackController(mockTrack.Object);
+
+            var result = controller.DeleteTrack(3);
+            Assert.AreEqual(new ObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void GetAllTracks()
+        {
+            var mockTracks = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTracks.Setup(u => u.GetAll()).Returns(trackList);
+            var trackController = new TrackController(mockTracks.Object);
+            Assert.AreEqual(new OkObjectResult("").ToString(), trackController.GetAll().ToString());
+        }
     }
 }
