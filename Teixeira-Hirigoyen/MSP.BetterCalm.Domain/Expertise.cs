@@ -11,7 +11,18 @@ namespace MSP.BetterCalm.Domain
         public int IdPsychologist { get; set; }
         public Psychologist Psychologist { get; set; }
 
-
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Expertise expertise = (Expertise)obj;
+                return (this.IdMedicalCondition == expertise.IdMedicalCondition && this.IdPsychologist == expertise.IdPsychologist);
+            }
+        }
 
     }
 }

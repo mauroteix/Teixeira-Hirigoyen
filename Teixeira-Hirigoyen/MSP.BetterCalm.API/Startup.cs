@@ -56,6 +56,8 @@ namespace MSP.BetterCalm.API
             services.AddScoped<IMedicalConditionLogic, MedicalConditionLogic>();
             services.AddScoped<IData<Track>, TrackRepository>();
             services.AddScoped<ITrackLogic, TrackLogic>();
+            services.AddScoped<IData<Psychologist>, PsychologistRepository>();
+            services.AddScoped<IPsychologistLogic, PsychologistLogic>();
 
             services.AddControllers().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;

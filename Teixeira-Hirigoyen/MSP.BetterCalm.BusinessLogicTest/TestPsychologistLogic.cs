@@ -18,17 +18,22 @@ namespace MSP.BetterCalm.BusinessLogicTest
         List<Psychologist> psychologistList;
         Mock<IData<Psychologist>> repositoryPsychologist;
         PsychologistLogic psychologistLogic;
+        List<MedicalCondition> medicalConditionList = new List<MedicalCondition>();
+        MedicalConditionLogic medicalConditionLogic;
+        Mock<IData<MedicalCondition>> repositoryMedicalCondition;
 
         [TestInitialize]
         public void Initialize()
         {
             psychologistList = new List<Psychologist>();
             List<Expertise> expertiseList =  new List<Expertise>();
+            List<MedicalCondition> mcList = new List<MedicalCondition>();
             MedicalCondition medicalCondition1 = new MedicalCondition()
             {
                 Id = 1,
                 Name = "Depresion"
             };
+            mcList.Add(medicalCondition1);
             psychologist = new Psychologist
             {
                 Name = "Mauro",
@@ -51,12 +56,17 @@ namespace MSP.BetterCalm.BusinessLogicTest
             psychologistList.Add(psychologist);
             
             repositoryPsychologist = new Mock<IData<Psychologist>>();
+            repositoryMedicalCondition = new Mock<IData<MedicalCondition>>();
 
+            repositoryMedicalCondition.Setup(py => py.GetAll()).Returns(mcList);
             repositoryPsychologist.Setup(r => r.GetAll()).Returns(psychologistList);
             repositoryPsychologist.Setup(py => py.Get(1)).Returns(psychologist);
             repositoryPsychologist.Setup(py => py.Add(psychologist));
 
-            psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object);
+            psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object, repositoryMedicalCondition.Object);
+            medicalConditionLogic = new MedicalConditionLogic(repositoryMedicalCondition.Object);
+            
+
 
 
         }
@@ -82,6 +92,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             psychologistLogic.Delete(psychologist);
             var getLodg = psychologistLogic.Get(psychologist.Id);
+        }
+        [TestMethod]
+        public void UpdatePsychologist()
+        {
+            
+            psychologist.Name = "Pepe";
+            psychologist.AdressMeeting = "asdas 4567";
+            psychologistLogic.Update(psychologist, psychologist.Id);
         }
 
 
