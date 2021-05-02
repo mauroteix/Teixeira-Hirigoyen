@@ -10,9 +10,18 @@ namespace MSP.BetterCalm.Domain
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public Guid Token { get; set; }
 
         public Administrator()
         { }
+
+        public Administrator(string name, string email, string password)
+        {
+            this.Name = name;
+            this.Email = email;
+            this.Password = password;
+            this.Token = Guid.NewGuid();
+        }
 
         public bool NameEmpty()
         {
