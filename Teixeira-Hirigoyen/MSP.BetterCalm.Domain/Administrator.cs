@@ -15,6 +15,14 @@ namespace MSP.BetterCalm.Domain
         public Administrator()
         { }
 
+        public Administrator(string name, string email, string password)
+        {
+            this.Name = name;
+            this.Email = email;
+            this.Password = password;
+            this.Token = Guid.NewGuid();
+        }
+
         public bool NameEmpty()
         {
             return this.Name == null || this.Name.Length == 0;
