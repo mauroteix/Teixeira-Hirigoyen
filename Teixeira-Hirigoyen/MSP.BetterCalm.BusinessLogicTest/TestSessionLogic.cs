@@ -51,5 +51,21 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Assert.IsFalse(isCorrect);
         }
 
+        [TestMethod]
+        public void ValidateCorrectLogin()
+        {
+            var admin = new Administrator()
+            {
+                Email = "mauro@hotmail.com",
+                Password = "12345"
+            };
+
+            var guidExpected = this.adminRepository.GetAll().ToList().FirstOrDefault(u => u.Email.Equals(admin.Email)).Token;
+
+            var token = this.sessionLogic.Login(admin);
+
+            Assert.AreEqual(guidExpected, token);
+        }
+
     }
 }
