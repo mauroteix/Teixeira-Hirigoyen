@@ -146,5 +146,14 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
                 result.ToString());
         }
+
+        [TestMethod]
+        public void GetAllPlaylists()
+        {
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(u => u.GetAll()).Returns(playlistList);
+            var playlistController = new PlaylistController(mockPlaylist.Object);
+            Assert.AreEqual(new OkObjectResult("").ToString(), playlistController.GetAll().ToString());
+        }
     }
 }
