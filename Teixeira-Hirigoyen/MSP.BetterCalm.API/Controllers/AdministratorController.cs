@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.API.Controllers
             adminLogic = _adminLogic;
         }
 
-        [ServiceFilter(typeof(AuthorizationFilter))]
+        //[ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Administrator admin)
         {

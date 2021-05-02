@@ -72,5 +72,27 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTrack(int id)
+        {
+            if (id < 0)
+            {
+                return NotFound("Id not valid");
+            }
+            else
+            {
+                try
+                {
+                    Track track = _trackLogic.Get(id);
+                    _trackLogic.Delete(track);
+                    return Ok("Erased successfully");
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+        }
+
     }
 }
