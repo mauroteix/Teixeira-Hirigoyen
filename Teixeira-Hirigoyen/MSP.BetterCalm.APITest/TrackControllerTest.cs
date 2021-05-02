@@ -146,5 +146,14 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("").ToString(),
                 result.ToString());
         }
+
+        [TestMethod]
+        public void GetAllTracks()
+        {
+            var mockTracks = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTracks.Setup(u => u.GetAll()).Returns(trackList);
+            var trackController = new TrackController(mockTracks.Object);
+            Assert.AreEqual(new OkObjectResult("").ToString(), trackController.GetAll().ToString());
+        }
     }
 }

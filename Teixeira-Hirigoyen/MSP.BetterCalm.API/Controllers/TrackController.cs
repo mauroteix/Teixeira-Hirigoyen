@@ -103,10 +103,6 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 return Ok(_trackLogic.GetAll());
             }
-            catch (EntityNotExists en)
-            {
-                return NotFound(en.MessageError());
-            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
