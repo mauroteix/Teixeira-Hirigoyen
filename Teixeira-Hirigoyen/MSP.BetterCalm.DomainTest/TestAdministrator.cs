@@ -10,15 +10,19 @@ namespace MSP.BetterCalm.DomainTest
     public class TestAdministrator
     {
         Administrator administrator;
+        Guid guid;
         [TestInitialize]
         public void Initialize()
         {
+            guid = new Guid();
+
             administrator = new Administrator
             {
                 Name = "Rodrigo",
                 Id = 1,
                 Email = "mauroGil@gmail.com",
-                Password = "123"
+                Password = "123",
+                Token = guid
             };
         }
         [TestMethod]
@@ -35,6 +39,12 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterPassword()
         {
             Assert.AreEqual("123", administrator.Password);
+        }
+
+        [TestMethod]
+        public void RegisterToken()
+        {
+            Assert.AreEqual(guid, administrator.Token);
         }
 
         [TestMethod]
