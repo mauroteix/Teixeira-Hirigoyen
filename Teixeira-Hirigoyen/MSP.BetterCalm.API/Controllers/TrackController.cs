@@ -54,6 +54,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Track newTrack)
         {
@@ -72,6 +73,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult DeleteTrack(int id)
         {
@@ -91,6 +93,23 @@ namespace MSP.BetterCalm.API.Controllers
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
                 }
+            }
+        }
+
+        [HttpGet()]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_trackLogic.GetAll());
+            }
+            catch (EntityNotExists en)
+            {
+                return NotFound(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 

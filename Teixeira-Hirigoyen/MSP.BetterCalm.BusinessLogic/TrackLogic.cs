@@ -149,6 +149,11 @@ namespace MSP.BetterCalm.BusinessLogic
             _repository.Delete(track);
         }
 
+        public List<Track> GetAll()
+        {
+            return _repository.GetAll().ToList();
+        }
+
         public void Update(Track track, int id)
         {
             ExistTrack(id);
