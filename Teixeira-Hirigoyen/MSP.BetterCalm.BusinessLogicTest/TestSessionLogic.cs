@@ -93,5 +93,18 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             var token = this.sessionLogic.Login(adminLog);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(FieldEnteredNotCorrect), "The login admin is incorrect")]
+        public void ValidateInCorrectLoginTest()
+        {
+            var adminLog = new Administrator()
+            {
+                Email = "mauroo@hotmail.com",
+                Password = "12345"
+            };
+
+            var token = this.sessionLogic.Login(adminLog);
+        }
     }
 }
