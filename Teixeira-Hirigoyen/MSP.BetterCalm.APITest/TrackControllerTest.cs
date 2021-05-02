@@ -134,5 +134,17 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new NotFoundObjectResult("").ToString(),
                 result.ToString());
         }
+
+        [TestMethod]
+        public void DeleteTrackNotExists()
+        {
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(l => l.Get(1)).Returns(trackList[0]);
+            var controller = new TrackController(mockTrack.Object);
+
+            var result = controller.DeleteTrack(3);
+            Assert.AreEqual(new ObjectResult("").ToString(),
+                result.ToString());
+        }
     }
 }
