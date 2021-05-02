@@ -30,6 +30,7 @@ namespace MSP.BetterCalm.BusinessLogic
             ValidateAdministrator(administrator);
             ValidateEmailUnique(administrator.Email);
             administrator.Email = administrator.Email.ToLower();
+            administrator.Token = Guid.NewGuid();
             repositoryAdministrator.Add(administrator);
         }
 
