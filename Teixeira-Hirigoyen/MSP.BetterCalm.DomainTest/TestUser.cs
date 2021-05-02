@@ -18,10 +18,15 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Mauro",
                 Id = 1,
                 Surname = "Teixeira",
-                Birthday = new DateTime(1996,1,1),
+                Birthday = new DateTime(1996, 1, 1),
                 Email = "mauroGil@gmail.com",
                 Cellphone = "099156189",
                 Meeting = new List<Meeting>(),
+                MedicalCondition = new MedicalCondition()
+                {
+                    Id = 1,
+                    Name = "Pepe"
+                }
 
             };
             
@@ -52,6 +57,16 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterCellphone()
         {
             Assert.AreEqual("099156189", user.Cellphone);
+        }
+        [TestMethod]
+        public void RegisterMedicalCondition()
+        {
+            MedicalCondition mc = new MedicalCondition()
+            {
+                Id = 1,
+                Name = "Pepe"
+            };
+            Assert.AreEqual(mc, user.MedicalCondition);
         }
         [TestMethod]
         public void NameEmpty()
