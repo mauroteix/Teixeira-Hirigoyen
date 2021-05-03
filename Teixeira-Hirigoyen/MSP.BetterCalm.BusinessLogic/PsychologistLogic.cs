@@ -55,6 +55,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (psychologist.Expertise.Count > 3) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
             if(!ValidateMeetingType(psychologist)) throw new FieldEnteredNotCorrect("Only 2 types of meetingType");
             if(psychologist.AdressMeetingEmpty() && (int)psychologist.MeetingType == 2) throw new FieldEnteredNotCorrect("Need to have an adress when is face to face");
+            
             ValidateMedicalConditionUnique(psychologist);
             ValidateMedicalConditionId(psychologist);
         }
