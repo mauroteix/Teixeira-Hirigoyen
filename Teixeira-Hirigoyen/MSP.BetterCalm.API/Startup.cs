@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccess;
@@ -61,6 +63,7 @@ namespace MSP.BetterCalm.API
             services.AddScoped<IData<Administrator>, AdministratorRepository>();
             services.AddScoped<IAdministratorLogic, AdministratorLogic>();
             services.AddScoped<ISessionLogic, SessionLogic>();
+            services.AddScoped<AuthorizationFilter>();
 
             services.AddControllers().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
