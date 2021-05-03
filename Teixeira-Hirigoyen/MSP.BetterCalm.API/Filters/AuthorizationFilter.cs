@@ -26,7 +26,7 @@ namespace MSP.BetterCalm.API.Filters
                 context.Result = new ContentResult()
                 {
                     StatusCode = 401,
-                    Content = "Usuario no logeado."
+                    Content = "Administrador no logeado."
                 };
             }
             else
