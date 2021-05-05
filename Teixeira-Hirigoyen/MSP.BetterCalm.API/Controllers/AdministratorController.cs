@@ -61,6 +61,10 @@ namespace MSP.BetterCalm.API.Controllers
                     adminLogic.Delete(admin);
                     return Ok("Erased successfully");
                 }
+                catch (EntityNotExists fe)
+                {
+                    return UnprocessableEntity(fe.MessageError());
+                }
                 catch (Exception e)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
@@ -80,6 +84,10 @@ namespace MSP.BetterCalm.API.Controllers
             catch (FieldEnteredNotCorrect en)
             {
                 return UnprocessableEntity(en.MessageError());
+            }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
             }
             catch (Exception e)
             {
