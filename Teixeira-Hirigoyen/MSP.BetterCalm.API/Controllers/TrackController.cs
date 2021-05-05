@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
@@ -48,6 +50,14 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 return UnprocessableEntity(fe.MessageError());
             }
+            catch (EntityAlreadyExist fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (EntityNotExists fe)
+            {
+                return NotFound(fe.MessageError());
+            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
@@ -66,6 +76,10 @@ namespace MSP.BetterCalm.API.Controllers
             catch (FieldEnteredNotCorrect en)
             {
                 return UnprocessableEntity(en.MessageError());
+            }
+            catch (EntityNotExists en)
+            {
+                return NotFound(en.MessageError());
             }
             catch (Exception e)
             {

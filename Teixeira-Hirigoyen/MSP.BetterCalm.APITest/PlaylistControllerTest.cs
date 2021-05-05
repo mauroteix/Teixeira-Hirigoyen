@@ -215,7 +215,7 @@ namespace MSP.BetterCalm.APITest
             var controller = new PlaylistController(mockPlaylist.Object);
             var result = controller.UpdatePlaylist(1, newPlaylist);
             Mock.VerifyAll();
-            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
                 result.ToString());
         }
 

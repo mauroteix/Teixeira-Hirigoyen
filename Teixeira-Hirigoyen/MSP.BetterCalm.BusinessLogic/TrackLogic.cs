@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
@@ -94,7 +95,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     exist = false;
                 }
             });
-            if (!exist) throw new FieldEnteredNotCorrect("One ore more playlist do not exist");
+            if (!exist) throw new EntityNotExists("One ore more playlist do not exist");
         }
 
             private void ValidateCategoryUnique(Track track)
@@ -110,7 +111,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
                 iterador++;
             });
-            if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal categories");
+            if (repetidos) throw new EntityAlreadyExist("There are two or more equal categories");
         }
 
         private void ValidatePlaylistUnique(Track track)
@@ -126,7 +127,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
                 iterador++;
             });
-            if (repetidos) throw new FieldEnteredNotCorrect("There are two or more equal playlist");
+            if (repetidos) throw new EntityAlreadyExist("There are two or more equal playlist");
         }
         private void ValidateCategoriesId(Track track)
         {
@@ -139,7 +140,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     exist = false;
                 }
             });
-            if (!exist) throw new FieldEnteredNotCorrect("One ore more category do not exist");
+            if (!exist) throw new EntityNotExists("One ore more category do not exist");
 
         }
 
