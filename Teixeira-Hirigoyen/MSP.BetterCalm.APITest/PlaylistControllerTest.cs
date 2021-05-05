@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
@@ -182,6 +183,65 @@ namespace MSP.BetterCalm.APITest
             var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
             mockPlaylist.Setup(l => l.Get(playlistList[0].Id)).Returns(playlistList[0]);
             mockPlaylist.Setup(l => l.Update(playlistList[0], 1)).Throws(new FieldEnteredNotCorrect("The name cannot be empty"));
+            var controller = new PlaylistController(mockPlaylist.Object);
+            var result = controller.UpdatePlaylist(1, newPlaylist);
+            Mock.VerifyAll();
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdatePlaylistEntityNotExist()
+        {
+            Playlist newPlaylist = new Playlist()
+            {
+                Id = 1,
+                Name = "",
+                Description = "Old hits",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            PlaylistCategory play = new PlaylistCategory
+            {
+                IdCategory = 100,
+            };
+            playlistList[0].PlaylistCategory.Add(play);
+            newPlaylist.PlaylistCategory.Add(play);
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(l => l.Get(playlistList[0].Id)).Returns(playlistList[0]);
+            mockPlaylist.Setup(l => l.Update(playlistList[0], 1)).Throws(new EntityNotExists("One ore more category do not exist"));
+            var controller = new PlaylistController(mockPlaylist.Object);
+            var result = controller.UpdatePlaylist(1, newPlaylist);
+            Mock.VerifyAll();
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdatePlaylistEntityAlreadyExist()
+        {
+            Playlist newPlaylist = new Playlist()
+            {
+                Id = 1,
+                Name = "",
+                Description = "Old hits",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            PlaylistCategory play = new PlaylistCategory
+            {
+                IdCategory = 1,
+            };
+            PlaylistCategory play2 = new PlaylistCategory
+            {
+                IdCategory = 1,
+            };
+            playlistList[0].PlaylistCategory.Add(play);
+            newPlaylist.PlaylistCategory.Add(play);
+            newPlaylist.PlaylistCategory.Add(play2);
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(l => l.Get(playlistList[0].Id)).Returns(playlistList[0]);
+            mockPlaylist.Setup(l => l.Update(playlistList[0], 1)).Throws(new EntityAlreadyExist("There are two or more equal categories"));
             var controller = new PlaylistController(mockPlaylist.Object);
             var result = controller.UpdatePlaylist(1, newPlaylist);
             Mock.VerifyAll();
