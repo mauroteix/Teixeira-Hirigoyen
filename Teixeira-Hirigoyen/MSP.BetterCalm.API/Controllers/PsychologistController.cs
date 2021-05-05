@@ -49,7 +49,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
             catch (EntityNotExists fe)
             {
-                return UnprocessableEntity(fe.MessageError());
+                return NotFound(fe.MessageError());
             }
             catch (Exception e)
             {
@@ -72,7 +72,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
             catch (EntityNotExists fe)
             {
-                return UnprocessableEntity(fe.MessageError());
+                return NotFound(fe.MessageError());
             }
             catch (Exception e)
             {
@@ -117,7 +117,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
             catch (EntityNotExists en)
             {
-                return UnprocessableEntity(en.MessageError());
+                return NotFound(en.MessageError());
             }
             catch (Exception e)
             {

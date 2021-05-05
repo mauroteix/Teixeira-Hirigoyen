@@ -72,7 +72,7 @@ namespace MSP.BetterCalm.APITest
             mockPsychologist.Setup(r => r.Add(psychologistList[0])).Throws(new EntityNotExists(""));
             PsychologistController controller = new PsychologistController(mockPsychologist.Object);
             var result = controller.Add(psychologistList[0]);
-            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(), result.ToString());
         }
         [TestMethod]
         public void DeletePsychologistOk()
@@ -145,7 +145,7 @@ namespace MSP.BetterCalm.APITest
             mockPsychologist.Setup(l => l.Update(psychologistList[0],1)).Throws(new EntityNotExists(""));
             var controller = new PsychologistController(mockPsychologist.Object);
             var result = controller.UpdatePsychologist(1, newPsychologist);
-            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
                 result.ToString());
         }
 
