@@ -8,6 +8,7 @@ using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.APITest
 {
@@ -82,6 +83,29 @@ namespace MSP.BetterCalm.APITest
             playlistList[0].Name = "";
             var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
             mockPlaylist.Setup(r => r.Add(playlistList[0])).Throws(new FieldEnteredNotCorrect(""));
+            PlaylistController controller = new PlaylistController(mockPlaylist.Object);
+            var result = controller.Add(playlistList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void AddPlaylistErrorCategoryUnique()
+        {
+
+            List<PlaylistCategory> list = new List<PlaylistCategory>();
+            PlaylistCategory play = new PlaylistCategory
+            {
+                IdCategory = 1
+            };
+            PlaylistCategory play2 = new PlaylistCategory
+            {
+                IdCategory = 1
+            };
+            list.Add(play);
+            list.Add(play2);
+            playlistList[0].PlaylistCategory = list;
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(r => r.Add(playlistList[0])).Throws(new EntityAlreadyExist(""));
             PlaylistController controller = new PlaylistController(mockPlaylist.Object);
             var result = controller.Add(playlistList[0]);
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
