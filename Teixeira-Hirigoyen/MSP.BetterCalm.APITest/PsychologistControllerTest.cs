@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 namespace MSP.BetterCalm.APITest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class PsychologistControllerTest
     {
@@ -61,6 +64,16 @@ namespace MSP.BetterCalm.APITest
             var result = controller.Add(psychologistList[0]);
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
         }
+
+        [TestMethod]
+        public void AddPsychologistErrorEntity()
+        {
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(r => r.Add(psychologistList[0])).Throws(new EntityNotExists(""));
+            PsychologistController controller = new PsychologistController(mockPsychologist.Object);
+            var result = controller.Add(psychologistList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
         [TestMethod]
         public void DeletePsychologistOk()
         {
@@ -88,6 +101,7 @@ namespace MSP.BetterCalm.APITest
         {
             var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
             mockPsychologist.Setup(l => l.Get(1)).Returns(psychologistList[0]);
+            mockPsychologist.Setup(l => l.Delete(psychologistList[0]));
             var controller = new PsychologistController(mockPsychologist.Object);
 
             var result = controller.DeletePsychologist(3);
@@ -113,6 +127,44 @@ namespace MSP.BetterCalm.APITest
 
             var result = controller.UpdatePsychologist(psychologistList[0].Id, psychologistList[0]);
             Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdatePsychologistNotExist()
+        {
+            Psychologist newPsychologist = new Psychologist()
+            {
+                Id = 1,
+                Name = "PEPErulo",
+                Expertise = new List<Expertise>(),
+                Meeting = new List<Meeting>()
+            };
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(l => l.Get(psychologistList[0].Id)).Returns(psychologistList[0]);
+            mockPsychologist.Setup(l => l.Update(psychologistList[0],1)).Throws(new EntityNotExists(""));
+            var controller = new PsychologistController(mockPsychologist.Object);
+            var result = controller.UpdatePsychologist(1, newPsychologist);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdatePsychologistNotCorrect()
+        {
+            Psychologist newPsychologist = new Psychologist()
+            {
+                Id = 1,
+                Name = "",
+                Expertise = new List<Expertise>(),
+                Meeting = new List<Meeting>()
+            };
+            var mockPsychologist = new Mock<IPsychologistLogic>(MockBehavior.Strict);
+            mockPsychologist.Setup(l => l.Get(psychologistList[0].Id)).Returns(psychologistList[0]);
+            mockPsychologist.Setup(l => l.Update(psychologistList[0], 1)).Throws(new FieldEnteredNotCorrect(""));
+            var controller = new PsychologistController(mockPsychologist.Object);
+            var result = controller.UpdatePsychologist(1, newPsychologist);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
                 result.ToString());
         }
 

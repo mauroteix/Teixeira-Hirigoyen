@@ -7,10 +7,12 @@ using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace MSP.BetterCalm.APITest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class TrackControllerTest
     {
@@ -108,6 +110,26 @@ namespace MSP.BetterCalm.APITest
             trackList[0].Author = newTrack.Author;
             var result = controller.Update(trackList[0].Id, trackList[0]);
             Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
+        }
+
+
+        [TestMethod]
+        public void UpdateTrackError()
+        {
+            Track newTrack = new Track()
+            {
+                Name = "Puntos",
+                Author = "Rodri"
+            };
+            var mockTrack = new Mock<ITrackLogic>(MockBehavior.Strict);
+            mockTrack.Setup(l => l.Get(trackList[0].Id)).Returns(trackList[0]);
+            mockTrack.Setup(l => l.Update(trackList[0],1)).Throws(new FieldEnteredNotCorrect(""));
+            var controller = new TrackController(mockTrack.Object);
+            trackList[0].Name = newTrack.Name;
+            trackList[0].Author = newTrack.Author;
+            var result = controller.Update(trackList[0].Id, trackList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
                 result.ToString());
         }
 
