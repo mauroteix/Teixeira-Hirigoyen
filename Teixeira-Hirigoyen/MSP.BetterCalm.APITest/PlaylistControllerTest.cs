@@ -160,14 +160,29 @@ namespace MSP.BetterCalm.APITest
             };
             var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
             mockPlaylist.Setup(l => l.Get(playlistList[0].Id)).Returns(playlistList[0]);
-           // mockPlaylist.Setup(l => l.Add(playlistList[0]));
             mockPlaylist.Setup(l => l.Update(playlistList[0], 1)).Throws(new FieldEnteredNotCorrect("A Playlist Category must be added"));
             var controller = new PlaylistController(mockPlaylist.Object);
-           /* playlistList[0].Name = newPlaylist.Name;
-            playlistList[0].Description = newPlaylist.Description;
-            playlistList[0].PlaylistCategory = newPlaylist.PlaylistCategory;
-            playlistList[0].PlaylistTrack = newPlaylist.PlaylistTrack;*/
-           
+            var result = controller.UpdatePlaylist(1, newPlaylist);
+            Mock.VerifyAll();
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+                result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdatePlaylistErrorNameEmpty()
+        {
+            Playlist newPlaylist = new Playlist()
+            {
+                Id = 1,
+                Name = "",
+                Description = "Old hits",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            var mockPlaylist = new Mock<IPlaylistLogic>(MockBehavior.Strict);
+            mockPlaylist.Setup(l => l.Get(playlistList[0].Id)).Returns(playlistList[0]);
+            mockPlaylist.Setup(l => l.Update(playlistList[0], 1)).Throws(new FieldEnteredNotCorrect("The name cannot be empty"));
+            var controller = new PlaylistController(mockPlaylist.Object);
             var result = controller.UpdatePlaylist(1, newPlaylist);
             Mock.VerifyAll();
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
