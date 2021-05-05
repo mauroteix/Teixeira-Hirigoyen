@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MSP.BetterCalm.API.Filters
 {
+    [ExcludeFromCodeCoverage]
     public class AuthorizationFilter : Attribute, IAuthorizationFilter
     {
         private readonly ISessionLogic sessions;

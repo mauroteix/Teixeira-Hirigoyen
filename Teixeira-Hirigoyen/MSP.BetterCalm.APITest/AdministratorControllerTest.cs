@@ -7,10 +7,12 @@ using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace MSP.BetterCalm.APITest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class AdministratorControllerTest
     {

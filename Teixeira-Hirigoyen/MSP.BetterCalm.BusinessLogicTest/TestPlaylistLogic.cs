@@ -8,6 +8,7 @@ using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.BusinessLogicTest
 {
@@ -186,6 +187,52 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 PlaylistTrack = new List<PlaylistTrack>()
             };
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => playlistLogic.Add(playlistToAdd));
+        }
+
+        [TestMethod]
+        public void AddPlaylistValidateCategoryUnique()
+        {
+            Playlist playlistToAdd = new Playlist()
+            {
+                Id = 1,
+                Name = "New music",
+                Description = "Lo mejor 2021",
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+
+            PlaylistCategory playlistCategory = new PlaylistCategory
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>()
+                },
+                IdCategory = 1,
+                IdPlaylist = 1,
+                Playlist = playlistToAdd
+
+            };
+            PlaylistCategory playlistCategory2 = new PlaylistCategory
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>()
+                },
+                IdCategory = 1,
+                IdPlaylist = 1,
+                Playlist = playlistToAdd
+
+            };
+
+            playlistToAdd.PlaylistCategory.Add(playlistCategory);
+            playlistToAdd.PlaylistCategory.Add(playlistCategory2);
+            Assert.ThrowsException<EntityAlreadyExist>(() => playlistLogic.Add(playlistToAdd));
         }
 
         [TestMethod]

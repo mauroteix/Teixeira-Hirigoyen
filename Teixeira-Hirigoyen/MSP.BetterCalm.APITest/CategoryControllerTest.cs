@@ -6,10 +6,12 @@ using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.DTO;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MSP.BetterCalm.APITest
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class CategoryControllerTest
     {

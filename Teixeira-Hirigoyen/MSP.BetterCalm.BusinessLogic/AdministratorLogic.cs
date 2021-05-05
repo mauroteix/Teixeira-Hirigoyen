@@ -62,7 +62,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!regexEmail.IsMatch(admin.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
             
         }
-        //Ver el tema de la primary key en la database
+       
 
         private void ValidateEmailUnique(string email)
         {

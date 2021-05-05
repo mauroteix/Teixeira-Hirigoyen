@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
@@ -47,13 +48,17 @@ namespace MSP.BetterCalm.API.Controllers
             try
             {
                 _playlistLogic.Add(playlist);
-                return Ok("Successfully added playlist name:"+ playlist.Name);
+                return Ok("Successfully added playlist name:" + playlist.Name);
             }
             catch (FieldEnteredNotCorrect fe)
             {
                 return UnprocessableEntity(fe.MessageError());
             }
             catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (EntityAlreadyExist fe)
             {
                 return UnprocessableEntity(fe.MessageError());
             }
@@ -98,6 +103,14 @@ namespace MSP.BetterCalm.API.Controllers
             catch (FieldEnteredNotCorrect en)
             {
                 return UnprocessableEntity(en.MessageError());
+            }
+            catch (EntityNotExists fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (EntityAlreadyExist fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
             }
             catch (Exception e)
             {
