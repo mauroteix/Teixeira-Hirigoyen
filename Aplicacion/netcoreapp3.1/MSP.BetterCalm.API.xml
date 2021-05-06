@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MSP.BetterCalm.API</name>
+    </assembly>
+    <members>
+        <member name="M:MSP.BetterCalm.API.Controllers.AdministratorController.Add(MSP.BetterCalm.Domain.Administrator)">
+            <summary>
+            Add a administrator
+            </summary>
+            <param name="admin"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.AdministratorController.Delete(System.Int32)">
+            <summary>
+             Delete a administrator by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.AdministratorController.Update(System.Int32,MSP.BetterCalm.Domain.Administrator)">
+            <summary>
+            Update a administrator by id
+            </summary>
+            <param name="id"></param>
+            <param name="newAdmin"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.CategoryController.GetAll">
+            <summary>
+            Get all categories
+            </summary>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>        
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.CategoryController.Get(System.Int32)">
+            <summary>
+            Get category by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>        
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.MedicalConditionController.GetAll">
+            <summary>
+            Get all the medical condition
+            </summary>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>        
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.MedicalConditionController.Get(System.Int32)">
+            <summary>
+            Get medical condition by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+             <response code="200">OK. Returns the requested object.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PlaylistController.Get(System.Int32)">
+            <summary>
+            Get a playlist by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+             <response code="200">OK. Returns the requested object.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PlaylistController.Add(MSP.BetterCalm.Domain.Playlist)">
+            <summary>
+            Add a playlist
+            </summary>
+            <param name="playlist"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PlaylistController.DeletePlaylist(System.Int32)">
+            <summary>
+            Delete a playlist by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PlaylistController.UpdatePlaylist(System.Int32,MSP.BetterCalm.Domain.Playlist)">
+            <summary>
+            Update a playlist by id
+            </summary>
+            <param name="id"></param>
+            <param name="newPlaylist"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PlaylistController.GetAll">
+            <summary>
+            Get all playlist
+            </summary>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PsychologistController.GetAll">
+            <summary>
+            Get all the psychologist
+            </summary>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PsychologistController.Get(System.Int32)">
+            <summary>
+            Get a psychologist by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PsychologistController.Add(MSP.BetterCalm.Domain.Psychologist)">
+            <summary>
+            Add a psychologist
+            </summary>
+            <param name="psychologist"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PsychologistController.DeletePsychologist(System.Int32)">
+            <summary>
+            Delete a pyschologist by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.PsychologistController.UpdatePsychologist(System.Int32,MSP.BetterCalm.Domain.Psychologist)">
+            <summary>
+            Update a pyschologist by id
+            </summary>
+            <param name="id"></param>
+            <param name="newPsychologist"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.SessionController.Login(MSP.BetterCalm.Domain.Administrator)">
+            <summary>
+            Login a administrator
+            </summary>
+            <param name="admin"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.TrackController.Get(System.Int32)">
+            <summary>
+            Get track by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.TrackController.Add(MSP.BetterCalm.Domain.Track)">
+            <summary>
+            Add a track
+            </summary>
+            <param name="track"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.TrackController.Update(System.Int32,MSP.BetterCalm.Domain.Track)">
+            <summary>
+            Update a track by id
+            </summary>
+            <param name="id"></param>
+            <param name="newTrack"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.TrackController.DeleteTrack(System.Int32)">
+            <summary>
+            Delete a track by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.TrackController.GetAll">
+            <summary>
+            Get all the tracks
+            </summary>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+        <member name="M:MSP.BetterCalm.API.Controllers.UserController.Add(MSP.BetterCalm.Domain.User)">
+            <summary>
+            Create a meeting for a user
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+            <response code="200">OK. Returns the requested object.</response>
+            <response code="404">NotFound. The requested object was not found.</response>
+            <response code="422">UnprocessableEntity. Error in the semantics.</response>
+            <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        </member>
+    </members>
+</doc>
