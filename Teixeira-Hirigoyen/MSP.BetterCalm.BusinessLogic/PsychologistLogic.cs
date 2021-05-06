@@ -131,23 +131,25 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         public User CreateMeeting(User user)
         {
+            user.Meeting = new List<Meeting>();
             var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
             user.MedicalCondition = medicalCondition;
             var date = DateTime.Now;
             date = ChangeDate(date);
             var list = ListOfPsychologist(medicalCondition);
-            Psychologist unPsychologist = FreePsychologist(list, date);
             Meeting meeting = new Meeting();
+            Psychologist unPsychologist = FreePsychologist(list, date,meeting);
+
             meeting.IdUser = user.Id;
             meeting.User = user;
             meeting.Psychologist = unPsychologist;
             meeting.IdPsychologist = unPsychologist.Id;
-            meeting.Date = date;
+            
             meeting.AdressMeeting = CreateAdress(unPsychologist);
             user.Meeting.Add(meeting);
             return user;
         }
-        private Psychologist FreePsychologist(List<Psychologist> list,DateTime date)
+        private Psychologist FreePsychologist(List<Psychologist> list,DateTime date,Meeting meeting)
         {
             var listFreePsy = ListFreePsychologist(list, date);
             Psychologist psychologist = new Psychologist();
@@ -166,6 +168,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 psychologist = listFreePsy[0];
             }
             psychologist = _repository.Get(psychologist.Id);
+            meeting.Date = date;
             return psychologist;
         }
         public string CreateAdress(Psychologist psychologist)
@@ -199,7 +202,7 @@ namespace MSP.BetterCalm.BusinessLogic
             List <Psychologist> listPsychologist = new List<Psychologist>();
             if (medicalCondition.Name.Equals("Otros")) return _repository.GetAll().ToList();
             
-            list.ForEach(c => listPsychologist.Add(c.Psychologist));
+            list.ForEach(c => listPsychologist.Add(_repository.Get(c.Psychologist.Id)));
             return listPsychologist;
         }
         private List<Psychologist> ListFreePsychologist(List<Psychologist> listPsychologist,DateTime date)
@@ -216,10 +219,14 @@ namespace MSP.BetterCalm.BusinessLogic
         private bool IsFreeForMeeting(Psychologist psychologist,DateTime date) {
             var list = psychologist.Meeting.ToList();
             var listMeetingDate = new List<Meeting>();
+            int year = date.Year;
+            int month = date.Month;
+            int day = date.Day;
             list.ForEach(c => 
             {
-                if (c.Date.Equals(date)) listMeetingDate.Add(c);
+                if (c.Date.Year == year && c.Date.Month == month && c.Date.Day == day) listMeetingDate.Add(c);
             });
+
             return listMeetingDate.Count < 6;
         }
         private Psychologist SelectOlderPsychologist(List<Psychologist> list)

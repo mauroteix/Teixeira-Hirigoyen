@@ -40,7 +40,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public IEnumerable<Psychologist> GetAll()
         {
-            return _context.Psychologist.ToList();
+            return _context.Psychologist
+                .Include(t => t.Meeting).ThenInclude(u => u.User)
+                .Include(r => r.Expertise).ThenInclude(s => s.MedicalCondition)
+                .ToList();
         }
 
         public void Update(Psychologist entity)
