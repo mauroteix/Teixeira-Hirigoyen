@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.DataAccessInterface\MSP.BetterCalm.DataAccessInterface.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.DTO\MSP.BetterCalm.DTO.csproj" />
+    <ProjectReference Include="..\MSP.BetterCalm.HandleMessage\MSP.BetterCalm.HandleMessage.csproj" />
+  </ItemGroup>
+
+</Project>
