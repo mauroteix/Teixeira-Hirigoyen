@@ -37,5 +37,6 @@ namespace MSP.BetterCalm.BusinessLogic
             Regex regexEmail = new Regex(@"^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
             if (!regexEmail.IsMatch(user.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
         }
+
     }
 }

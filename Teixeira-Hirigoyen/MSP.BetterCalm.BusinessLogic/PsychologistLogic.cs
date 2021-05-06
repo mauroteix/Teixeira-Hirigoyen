@@ -55,7 +55,6 @@ namespace MSP.BetterCalm.BusinessLogic
             if (psychologist.Expertise.Count > 3) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
             if(!ValidateMeetingType(psychologist)) throw new FieldEnteredNotCorrect("Only 2 types of meetingType");
             if(psychologist.AdressMeetingEmpty() && (int)psychologist.MeetingType == 2) throw new FieldEnteredNotCorrect("Need to have an adress when is face to face");
-            
             ValidateMedicalConditionUnique(psychologist);
             ValidateMedicalConditionId(psychologist);
         }
@@ -133,10 +132,12 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             user.Meeting = new List<Meeting>();
             var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
+            if (medicalCondition == null) throw new EntityNotExists("This medical condition not exist");
             user.MedicalCondition = medicalCondition;
             var date = DateTime.Now;
             date = ChangeDate(date);
             var list = ListOfPsychologist(medicalCondition);
+            if (list.Count == 0 ) throw new EntityNotExists("There are no psychologist for this medical condition");
             Meeting meeting = new Meeting();
             Psychologist unPsychologist = FreePsychologist(list, date,meeting);
 
@@ -149,6 +150,7 @@ namespace MSP.BetterCalm.BusinessLogic
             user.Meeting.Add(meeting);
             return user;
         }
+
         private Psychologist FreePsychologist(List<Psychologist> list,DateTime date,Meeting meeting)
         {
             var listFreePsy = ListFreePsychologist(list, date);
