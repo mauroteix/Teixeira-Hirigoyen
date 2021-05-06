@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
             if (adminLog == null)
             {
-                throw new FieldEnteredNotCorrect("The login admin is incorrect");
+                throw new EntityNotExists("The login admin is incorrect");
             }
 
             return adminLog.Token;

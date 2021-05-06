@@ -22,6 +22,7 @@ namespace MSP.BetterCalm.API.Controllers
         {
             _psychologistLogic = psychologistLogic;
         }
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet()]
         public IActionResult GetAll()
         {
@@ -29,16 +30,12 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 return Ok(_psychologistLogic.GetAll());
             }
-            catch (EntityNotExists en)
-            {
-                return NotFound(en.MessageError());
-            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
-        
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -94,6 +91,10 @@ namespace MSP.BetterCalm.API.Controllers
                     Psychologist psychologist = _psychologistLogic.Get(id);
                     _psychologistLogic.Delete(psychologist);
                     return Ok("Erased successfully");
+                }
+                catch (EntityNotExists fe)
+                {
+                    return NotFound(fe.MessageError());
                 }
                 catch (Exception e)
                 {

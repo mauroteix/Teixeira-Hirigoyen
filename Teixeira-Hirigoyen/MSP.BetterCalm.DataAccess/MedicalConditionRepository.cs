@@ -39,7 +39,9 @@ namespace MSP.BetterCalm.DataAccess
 
         public IEnumerable<MedicalCondition> GetAll()
         {
-            return _context.MedicalCondition.ToList();
+            return _context.MedicalCondition
+                .Include(t => t.Expertise).ThenInclude(u => u.Psychologist)
+                .ToList();
         }
 
         public void Update(MedicalCondition entity)

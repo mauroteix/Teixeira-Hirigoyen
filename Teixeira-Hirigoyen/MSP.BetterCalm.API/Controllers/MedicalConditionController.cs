@@ -29,10 +29,6 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 return Ok(_medicalConditionLogic.GetAll());
             }
-            catch (EntityNotExists en)
-            {
-                return NotFound(en.MessageError());
-            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
@@ -48,7 +44,7 @@ namespace MSP.BetterCalm.API.Controllers
             }
             catch (EntityNotExists fe)
             {
-                return UnprocessableEntity(fe.MessageError());
+                return NotFound(fe.MessageError());
             }
             catch (Exception e)
             {

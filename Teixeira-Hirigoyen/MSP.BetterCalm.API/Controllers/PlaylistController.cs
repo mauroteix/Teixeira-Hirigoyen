@@ -84,6 +84,10 @@ namespace MSP.BetterCalm.API.Controllers
                     _playlistLogic.Delete(playlist);
                     return Ok("Erased successfully");
                 }
+                catch (EntityNotExists fe)
+                {
+                    return NotFound(fe.MessageError());
+                }
                 catch (Exception e)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
