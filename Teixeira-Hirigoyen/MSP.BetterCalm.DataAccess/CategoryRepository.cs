@@ -39,7 +39,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public IEnumerable<Category> GetAll()
         {
-            return _context.Category.ToList();
+            return _context.Category
+                .Include(t => t.PlaylistCategory).ThenInclude(u => u.Playlist)
+                .Include(r => r.CategoryTrack).ThenInclude(s => s.Track)
+                .ToList();
         }
 
         public void Update(Category entity)
