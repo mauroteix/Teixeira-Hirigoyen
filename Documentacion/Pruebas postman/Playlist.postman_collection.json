@@ -1,0 +1,743 @@
+{
+	"info": {
+		"_postman_id": "fea5acc9-4075-4e7a-82c3-1e5167ca6792",
+		"name": "Playlist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All playlist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist without authenticator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist without authenticator",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete playlist without authenticator",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist Ok",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist Name Empty",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist DescriptionLength Exceed 150",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailarrretrttr rtertertertertret ertertetertertetrtt tertretertertretert ertertretertertert retertretert ertretertretertertertretertertertertretretretretretertertetetertertertertertertertetretrehthtrhttrhtrh\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist PlaylistCategory Empty",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist PlaylistCategory Incorrect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":100},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist PlaylistCategory Duplicated same",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":1},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist PlaylistTrack Incorrect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [{\"idTrack\":100}],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add playlist PlaylistTrack Duplicated same",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [{\"idTrack\":1},{\"idTrack\":1}],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get playlist by id valid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get playlist by id invalid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/100",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist ok",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"play\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist id wrong",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/100",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist Description Exceed 150",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailargergergergregrregergrrgghehjjrttrtutttutututtutrttutttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttr\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist Name Empry",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":1},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist PlaylistCategory Empty",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist PlaylistCategory Incorrect",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"playlist 1\",\r\n    \"description\": \"musica para bailar\",\r\n    \"playlistTrack\": [],\r\n    \"playlistCategory\": [\r\n        {\"idCategory\":100},{\"idCategory\":2},{\"idCategory\":3}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete playlist ok",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete playlist invalid id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "7AB76B94-AE1A-4BCF-B703-CAA3F45DEF58",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/playlist/100",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"playlist",
+						"100"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
