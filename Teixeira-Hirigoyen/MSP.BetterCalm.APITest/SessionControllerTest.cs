@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
@@ -50,7 +51,7 @@ namespace MSP.BetterCalm.APITest
             };
 
             var mock = new Mock<ISessionLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Login(It.IsAny<Administrator>())).Throws(new FieldEnteredNotCorrect("The login admin is incorrect")).ToString();
+            mock.Setup(m => m.Login(It.IsAny<Administrator>())).Throws(new EntityNotExists("The login admin is incorrect")).ToString();
             var controller = new SessionController(mock.Object);
 
             var result = controller.Login(admin);

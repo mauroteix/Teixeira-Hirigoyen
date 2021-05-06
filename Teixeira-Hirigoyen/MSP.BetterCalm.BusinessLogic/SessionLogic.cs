@@ -25,7 +25,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Guid Login(Administrator admin)
         {
-            if (admin.Email == null || admin.Password == null)
+            if (admin.EmailEmpty() || admin.PasswordEmpty())
             {
                 throw  new FieldEnteredNotCorrect("The email and password cannot be empty");
             }

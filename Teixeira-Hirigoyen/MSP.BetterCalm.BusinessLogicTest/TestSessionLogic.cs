@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.DataAccessInterface;
@@ -75,7 +76,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
             var adminLog = new Administrator()
             {
                 Email = "mauro@hotmail.com",
-                Password = "null"
+                Password = ""
             };
 
             var token = this.sessionLogic.Login(adminLog);
@@ -95,7 +96,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FieldEnteredNotCorrect), "The login admin is incorrect")]
+        [ExpectedException(typeof(EntityNotExists), "The login admin is incorrect")]
         public void ValidateInCorrectLoginTest()
         {
             var adminLog = new Administrator()

@@ -4,6 +4,7 @@ using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MSP.BetterCalm.API.Controllers
 {
+    [SwaggerTag("Session")]
     [Route("api/session")]
     [ApiController]
     public class SessionController : ControllerBase
@@ -23,6 +25,15 @@ namespace MSP.BetterCalm.API.Controllers
             this.sessionLogic = sessionLogic;
         }
 
+        /// <summary>
+        /// Login a administrator
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpPost]
         public IActionResult Login([FromBody] Administrator admin)
         {

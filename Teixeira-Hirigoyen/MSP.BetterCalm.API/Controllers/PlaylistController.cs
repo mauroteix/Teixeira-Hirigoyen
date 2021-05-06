@@ -5,6 +5,7 @@ using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
+    [SwaggerTag("Playlist")]
     [Route("api/playlist")]
     [ApiController]
     public class PlaylistController : ControllerBase
@@ -23,6 +25,14 @@ namespace MSP.BetterCalm.API.Controllers
             _playlistLogic = playlistLogic;
         }
 
+        /// <summary>
+        /// Get a playlist by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ///  <response code="200">OK. Returns the requested object.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -41,6 +51,16 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add a playlist
+        /// </summary>
+        /// <param name="playlist"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Playlist playlist)
@@ -68,6 +88,15 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a playlist by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult DeletePlaylist(int id)
@@ -95,6 +124,17 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a playlist by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newPlaylist"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult UpdatePlaylist(int id, [FromBody] Playlist newPlaylist)
@@ -122,6 +162,12 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all playlist
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet()]
         public IActionResult GetAll()
         {
