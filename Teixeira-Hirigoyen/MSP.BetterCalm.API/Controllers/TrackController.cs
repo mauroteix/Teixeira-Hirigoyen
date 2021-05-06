@@ -31,6 +31,10 @@ namespace MSP.BetterCalm.API.Controllers
                 Track track = _trackLogic.Get(id);
                 return Ok(track);
             }
+            catch (EntityNotExists fe)
+            {
+                return NotFound(fe.MessageError());
+            }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
@@ -102,6 +106,10 @@ namespace MSP.BetterCalm.API.Controllers
                     Track track = _trackLogic.Get(id);
                     _trackLogic.Delete(track);
                     return Ok("Erased successfully");
+                }
+                catch (EntityNotExists fe)
+                {
+                    return NotFound(fe.MessageError());
                 }
                 catch (Exception e)
                 {

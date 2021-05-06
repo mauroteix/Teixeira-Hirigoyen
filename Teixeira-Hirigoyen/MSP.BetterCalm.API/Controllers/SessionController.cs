@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -31,7 +33,15 @@ namespace MSP.BetterCalm.API.Controllers
             }
             catch (FieldEnteredNotCorrect e)
             {
-                return NotFound(e.Message);
+                return UnprocessableEntity(e.MessageError());
+            }
+            catch (EntityNotExists e)
+            {
+                return NotFound(e.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
     }

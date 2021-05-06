@@ -49,6 +49,8 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.AuthorEmpty()) throw new FieldEnteredNotCorrect("The author cannot be empty");
             if (track.SoundEmpty()) throw new FieldEnteredNotCorrect("The sound cannot be empty");
             if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
+            if (track.HourIsEmpty() && track.MinSeconds == 0 ) throw new FieldEnteredNotCorrect("Track must have duration");
+            if (track.Hour < 0 ||  track.MinSeconds < 0) throw new FieldEnteredNotCorrect("Track duration must be positive");
             ValidateCategoriesId(track);
             ValidatePlaylistId(track);
             ValidateCategoryUnique(track);
