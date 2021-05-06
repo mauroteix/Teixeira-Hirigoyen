@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogicInterface;
@@ -17,7 +18,9 @@ using MSP.BetterCalm.Domain;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MSP.BetterCalm.API
@@ -35,19 +38,14 @@ namespace MSP.BetterCalm.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-           /* services.AddCors(options =>
+            services.AddSwaggerGen(c =>
             {
-                options.AddPolicy("AllowAll",
-                    builder =>
-                    {
-                        builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                    });
-            });*/
-            
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BetterCalm", Version = "v1" });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
             services.AddDbContext<BetterCalmContext>();
             services.AddScoped<IData<Category>, CategoryRepository>();
             services.AddScoped<ICategoryLogic, CategoryLogic>();
@@ -74,7 +72,7 @@ namespace MSP.BetterCalm.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           // app.UseCors("AllowAll");
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,6 +87,13 @@ namespace MSP.BetterCalm.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BetterCalm API V1");
+                //c.RoutePrefix = string.Empty;
             });
         }
     }

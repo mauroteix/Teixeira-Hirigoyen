@@ -4,6 +4,7 @@ using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MSP.BetterCalm.API.Controllers
 {
-
+    [SwaggerTag("MedicalCondition")]
     [Route("api/medicalcondition")]
     [ApiController]
     public class MedicalConditionController : ControllerBase
@@ -22,6 +23,12 @@ namespace MSP.BetterCalm.API.Controllers
         {
             _medicalConditionLogic = medicalConditionLogic;
         }
+        /// <summary>
+        /// Get all the medical condition
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>        
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet()]
         public IActionResult GetAll()
         {
@@ -34,6 +41,15 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        /// <summary>
+        /// Get medical condition by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ///  <response code="200">OK. Returns the requested object.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

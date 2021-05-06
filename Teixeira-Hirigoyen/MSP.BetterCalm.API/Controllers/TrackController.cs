@@ -5,6 +5,7 @@ using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
+    [SwaggerTag("Track")]
     [Route("api/track")]
     [ApiController]
     public class TrackController : ControllerBase
@@ -23,6 +25,14 @@ namespace MSP.BetterCalm.API.Controllers
             _trackLogic = trackLogic;
         }
 
+        /// <summary>
+        /// Get track by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -41,6 +51,16 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add a track
+        /// </summary>
+        /// <param name="track"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Track track)
@@ -68,6 +88,17 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a track by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newTrack"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Track newTrack)
@@ -91,6 +122,15 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a track by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult DeleteTrack(int id)
@@ -118,6 +158,12 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all the tracks
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet()]
         public IActionResult GetAll()
         {
