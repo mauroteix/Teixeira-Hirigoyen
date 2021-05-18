@@ -18,7 +18,8 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
-                Expertise = new List<Expertise>()
+                Expertise = new List<Expertise>(),
+                MeetingPrice = meetingPrice.UY2000
 
             };
 
@@ -56,6 +57,11 @@ namespace MSP.BetterCalm.DomainTest
         {
             psychologist.AdressMeeting = "";
             Assert.IsTrue(psychologist.AdressMeetingEmpty());
+        }
+        [TestMethod]
+        public void RegisterMeetingPrice()
+        {
+            Assert.AreEqual(meetingPrice.UY2000, psychologist.MeetingPrice);
         }
 
     }
