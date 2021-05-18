@@ -43,6 +43,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
+                MeetingPrice = meetingPrice.UY1000,
                 Expertise = new List<Expertise>(),
                 Meeting = new List<Meeting>()
 

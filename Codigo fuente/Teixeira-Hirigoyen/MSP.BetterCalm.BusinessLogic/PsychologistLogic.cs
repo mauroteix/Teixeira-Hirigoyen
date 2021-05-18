@@ -34,7 +34,8 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 Name = psychologist.Name,
                 MeetingType = psychologist.MeetingType,
-                AdressMeeting = psychologist.AdressMeeting
+                AdressMeeting = psychologist.AdressMeeting,
+                MeetingPrice = psychologist.MeetingPrice
             };
             List<Expertise> listExpertise = psychologist.Expertise.Select(py => new Expertise()
             {
@@ -54,7 +55,8 @@ namespace MSP.BetterCalm.BusinessLogic
             if (psychologist.ExpertiseEmpty()) throw new FieldEnteredNotCorrect("The expertise cannot be empty");
             if (psychologist.Expertise.Count > 3) throw new FieldEnteredNotCorrect("Limit of 3 expertise,try again");
             if(!ValidateMeetingType(psychologist)) throw new FieldEnteredNotCorrect("Only 2 types of meetingType");
-            if(psychologist.AdressMeetingEmpty() && (int)psychologist.MeetingType == 2) throw new FieldEnteredNotCorrect("Need to have an adress when is face to face");
+            if (!ValidateMeetingPrice(psychologist)) throw new FieldEnteredNotCorrect("Only 4 types of meetingPrice");
+            if (psychologist.AdressMeetingEmpty() && (int)psychologist.MeetingType == 2) throw new FieldEnteredNotCorrect("Need to have an adress when is face to face");
             ValidateMedicalConditionUnique(psychologist);
             ValidateMedicalConditionId(psychologist);
         }
@@ -62,6 +64,12 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             int valor = (int)psychologist.MeetingType;
             if (valor > 2 && valor < 1) return false;
+            return true;
+        }
+        private bool ValidateMeetingPrice(Psychologist psychologist)
+        {
+            int valor = (int)psychologist.MeetingPrice;
+            if (valor > 4 && valor < 1) return false;
             return true;
         }
         private void ValidateMedicalConditionUnique(Psychologist psychologist) 
@@ -125,6 +133,7 @@ namespace MSP.BetterCalm.BusinessLogic
             unPsychologist.MeetingType = psychologist.MeetingType;
             unPsychologist.AdressMeeting = CreateAdress(psychologist);
             unPsychologist.Expertise = psychologist.Expertise;
+            unPsychologist.MeetingPrice = psychologist.MeetingPrice;
 
             _repository.Update(unPsychologist);
         }
