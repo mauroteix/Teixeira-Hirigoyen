@@ -28,6 +28,7 @@ namespace MSP.BetterCalm.APITest
                 Birthday = new DateTime(1996, 1, 1),
                 Email = "mauroGil@gmail.com",
                 Cellphone = "099156189",
+                MeetingDuration = meetingDuration.OneHour,
 
             };
             userlistList = new List<User>();
