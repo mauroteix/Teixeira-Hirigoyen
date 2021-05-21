@@ -19,7 +19,8 @@ namespace MSP.BetterCalm.DomainTest
                 Id = 1,
                 Name = "Bailando",
                 Author = "Mauro",
-                Hour = 1
+                Hour = 1,
+                MinSeconds = 2.10
             };
 
         }
@@ -61,6 +62,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             video.Hour = 0;
             Assert.IsTrue(video.HourIsEmpty());
+        }
+
+        [TestMethod]
+        public void RegisterMinSeconds()
+        {
+            Assert.AreEqual(2.10, video.MinSeconds);
         }
     }
 }

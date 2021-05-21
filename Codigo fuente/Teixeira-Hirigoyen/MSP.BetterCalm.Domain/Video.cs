@@ -10,6 +10,7 @@ namespace MSP.BetterCalm.Domain
         public string Name { get; set; }
         public string Author { get; set; }
         public int Hour { get; set; }
+        public double MinSeconds { get; set; }
 
         public Video()
         { }
