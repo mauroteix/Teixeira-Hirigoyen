@@ -32,5 +32,11 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual(category, categoryVideo.Category);
         }
 
+        [TestMethod]
+        public void RegisterCategoryId()
+        {
+            categoryVideo.IdCategory = category.Id;
+            Assert.AreEqual(category.Id, categoryVideo.IdCategory);
+        }
     }
 }
