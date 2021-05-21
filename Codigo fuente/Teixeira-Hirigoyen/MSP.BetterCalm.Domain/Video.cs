@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.Domain
         public string Author { get; set; }
         public int Hour { get; set; }
         public double MinSeconds { get; set; }
+        public string LinkVideo { get; set; }
 
         public Video()
         { }
@@ -30,6 +31,19 @@ namespace MSP.BetterCalm.Domain
         public bool MinSecondsIsEmpty()
         {
             return this.MinSeconds == 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Video video = (Video)obj;
+                return (this.Id == video.Id);
+            }
         }
     }
 }

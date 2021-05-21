@@ -20,7 +20,8 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Bailando",
                 Author = "Mauro",
                 Hour = 1,
-                MinSeconds = 2.10
+                MinSeconds = 2.10,
+                LinkVideo = "www.youtube.com/videomauro"
             };
 
         }
@@ -75,6 +76,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             video.MinSeconds = 0;
             Assert.IsTrue(video.MinSecondsIsEmpty());
+        }
+
+        [TestMethod]
+        public void RegisterLinkVideo()
+        {
+            Assert.AreEqual("www.youtube.com/videomauro", video.LinkVideo);
         }
 
     }
