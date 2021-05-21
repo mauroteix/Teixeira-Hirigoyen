@@ -32,6 +32,10 @@ namespace MSP.BetterCalm.Domain
         {
             return this.MinSeconds == 0;
         }
+        public bool LinkVideoEmpty()
+        {
+            return this.LinkVideo == null || this.LinkVideo.Length == 0;
+        }
 
         public override bool Equals(object obj)
         {

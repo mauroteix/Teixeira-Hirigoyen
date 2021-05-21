@@ -84,5 +84,12 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual("www.youtube.com/videomauro", video.LinkVideo);
         }
 
+        [TestMethod]
+        public void LinkVideoEmpty()
+        {
+            video.LinkVideo = "";
+            Assert.IsTrue(video.LinkVideoEmpty());
+        }
+
     }
 }
