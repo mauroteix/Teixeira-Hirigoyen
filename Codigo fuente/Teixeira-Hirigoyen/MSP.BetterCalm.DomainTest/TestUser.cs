@@ -26,8 +26,8 @@ namespace MSP.BetterCalm.DomainTest
                 {
                     Id = 1,
                     Name = "Pepe"
-                }
-
+                },
+                MeetingDuration = meetingDuration.OneHour
             };
             
 
@@ -97,6 +97,11 @@ namespace MSP.BetterCalm.DomainTest
             user.MedicalCondition = null;
 
             Assert.IsTrue(user.MedicalConditionEmpty());
+        }
+        [TestMethod]
+        public void RegisterMeetingDuration()
+        {
+            Assert.AreEqual(meetingDuration.OneHour, user.MeetingDuration);
         }
     }
 }

@@ -26,7 +26,8 @@ namespace MSP.BetterCalm.APITest
                 Id = 1,
                 Name = "PEPE",
                 Expertise= new List<Expertise>(),
-                Meeting = new List<Meeting>()
+                Meeting = new List<Meeting>(),
+                MeetingPrice = meetingPrice.UY1000
             };
             psychologistList = new List<Psychologist>();
             psychologistList.Add(psychologist);

@@ -154,6 +154,7 @@ namespace MSP.BetterCalm.BusinessLogic
             meeting.User = user;
             meeting.Psychologist = unPsychologist;
             meeting.IdPsychologist = unPsychologist.Id;
+            meeting.MeetingDuration = user.MeetingDuration;
             
             meeting.AdressMeeting = CreateAdress(unPsychologist);
             user.Meeting.Add(meeting);

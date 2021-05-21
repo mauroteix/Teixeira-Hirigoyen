@@ -36,6 +36,13 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!user.MeetingEmpty()) throw new FieldEnteredNotCorrect("The meeting has to be empty");
             Regex regexEmail = new Regex(@"^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
             if (!regexEmail.IsMatch(user.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
+            if (!ValidateMeetingDuration(user)) throw new FieldEnteredNotCorrect("Only 3 types of meetingDuration");
+        }
+        private bool ValidateMeetingDuration(User user)
+        {
+            int valor = (int)user.MeetingDuration;
+            if (valor > 3 && valor < 1) return false;
+            return true;
         }
 
     }
