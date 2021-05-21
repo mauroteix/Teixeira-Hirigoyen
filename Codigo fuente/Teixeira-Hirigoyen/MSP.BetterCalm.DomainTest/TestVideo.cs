@@ -17,7 +17,8 @@ namespace MSP.BetterCalm.DomainTest
             video = new Video
             {
                 Id = 1,
-                Name = "Bailando"
+                Name = "Bailando",
+                Author = "Mauro"
             };
 
         }
@@ -33,6 +34,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             video.Name = "";
             Assert.IsTrue(video.NameEmpty());
+        }
+
+        [TestMethod]
+        public void RegisterAuthor()
+        {
+            Assert.AreEqual("Mauro", video.Author);
         }
     }
 }
