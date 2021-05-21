@@ -41,5 +41,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual("Mauro", video.Author);
         }
+
+        [TestMethod]
+        public void AuthorEmpty()
+        {
+            video.Author = "";
+            Assert.IsTrue(video.AuthorEmpty());
+        }
     }
 }

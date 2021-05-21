@@ -17,7 +17,11 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Name == null || this.Name.Length == 0;
         }
-       
+        public bool AuthorEmpty()
+        {
+            return this.Author == null || this.Author.Length == 0;
+        }
+
 
     }
 }
