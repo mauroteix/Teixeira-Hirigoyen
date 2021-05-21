@@ -22,7 +22,10 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Author == null || this.Author.Length == 0;
         }
-
+        public bool HourIsEmpty()
+        {
+            return this.Hour == 0;
+        }
 
     }
 }

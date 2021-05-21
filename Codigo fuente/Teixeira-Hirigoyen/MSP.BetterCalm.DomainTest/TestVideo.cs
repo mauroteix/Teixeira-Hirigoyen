@@ -55,5 +55,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual(1, video.Hour);
         }
+
+        [TestMethod]
+        public void HourIsEmpty()
+        {
+            video.Hour = 0;
+            Assert.IsTrue(video.HourIsEmpty());
+        }
     }
 }
