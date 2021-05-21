@@ -73,8 +73,8 @@ namespace MSP.BetterCalm.DomainTest
         [TestMethod]
         public void MinSecondsIsEmpty()
         {
-            video.Hour = 0;
-            Assert.IsTrue(video.HourIsEmpty());
+            video.MinSeconds = 0;
+            Assert.IsTrue(video.MinSecondsIsEmpty());
         }
 
     }
