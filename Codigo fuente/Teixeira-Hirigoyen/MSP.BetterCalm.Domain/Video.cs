@@ -27,6 +27,9 @@ namespace MSP.BetterCalm.Domain
         {
             return this.Hour == 0;
         }
-
+        public bool MinSecondsIsEmpty()
+        {
+            return this.MinSeconds == 0;
+        }
     }
 }
