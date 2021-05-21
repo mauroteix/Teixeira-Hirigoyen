@@ -18,7 +18,8 @@ namespace MSP.BetterCalm.DomainTest
             {
                 Id = 1,
                 Name = "Bailando",
-                Author = "Mauro"
+                Author = "Mauro",
+                Hour = 1
             };
 
         }
@@ -47,6 +48,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             video.Author = "";
             Assert.IsTrue(video.AuthorEmpty());
+        }
+
+        [TestMethod]
+        public void RegisterHour()
+        {
+            Assert.AreEqual(1, video.Hour);
         }
     }
 }
