@@ -27,5 +27,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual("Bailando", video.Name);
         }
+
+        [TestMethod]
+        public void NameEmpty()
+        {
+            video.Name = "";
+            Assert.IsTrue(video.NameEmpty());
+        }
     }
 }

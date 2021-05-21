@@ -8,5 +8,15 @@ namespace MSP.BetterCalm.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public Video()
+        { }
+
+        public bool NameEmpty()
+        {
+            return this.Name == null || this.Name.Length == 0;
+        }
+       
+
     }
 }
