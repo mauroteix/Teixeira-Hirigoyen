@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.DomainTest
     {
         CategoryVideo categoryVideo;
         Category category;
+        Video video;
 
         [TestInitialize]
         public void Initialize()
@@ -21,7 +22,14 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Dormir",
                 Id = 0
             };
-            
+            video = new Video
+            {
+                Id = 1,
+                Name = "Bailando",
+                Author = "Mauro",
+                MinSeconds = 2.10,
+                LinkVideo = "www.youtube.com/bailando"
+            };
 
         }
 
@@ -37,6 +45,13 @@ namespace MSP.BetterCalm.DomainTest
         {
             categoryVideo.IdCategory = category.Id;
             Assert.AreEqual(category.Id, categoryVideo.IdCategory);
+        }
+
+        [TestMethod]
+        public void RegisterVideo()
+        {
+            categoryVideo.Video = video;
+            Assert.AreEqual(video, categoryVideo.Video);
         }
     }
 }
