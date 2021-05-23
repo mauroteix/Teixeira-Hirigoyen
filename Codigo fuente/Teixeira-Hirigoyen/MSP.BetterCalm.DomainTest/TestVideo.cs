@@ -114,5 +114,11 @@ namespace MSP.BetterCalm.DomainTest
             Assert.IsTrue(video.CategoryVideo.Count == 1);
         }
 
+        [TestMethod]
+        public void CategoryVideoEmpty()
+        {
+            video.CategoryVideo = new List<CategoryVideo>();
+            Assert.IsTrue(video.CategoryVideoEmpty());
+        }
     }
 }

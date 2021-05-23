@@ -38,6 +38,12 @@ namespace MSP.BetterCalm.Domain
             return this.LinkVideo == null || this.LinkVideo.Length == 0;
         }
 
+        public bool CategoryVideoEmpty()
+        {
+            return this.CategoryVideo == null || this.CategoryVideo.Count == 0;
+        }
+
+
         public override bool Equals(object obj)
         {
             if (!this.GetType().Equals(obj.GetType()))
