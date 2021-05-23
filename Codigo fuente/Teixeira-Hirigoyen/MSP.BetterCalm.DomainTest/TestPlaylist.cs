@@ -13,8 +13,10 @@ namespace MSP.BetterCalm.DomainTest
         Playlist playlist;
         Track track;
         Category category;
+        Video video;
         PlaylistTrack playlistTrack;
         PlaylistCategory playlistCategory;
+        PlaylistVideo playlistVideo;
 
         [TestInitialize]
         public void Initialize()
@@ -25,7 +27,8 @@ namespace MSP.BetterCalm.DomainTest
                 Description = "Facil para dormir",
                 Image = "",
                 PlaylistTrack = new List<PlaylistTrack>(),
-                PlaylistCategory = new List<PlaylistCategory>()
+                PlaylistCategory = new List<PlaylistCategory>(),
+                PlaylistVideo = new List<PlaylistVideo>()
         };
             track = new Track {
                 Id = 1,
@@ -56,6 +59,25 @@ namespace MSP.BetterCalm.DomainTest
                 IdCategory = category.Id,
                 Category = category
             };
+            video = new Video
+            {
+                Id = 1,
+                Name = "Bailando",
+                Author = "Mauro",
+                Hour = 1,
+                MinSeconds = 2.10,
+                LinkVideo = "www.youtube.com/videomauro",
+                CategoryVideo = new List<CategoryVideo>(),
+                PlaylistVideo = new List<PlaylistVideo>()
+            };
+            playlistVideo = new PlaylistVideo
+            {
+                IdPlaylist = playlist.Id,
+                Playlist = playlist,
+                IdVideo = video.Id,
+                Video = video
+            };
+            playlist.PlaylistVideo.Add(playlistVideo);
             playlist.PlaylistTrack.Add(playlistTrack);
             playlist.PlaylistCategory.Add(playlistCategory);
 
@@ -126,6 +148,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             playlist.PlaylistCategory = new List<PlaylistCategory>();
             Assert.IsTrue(playlist.PlaylistCategoryEmpty());
+        }
+
+        [TestMethod]
+        public void RegisterPlaylistVideo()
+        {
+            Assert.IsTrue(playlist.PlaylistVideo.Count == 1);
         }
     }
 }
