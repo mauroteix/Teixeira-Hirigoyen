@@ -32,5 +32,12 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual(playlist.Id, playlistVideo.IdPlaylist);
         }
 
+        [TestMethod]
+        public void RegisterPlaylist()
+        {
+            playlistVideo.Playlist = playlist;
+            Assert.AreEqual(playlist, playlistVideo.Playlist);
+        }
+
     }
 }
