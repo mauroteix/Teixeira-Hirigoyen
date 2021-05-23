@@ -80,5 +80,10 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.AreEqual(meetingDuration.OneHour, meeting.MeetingDuration);
         }
+        [TestMethod]
+        public void RegisterTotalPrice()
+        {
+            Assert.AreEqual(1000, meeting.TotalPrice);
+        }
     }
 }
