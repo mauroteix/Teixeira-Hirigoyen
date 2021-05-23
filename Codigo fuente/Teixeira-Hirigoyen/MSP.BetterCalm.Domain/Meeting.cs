@@ -13,6 +13,8 @@ namespace MSP.BetterCalm.Domain
         public DateTime Date { get; set; }
         public string AdressMeeting { get; set; }
         public meetingDuration MeetingDuration { get; set; }
+        public int TotalPrice { get; set; }
+
         public override bool Equals(object obj)
         {
             if (!this.GetType().Equals(obj.GetType()))
