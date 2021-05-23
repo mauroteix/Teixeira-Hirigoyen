@@ -10,6 +10,8 @@ namespace MSP.BetterCalm.DomainTest
     public class TestVideo
     {
         Video video;
+        Category category;
+        CategoryVideo categoryVideo;
 
         [TestInitialize]
         public void Initialize()
@@ -21,8 +23,23 @@ namespace MSP.BetterCalm.DomainTest
                 Author = "Mauro",
                 Hour = 1,
                 MinSeconds = 2.10,
-                LinkVideo = "www.youtube.com/videomauro"
+                LinkVideo = "www.youtube.com/videomauro",
+                CategoryVideo = new List<CategoryVideo>()
             };
+            category = new Category
+            {
+                Id = 1,
+                Name = "Musica",
+                CategoryTrack = new List<CategoryTrack>(),
+            };
+            categoryVideo = new CategoryVideo
+            {
+                IdCategory = category.Id,
+                Category = category,
+                IdVideo = video.Id,
+                Video = video,
+            };
+            video.CategoryVideo.Add(categoryVideo);
 
         }
 
@@ -89,6 +106,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             video.LinkVideo = "";
             Assert.IsTrue(video.LinkVideoEmpty());
+        }
+
+        [TestMethod]
+        public void RegisterCategoryVideo()
+        {
+            Assert.IsTrue(video.CategoryVideo.Count == 1);
         }
 
     }

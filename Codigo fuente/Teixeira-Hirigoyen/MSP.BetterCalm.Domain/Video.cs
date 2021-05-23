@@ -12,6 +12,7 @@ namespace MSP.BetterCalm.Domain
         public int Hour { get; set; }
         public double MinSeconds { get; set; }
         public string LinkVideo { get; set; }
+        public ICollection<CategoryVideo> CategoryVideo { get; set; }
 
         public Video()
         { }
