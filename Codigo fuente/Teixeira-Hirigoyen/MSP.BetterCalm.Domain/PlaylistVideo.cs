@@ -8,6 +8,7 @@ namespace MSP.BetterCalm.Domain
     {
         public int IdPlaylist { get; set; }
         public Playlist Playlist { get; set; }
+        public int IdVideo { get; set; }
 
         public PlaylistVideo()
         { }

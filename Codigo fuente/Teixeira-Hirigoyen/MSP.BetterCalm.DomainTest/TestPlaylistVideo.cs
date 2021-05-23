@@ -10,6 +10,7 @@ namespace MSP.BetterCalm.DomainTest
     public class TestPlaylistVideo
     {
         Playlist playlist;
+        Video video;
         PlaylistVideo playlistVideo;
 
         [TestInitialize]
@@ -22,6 +23,16 @@ namespace MSP.BetterCalm.DomainTest
                 Id = 1,
                 Description = "Boliche",
                 Image = ""
+            };
+            video = new Video
+            {
+                Id = 1,
+                Name = "Bailando",
+                Author = "Mauro",
+                Hour = 1,
+                MinSeconds = 2.10,
+                LinkVideo = "www.youtube.com/videomauro",
+                CategoryVideo = new List<CategoryVideo>()
             };
         }
 
@@ -39,5 +50,11 @@ namespace MSP.BetterCalm.DomainTest
             Assert.AreEqual(playlist, playlistVideo.Playlist);
         }
 
+        [TestMethod]
+        public void RegisterVideoId()
+        {
+            playlistVideo.IdVideo = video.Id;
+            Assert.AreEqual(video.Id, playlistVideo.IdVideo);
+        }
     }
 }
