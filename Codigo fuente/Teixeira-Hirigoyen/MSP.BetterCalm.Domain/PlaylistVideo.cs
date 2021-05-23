@@ -13,5 +13,18 @@ namespace MSP.BetterCalm.Domain
 
         public PlaylistVideo()
         { }
+
+        public override bool Equals(object obj)
+        {
+            if (!this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                PlaylistVideo playlistVideo = (PlaylistVideo)obj;
+                return (this.IdVideo == playlistVideo.IdVideo && this.IdPlaylist == playlistVideo.IdPlaylist);
+            }
+        }
     }
 }
