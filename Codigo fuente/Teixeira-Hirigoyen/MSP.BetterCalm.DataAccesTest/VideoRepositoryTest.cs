@@ -89,5 +89,30 @@ namespace MSP.BetterCalm.DataAccessTest
 
             Assert.AreEqual(video.Name, "Festejando");
         }
+
+        [TestMethod]
+        public void DeleteOneVideo()
+        {
+            Video videoDelete = new Video
+            {
+                Id = 3,
+                Name = "Deporte",
+                Author = "Pepe",
+                Hour = 0,
+                MinSeconds = 3.1,
+                LinkVideo = "www.youtube.com/deportePepe"
+            };
+            listVideo.Add(videoDelete);
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listVideo.ForEach(video => context.Add(video));
+            context.SaveChanges();
+            repository = new VideoRepository(context);
+            repository.Delete(videoDelete);
+            context.Database.EnsureDeleted();
+            Video getVideo = repository.Get(3);
+            Assert.AreEqual(null, getVideo);
+        }
     }
 }

@@ -25,7 +25,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(Video entity)
         {
-            throw new NotImplementedException();
+            _context.Video.Remove(_context.Video.Find(entity.Id));
+            _context.SaveChanges();
         }
 
         public Video Get(int id)
