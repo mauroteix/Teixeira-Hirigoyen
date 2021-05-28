@@ -58,5 +58,19 @@ namespace MSP.BetterCalm.DataAccessTest
 
             Assert.AreEqual(initial + 1, final);
         }
+
+        [TestMethod]
+        public void GetOneVideo()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listVideo.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new VideoRepository(context);
+            var video = repository.Get(listVideo[0].Id);
+            context.Database.EnsureDeleted();
+            Assert.AreEqual(listVideo[0].Id, video.Id);
+        }
     }
 }

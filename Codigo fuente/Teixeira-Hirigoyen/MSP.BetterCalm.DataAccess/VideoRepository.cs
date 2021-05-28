@@ -30,7 +30,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public Video Get(int id)
         {
-            throw new NotImplementedException();
+            return _context.Video
+                 .Include(t => t.CategoryVideo).ThenInclude(u => u.Category)
+                 .Include(r => r.PlaylistVideo).ThenInclude(s => s.Playlist)
+                 .FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<Video> GetAll()
