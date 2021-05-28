@@ -72,5 +72,22 @@ namespace MSP.BetterCalm.DataAccessTest
             context.Database.EnsureDeleted();
             Assert.AreEqual(listVideo[0].Id, video.Id);
         }
+
+        [TestMethod]
+        public void UpdateVideo()
+        {
+            var options = new DbContextOptionsBuilder<BetterCalmContext>()
+                .UseInMemoryDatabase(databaseName: "MSP.BetterCalmDatabase").Options;
+            var context = new BetterCalmContext(options);
+            listVideo.ForEach(cat => context.Add(cat));
+            context.SaveChanges();
+            repository = new VideoRepository(context);
+            listVideo[0].Name = "Festejando";
+            repository.Update(listVideo[0]);
+            var video = repository.Get(listVideo[0].Id);
+            context.Database.EnsureDeleted();
+
+            Assert.AreEqual(video.Name, "Festejando");
+        }
     }
 }

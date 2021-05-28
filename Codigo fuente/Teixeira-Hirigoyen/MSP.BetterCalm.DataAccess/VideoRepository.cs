@@ -46,7 +46,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Update(Video entity)
         {
-            throw new NotImplementedException();
+            _context.Video.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
