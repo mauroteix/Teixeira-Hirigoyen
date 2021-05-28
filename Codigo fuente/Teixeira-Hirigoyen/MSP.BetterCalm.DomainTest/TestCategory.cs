@@ -13,7 +13,9 @@ namespace MSP.BetterCalm.DomainTest
         Category category;
         Track track;
         Playlist playlist;
+        Video video;
         CategoryTrack categoryTrack;
+        CategoryVideo categoryVideo;
         PlaylistCategory playlistCategory;
 
         [TestInitialize]
@@ -32,6 +34,7 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Dormir",
                 Id = 1,
                 CategoryTrack = new List<CategoryTrack>(),
+                CategoryVideo = new List<CategoryVideo>(),
                 PlaylistCategory = new List<PlaylistCategory>()
                
             };
@@ -43,6 +46,15 @@ namespace MSP.BetterCalm.DomainTest
                 Name = "Mauro baila cumbia"
                 
             };
+
+            video = new Video
+            {
+                Id = 1,
+                Author = "Rodrigo",
+                LinkVideo = "www.youtube.com/baile",
+                Name = "Baile",
+                Hour = 1
+            };
             categoryTrack = new CategoryTrack
             {
                 IdCategory = category.Id,
@@ -50,7 +62,13 @@ namespace MSP.BetterCalm.DomainTest
                 IdTrack = track.Id,
                 Track = track,
             };
-
+            categoryVideo = new CategoryVideo
+            {
+                IdCategory = category.Id,
+                Category = category,
+                IdVideo = video.Id,
+                Video = video,
+            };
             playlistCategory = new PlaylistCategory
             {
                  IdCategory = category.Id,
@@ -58,6 +76,7 @@ namespace MSP.BetterCalm.DomainTest
                  IdPlaylist = playlist.Id,
                  Playlist = playlist
             };
+            category.CategoryVideo.Add(categoryVideo);
             category.CategoryTrack.Add(categoryTrack);
             category.PlaylistCategory.Add(playlistCategory);
 
