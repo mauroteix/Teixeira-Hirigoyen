@@ -234,5 +234,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
             List<Video> video = videoLogic.GetAll();
             Assert.AreEqual(video.Count, 1);
         }
+
+        [TestMethod]
+        public void UpdateVideo()
+        {
+            video.Name = "Primavera";
+            video.Author = "Armandinho";
+            videoLogic.Update(video, video.Id);
+            Assert.AreEqual("Primavera", videoLogic.Get(0).Name);
+        }
     }
 }

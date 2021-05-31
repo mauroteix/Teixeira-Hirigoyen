@@ -48,6 +48,20 @@ namespace MSP.BetterCalm.BusinessLogic
             return videoRepository.GetAll().ToList();
         }
 
+        public void Update(Video video, int id)
+        {
+            ExistVideo(id);
+            Video unVideo = videoRepository.Get(id);
+            ValidateVideo(video);
+            unVideo.Name = video.Name;
+            unVideo.Author = video.Author;
+            unVideo.MinSeconds = video.MinSeconds;
+            unVideo.Hour = video.Hour;
+            unVideo.CategoryVideo = video.CategoryVideo;
+            unVideo.PlaylistVideo = video.PlaylistVideo;
+            videoRepository.Update(unVideo);
+        }
+
         private void ExistVideo(int id)
         {
             Video unVideo = videoRepository.Get(id);
