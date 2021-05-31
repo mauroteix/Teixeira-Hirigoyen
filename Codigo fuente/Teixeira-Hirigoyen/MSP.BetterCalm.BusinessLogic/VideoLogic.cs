@@ -20,12 +20,21 @@ namespace MSP.BetterCalm.BusinessLogic
         public VideoLogic(IData<Video> repository, IData<Category> reposCategory, IData<Playlist> playRepository)
         {
             videoRepository = repository;
+            categoryRepository = reposCategory;
+            playlistRepository = playRepository;
         }
 
         public Video Get(int id)
         {
             ExistVideo(id);
             return videoRepository.Get(id);
+        }
+
+        public void Add(Video video)
+        {
+            ValidateVideo(video);
+            //Video unVideo = ToEntity(video);
+            videoRepository.Add(video);
         }
 
         private void ExistVideo(int id)
@@ -107,5 +116,7 @@ namespace MSP.BetterCalm.BusinessLogic
             });
             if (repetidos) throw new EntityAlreadyExist("There are two or more equal playlist");
         }
+
+        
     }
 }

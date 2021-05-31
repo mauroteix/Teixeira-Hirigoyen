@@ -34,6 +34,7 @@ namespace MSP.BetterCalm.DataAccess
             return _context.Category
                     .Include(t => t.PlaylistCategory).ThenInclude(u => u.Playlist)
                     .Include(r => r.CategoryTrack).ThenInclude(s => s.Track)
+                    .Include(r => r.CategoryVideo).ThenInclude(s => s.Video)
                     .FirstOrDefault(u => u.Id == id);
         }
 
@@ -42,6 +43,7 @@ namespace MSP.BetterCalm.DataAccess
             return _context.Category
                 .Include(t => t.PlaylistCategory).ThenInclude(u => u.Playlist)
                 .Include(r => r.CategoryTrack).ThenInclude(s => s.Track)
+                .Include(r => r.CategoryVideo).ThenInclude(s => s.Video)
                 .ToList();
         }
 
