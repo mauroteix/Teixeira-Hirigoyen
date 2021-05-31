@@ -184,5 +184,23 @@ namespace MSP.BetterCalm.BusinessLogicTest
             videoToAdd.CategoryVideo.Add(categoryVideo);
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => videoLogic.Add(videoToAdd));
         }
+
+        [TestMethod]
+        public void AddVideoWithoutCategory()
+        {
+            Video videoToAdd = new Video()
+            {
+                Id = 1,
+                Name = "Name",
+                Author = "Wisin",
+                LinkVideo = "www.youtube.com/fiel",
+                Hour = 0,
+                MinSeconds = 2.60,
+                CategoryVideo = new List<CategoryVideo>(),
+                PlaylistVideo = new List<PlaylistVideo>()
+            };
+
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => videoLogic.Add(videoToAdd));
+        }
     }
 }
