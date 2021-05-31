@@ -209,5 +209,23 @@ namespace MSP.BetterCalm.BusinessLogicTest
             videoLogic.Delete(video);
             var getVideo = videoLogic.Get(video.Id);
         }
+
+        [TestMethod]
+        public void DeleteVideoNotExist()
+        {
+            Video videoToDelete = new Video()
+            {
+                Id = 10,
+                Name = "Pepe",
+                Author = "Baile",
+                LinkVideo = "www.youtube.com/pepe",
+                Hour = 0,
+                MinSeconds = 1.60,
+                CategoryVideo = new List<CategoryVideo>(),
+                PlaylistVideo = new List<PlaylistVideo>()
+            };
+
+            Assert.ThrowsException<EntityNotExists>(() => videoLogic.Delete(videoToDelete));
+        }
     }
 }
