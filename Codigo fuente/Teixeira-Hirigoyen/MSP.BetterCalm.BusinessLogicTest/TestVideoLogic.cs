@@ -4,6 +4,7 @@ using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -115,5 +116,40 @@ namespace MSP.BetterCalm.BusinessLogicTest
             videoToAdd.CategoryVideo.Add(categoryVideo);
             videoLogic.Add(videoToAdd);
         }
+
+        [TestMethod]
+        public void AddVideoNameEmpty()
+        {
+            Video videoToAdd = new Video()
+            {
+                Id = 1,
+                Name = "",
+                Author = "Wisin",
+                LinkVideo = "www.youtube.com/fiel",
+                Hour = 0,
+                MinSeconds = 2.60,
+                CategoryVideo = new List<CategoryVideo>(),
+                PlaylistVideo = new List<PlaylistVideo>()
+            };
+
+            CategoryVideo categoryVideo = new CategoryVideo
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>(),
+                    CategoryVideo = new List<CategoryVideo>()
+                },
+                IdCategory = 1,
+                IdVideo = 1,
+                Video = videoToAdd
+
+            };
+            videoToAdd.CategoryVideo.Add(categoryVideo);
+            Assert.ThrowsException<FieldEnteredNotCorrect>(() => videoLogic.Add(videoToAdd));
+        }
+
     }
 }
