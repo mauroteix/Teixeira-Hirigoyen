@@ -71,14 +71,15 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 MedicalCondition = medicalCondition,
             };
            
-
             userList = new List<User>();
             listMedical.Add(medicalCondition);
             listPsychologist.Add(psychologist);
             userList.Add(user);
+
             repositoryUser = new Mock<IData<User>>();
             repositoryPsychologist = new Mock<IData<Psychologist>>();
             repositoryMedical = new Mock<IData<MedicalCondition>>();
+
             repositoryUser.Setup(r => r.GetAll()).Returns(userList);
             repositoryPsychologist.Setup(r => r.Add(psychologist));
             repositoryMedical.Setup(r => r.GetAll()).Returns(listMedical);
@@ -87,7 +88,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
             repositoryPsychologist.Setup(r => r.Get(psychologist.Id)).Returns(psychologist);
 
             psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object,repositoryMedical.Object);
-            userLogic = new UserLogic(repositoryUser.Object,psychologistLogic);
+            userLogic = new UserLogic(repositoryUser.Object,psychologistLogic, repositoryMedical.Object, repositoryPsychologist.Object);
         }
         [TestMethod]
         public void AddUserOk()
@@ -131,5 +132,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
             user.Meeting.Add(meeting);
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
         }
+
     }
 }
