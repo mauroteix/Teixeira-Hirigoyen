@@ -15,6 +15,7 @@ namespace MSP.BetterCalm.Domain
         public ICollection<Meeting> Meeting { get; set; }
         public MedicalCondition MedicalCondition { get; set; }
         public meetingDuration MeetingDuration { get; set; }
+   
 
         public User()
         {
