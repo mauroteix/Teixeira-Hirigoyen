@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.DataAccessInterface;
 using MSP.BetterCalm.Domain;
@@ -73,6 +74,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             Video newVideo = videoLogic.Get(video.Id);
             Assert.AreEqual(video, newVideo);
+        }
+
+        [TestMethod]
+        public void GetVideoNotExist()
+        {
+            Assert.ThrowsException<EntityNotExists>(() => videoLogic.Get(1));
         }
     }
 }
