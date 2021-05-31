@@ -8,5 +8,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface IVideoLogic
     {
         public Video Get(int id);
+        public void Add(Video video);
+        public void Delete(Video video);
     }
 }

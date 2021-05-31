@@ -202,5 +202,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => videoLogic.Add(videoToAdd));
         }
+
+        [TestMethod]
+        public void DeleteVideo()
+        {
+            videoLogic.Delete(video);
+            var getVideo = videoLogic.Get(video.Id);
+        }
     }
 }
