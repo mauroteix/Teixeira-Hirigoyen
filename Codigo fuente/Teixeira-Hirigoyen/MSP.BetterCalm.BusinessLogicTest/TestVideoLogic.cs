@@ -227,5 +227,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             Assert.ThrowsException<EntityNotExists>(() => videoLogic.Delete(videoToDelete));
         }
+
+        [TestMethod]
+        public void GetAllVideo()
+        {
+            List<Video> video = videoLogic.GetAll();
+            Assert.AreEqual(video.Count, 1);
+        }
     }
 }

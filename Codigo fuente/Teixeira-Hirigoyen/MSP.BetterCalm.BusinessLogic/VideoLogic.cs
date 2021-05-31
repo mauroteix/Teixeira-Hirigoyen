@@ -43,6 +43,11 @@ namespace MSP.BetterCalm.BusinessLogic
             videoRepository.Delete(video);
         }
 
+        public List<Video> GetAll()
+        {
+            return videoRepository.GetAll().ToList();
+        }
+
         private void ExistVideo(int id)
         {
             Video unVideo = videoRepository.Get(id);

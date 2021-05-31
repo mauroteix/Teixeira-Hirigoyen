@@ -10,5 +10,6 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public Video Get(int id);
         public void Add(Video video);
         public void Delete(Video video);
+        public List<Video> GetAll();
     }
 }
