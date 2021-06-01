@@ -89,5 +89,32 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (id < 0)
+            {
+                return NotFound("Id not valid");
+            }
+            else
+            {
+                try
+                {
+                    Video video = _videoLogic.Get(id);
+                    _videoLogic.Delete(video);
+                    return Ok("Erased successfully");
+                }
+                catch (EntityNotExists fe)
+                {
+                    return NotFound(fe.MessageError());
+                }
+                catch (Exception e)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+                }
+            }
+        }
     }
 }
