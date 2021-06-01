@@ -69,7 +69,7 @@ namespace MSP.BetterCalm.BusinessLogic
         private bool ValidateMeetingPrice(Psychologist psychologist)
         {
             int valor = (int)psychologist.MeetingPrice;
-            if (valor > 4 && valor < 1) return false;
+            if (valor != 500 && valor != 750 && valor != 1000 && valor != 2000) return false;
             return true;
         }
         private void ValidateMedicalConditionUnique(Psychologist psychologist) 

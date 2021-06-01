@@ -61,18 +61,17 @@ namespace MSP.BetterCalm.BusinessLogic
             if (list.Count == 0) throw new EntityNotExists("There are no psychologist for this medical condition");
             Meeting meeting = new Meeting();
             Psychologist unPsychologist = FreePsychologist(list, date, meeting);
-
+            
             meeting.IdUser = user.Id;
             meeting.User = user;
             meeting.Psychologist = unPsychologist;
             meeting.IdPsychologist = unPsychologist.Id;
             meeting.MeetingDuration = user.MeetingDuration;
             meeting.MeetingDiscount = user.Discount;
-            //Falta metodo para total price aplicar descuento ----------------------------------------------
-            meeting.TotalPrice = 0;
-
+            meeting.TotalPrice = CreateDiscount(user, unPsychologist);
             meeting.AdressMeeting = CreateAdress(unPsychologist);
             user.Meeting.Add(meeting);
+            
             return user;
         }
 
@@ -171,10 +170,24 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             return list[position];
         }
+        private int CreateDiscount(User user , Psychologist psy)
+        {
+            int price = (int)psy.MeetingPrice;
+            int duration = (int)user.MeetingDuration;
+            int userDiscount = (int)user.Discount;
+            double realPrice = CalculatePrice(price, duration);
+            double priceDiscount = CalculateDiscount(realPrice, userDiscount);
+            return (int)priceDiscount;
+        }
         private double CalculateDiscount(double price, int discounttoapply)
         {
             double discount = discounttoapply / 100;
             return price * discount;
+        }
+        private double CalculatePrice(int price,int duration)
+        {
+            if (duration == 3) return price * 1.5;
+            return price * duration;
         }
         private bool ExistUser(User user)
         {
@@ -184,6 +197,21 @@ namespace MSP.BetterCalm.BusinessLogic
             if (findUser.Email == null) return false; 
             return true;
         }
-
+        private int UserId(User user)
+        {
+            List<User> list = _repositoryUser.GetAll().ToList();
+            string email = user.Email;
+            User findUser = list.Find(c => c.Email == email);
+            return user.Id;
+        }
+        public void Update(User user, int id)
+        {
+            User realUser = _repositoryUser.Get(id);
+            realUser.Meeting = user.Meeting;
+            realUser.MeetingCount = user.MeetingCount;
+            realUser.MeetingDuration = user.MeetingDuration;
+            realUser.Discount = user.Discount;
+            _repositoryUser.Update(realUser);
+        }
     }
 }

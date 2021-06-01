@@ -6,6 +6,6 @@ namespace MSP.BetterCalm.Domain
 {
     public enum meetingDuration
     {
-        OneHour = 1 , OneAndHalfHour, TwoHour 
+        OneHour = 1 , OneAndHalfHour = 3, TwoHour = 2 
     }
 }

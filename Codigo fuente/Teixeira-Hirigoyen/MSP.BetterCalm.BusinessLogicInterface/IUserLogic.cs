@@ -8,5 +8,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface IUserLogic
     {
         public void Add(User user);
+
+        public void Update(User user, int id);
     }
 }

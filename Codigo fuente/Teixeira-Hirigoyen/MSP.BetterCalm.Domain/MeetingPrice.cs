@@ -6,6 +6,6 @@ namespace MSP.BetterCalm.Domain
 {
     public enum meetingPrice
     {
-        UY500 = 1, UY750, UY1000, UY2000
+        UY500 = 500, UY750 = 750, UY1000 = 1000, UY2000 = 2000
     }
 }
