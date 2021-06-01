@@ -171,6 +171,23 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             return list[position];
         }
+        private double CalculateDiscount(double price, int discounttoapply)
+        {
+            double realprice = 0;
+            if(discounttoapply == 1)
+            {
+                realprice = price*0.85;
+            }
+            if (discounttoapply == 2)
+            {
+                realprice = price * 0.75;
+            }
+            if (discounttoapply == 3)
+            {
+                realprice = price * 0.50;
+            }
+            return realprice;
+        }
 
     }
 }
