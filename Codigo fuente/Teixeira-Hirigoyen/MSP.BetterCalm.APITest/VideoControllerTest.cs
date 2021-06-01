@@ -145,6 +145,15 @@ namespace MSP.BetterCalm.APITest
                 result.ToString());
         }
 
-
+        [TestMethod]
+        public void DeleteVideoIdNegative()
+        {
+            var mockVideo = new Mock<IVideoLogic>(MockBehavior.Strict);
+            var controller = new VideoController(mockVideo.Object);
+            controller.Add(videoList[0]);
+            var result = controller.Delete(-2);
+            Assert.AreEqual(new NotFoundObjectResult("").ToString(),
+                result.ToString());
+        }
     }
 }
