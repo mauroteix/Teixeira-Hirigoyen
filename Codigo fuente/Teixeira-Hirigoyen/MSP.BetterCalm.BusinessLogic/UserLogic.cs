@@ -192,6 +192,14 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             return realprice;
         }
+        private bool existUser(User user)
+        {
+            List<User> list = _repositoryUser.GetAll().ToList();
+            string email = user.Email;
+            User findUser = list.Find(c => c.Email == email);
+            if (findUser.Email == null) return false; 
+            return true;
+        }
 
     }
 }
