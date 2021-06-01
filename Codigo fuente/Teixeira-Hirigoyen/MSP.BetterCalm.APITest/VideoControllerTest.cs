@@ -94,6 +94,25 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
         }
 
+        [TestMethod]
+        public void UpdateVideo()
+        {
+            Video newVideo = new Video()
+            {
+                Name = "Puntos",
+                Author = "Rodri"
+            };
+            var mockVideo= new Mock<IVideoLogic>(MockBehavior.Strict);
+            mockVideo.Setup(l => l.Get(videoList[0].Id)).Returns(videoList[0]);
+            mockVideo.Setup(l => l.Add(videoList[0]));
+            var controller = new VideoController(mockVideo.Object);
+            videoList[0].Name = newVideo.Name;
+            videoList[0].Author = newVideo.Author;
+            var result = controller.Update(videoList[0].Id, videoList[0]);
+            Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
+        }
+
 
     }
 }

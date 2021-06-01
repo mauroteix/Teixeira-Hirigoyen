@@ -66,5 +66,28 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] Video newVideo)
+        {
+            try
+            {
+                _videoLogic.Update(newVideo, id);
+                return Ok("Updated successfully");
+            }
+            catch (FieldEnteredNotCorrect en)
+            {
+                return UnprocessableEntity(en.MessageError());
+            }
+            catch (EntityNotExists en)
+            {
+                return NotFound(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }
