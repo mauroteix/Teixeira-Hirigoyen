@@ -116,5 +116,19 @@ namespace MSP.BetterCalm.API.Controllers
                 }
             }
         }
+
+
+        [HttpGet()]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(_videoLogic.GetAll());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }
