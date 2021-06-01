@@ -64,6 +64,8 @@ namespace MSP.BetterCalm.API
             services.AddScoped<IAdministratorLogic, AdministratorLogic>();
             services.AddScoped<ISessionLogic, SessionLogic>();
             services.AddScoped<AuthorizationFilter>();
+            services.AddScoped<IData<Video>, VideoRepository>();
+            services.AddScoped<IVideoLogic, VideoLogic>();
 
             services.AddControllers().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
