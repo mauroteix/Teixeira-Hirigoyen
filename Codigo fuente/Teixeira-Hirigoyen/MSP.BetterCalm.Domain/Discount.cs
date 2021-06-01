@@ -6,6 +6,6 @@ namespace MSP.BetterCalm.Domain
 {
     public enum discount
     {
-        Zero=1,Fifteen,TwentyFive,Fifty
+        Zero= 100,Fifteen = 15, TwentyFive = 25, Fifty = 50
     }
 }
