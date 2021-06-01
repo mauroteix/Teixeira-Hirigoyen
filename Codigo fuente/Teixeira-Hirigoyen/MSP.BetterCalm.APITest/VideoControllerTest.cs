@@ -113,6 +113,25 @@ namespace MSP.BetterCalm.APITest
                 result.ToString());
         }
 
+        [TestMethod]
+        public void UpdateVideoError()
+        {
+            Video newVideo = new Video()
+            {
+                Name = "Puntos",
+                Author = "Rodri"
+            };
+            var mockVideo = new Mock<IVideoLogic>(MockBehavior.Strict);
+            mockVideo.Setup(l => l.Get(videoList[0].Id)).Returns(videoList[0]);
+            mockVideo.Setup(l => l.Update(videoList[0], 1)).Throws(new FieldEnteredNotCorrect(""));
+            var controller = new VideoController(mockVideo.Object);
+            videoList[0].Name = newVideo.Name;
+            videoList[0].Author = newVideo.Author;
+            var result = controller.Update(videoList[0].Id, videoList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(),
+                result.ToString());
+        }
+
 
     }
 }
