@@ -56,5 +56,19 @@ namespace MSP.BetterCalm.APITest
             mockVideo.VerifyAll();
             Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
         }
+
+        [TestMethod]
+        public void GetOneVideoError()
+        {
+            var mockVideo = new Mock<IVideoLogic>(MockBehavior.Strict);
+            mockVideo.Setup(res => res.Get(videoList[0].Id)).Throws(new Exception());
+            VideoController controller = new VideoController(mockVideo.Object);
+            var result = controller.Get(videoList[0].Id);
+
+            mockVideo.VerifyAll();
+            Assert.AreEqual(result.ToString(), new ObjectResult("").ToString());
+        }
+     
+
     }
 }
