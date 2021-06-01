@@ -4,6 +4,7 @@ using Moq;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -80,6 +81,17 @@ namespace MSP.BetterCalm.APITest
             var okResult = result as OkObjectResult;
 
             Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(videoList[0]).ToString());
+        }
+
+        [TestMethod]
+        public void AddVideoError()
+        {
+            videoList[0].Name = "";
+            var mockVideo = new Mock<IVideoLogic>(MockBehavior.Strict);
+            mockVideo.Setup(r => r.Add(videoList[0])).Throws(new FieldEnteredNotCorrect(""));
+            VideoController controller = new VideoController(mockVideo.Object);
+            var result = controller.Add(videoList[0]);
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
         }
 
 
