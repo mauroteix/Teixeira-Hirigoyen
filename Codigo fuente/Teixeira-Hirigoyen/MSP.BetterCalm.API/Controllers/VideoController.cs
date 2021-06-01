@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.HandleMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
@@ -26,6 +29,33 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 Video video = _videoLogic.Get(id);
                 return Ok(video);
+            }
+            catch (EntityNotExists fe)
+            {
+                return NotFound(fe.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpPost()]
+        public IActionResult Add([FromBody] Video video)
+        {
+            try
+            {
+                _videoLogic.Add(video);
+                return Ok("Successfully added track name:" + video.Name);
+            }
+            catch (FieldEnteredNotCorrect fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
+            catch (EntityAlreadyExist fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
             }
             catch (EntityNotExists fe)
             {
