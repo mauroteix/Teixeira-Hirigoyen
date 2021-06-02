@@ -213,5 +213,14 @@ namespace MSP.BetterCalm.BusinessLogic
             realUser.Discount = user.Discount;
             _repositoryUser.Update(realUser);
         }
+        public List<User> GetUserbyCountMeeting()
+        {
+            List<User> list = new List<User>();
+            List<User> listAll = _repositoryUser.GetAll().ToList();
+            listAll.ForEach(c => {
+                if (c.MeetingCount > 4) list.Add(c);
+            });
+            return list;
+        }
     }
 }
