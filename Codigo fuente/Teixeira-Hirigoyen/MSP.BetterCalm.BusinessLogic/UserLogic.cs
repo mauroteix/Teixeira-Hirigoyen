@@ -41,6 +41,7 @@ namespace MSP.BetterCalm.BusinessLogic
             Regex regexEmail = new Regex(@"^[^@]+@[^@]+\.[a-zA-Z]{2,}$");
             if (!regexEmail.IsMatch(user.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
             if (!ValidateMeetingDuration(user)) throw new FieldEnteredNotCorrect("Only 3 types of meetingDuration");
+            if (!ExistMedicalCondition(user)) throw new EntityNotExists("This medical condition not exist");
         }
         private bool ValidateMeetingDuration(User user)
         {
@@ -71,22 +72,27 @@ namespace MSP.BetterCalm.BusinessLogic
                 user.MeetingCount++;
             }
         }
+        private bool ExistMedicalCondition(User user)
+        {
+            var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
+            if (medicalCondition == null) return false;
+            return true;
+        }
         private void CreateMeeting(User user)
         {
             user.Meeting = new List<Meeting>();
             var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
-            if (medicalCondition == null) throw new EntityNotExists("This medical condition not exist");
             user.MedicalCondition = medicalCondition;
             var date = DateTime.Now;
             date = ChangeDate(date);
             var list = ListOfPsychologist(medicalCondition);
-            if (list.Count == 0) throw new EntityNotExists("There are no psychologist for this medical condition");
             Meeting meeting = new Meeting();
             Psychologist unPsychologist = FreePsychologist(list, date, meeting);
             if (ExistUser(user))
             {
                 user = _repositoryUser.Get(UserId(user));
                 SetMeeting(user, unPsychologist, meeting);
+                SetMeetingCount(user);
                 user.Meeting.Add(meeting);
                 if ((int)user.Discount != 1) 
                 Update(user,user.Id);
@@ -152,8 +158,8 @@ namespace MSP.BetterCalm.BusinessLogic
             var list = medicalCondition.Expertise.ToList();
             List<Psychologist> listPsychologist = new List<Psychologist>();
             if (medicalCondition.Name.Equals("Otros")) return _repository.GetAll().ToList();
-
             list.ForEach(c => listPsychologist.Add(_repository.Get(c.Psychologist.Id)));
+            if (list.Count == 0) throw new EntityNotExists("There are no psychologist for this medical condition");
             return listPsychologist;
         }
         private List<Psychologist> ListFreePsychologist(List<Psychologist> listPsychologist, DateTime date)
