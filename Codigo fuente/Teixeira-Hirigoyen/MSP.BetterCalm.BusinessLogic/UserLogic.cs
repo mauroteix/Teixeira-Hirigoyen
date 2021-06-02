@@ -30,8 +30,7 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(User user)
         {
             ValidateUser(user);
-            User newUser = CreateMeeting(user);
-            _repositoryUser.Add(newUser);
+            CreateMeeting(user);
         }
         public void ValidateUser(User user)
         {
@@ -49,7 +48,18 @@ namespace MSP.BetterCalm.BusinessLogic
             if (valor > 3 && valor < 1) return false;
             return true;
         }
-        private User CreateMeeting(User user)
+        private void SetMeeting (User user , Psychologist unPsychologist,Meeting meeting)
+        {
+            meeting.IdUser = user.Id;
+            meeting.User = user;
+            meeting.Psychologist = unPsychologist;
+            meeting.IdPsychologist = unPsychologist.Id;
+            meeting.MeetingDuration = user.MeetingDuration;
+            meeting.MeetingDiscount = user.Discount;
+            meeting.TotalPrice = CreateDiscount(user, unPsychologist);
+            meeting.AdressMeeting = CreateAdress(unPsychologist);
+        }
+        private void CreateMeeting(User user)
         {
             user.Meeting = new List<Meeting>();
             var medicalCondition = _repositoryMedicalCondition.Get(user.MedicalCondition.Id);
@@ -61,18 +71,20 @@ namespace MSP.BetterCalm.BusinessLogic
             if (list.Count == 0) throw new EntityNotExists("There are no psychologist for this medical condition");
             Meeting meeting = new Meeting();
             Psychologist unPsychologist = FreePsychologist(list, date, meeting);
-            
-            meeting.IdUser = user.Id;
-            meeting.User = user;
-            meeting.Psychologist = unPsychologist;
-            meeting.IdPsychologist = unPsychologist.Id;
-            meeting.MeetingDuration = user.MeetingDuration;
-            meeting.MeetingDiscount = user.Discount;
-            meeting.TotalPrice = CreateDiscount(user, unPsychologist);
-            meeting.AdressMeeting = CreateAdress(unPsychologist);
-            user.Meeting.Add(meeting);
-            
-            return user;
+            if (ExistUser(user))
+            {
+                user = _repositoryUser.Get(UserId(user));
+                SetMeeting(user, unPsychologist, meeting);
+                user.Meeting.Add(meeting);
+                Update(user,user.Id);
+            }
+            else
+            {
+                SetMeeting(user, unPsychologist, meeting);
+                user.Meeting.Add(meeting);
+                _repositoryUser.Add(user);
+            }
+
         }
 
         private Psychologist FreePsychologist(List<Psychologist> list, DateTime date, Meeting meeting)
