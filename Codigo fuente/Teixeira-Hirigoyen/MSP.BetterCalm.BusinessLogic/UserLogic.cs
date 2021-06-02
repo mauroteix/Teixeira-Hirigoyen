@@ -59,6 +59,18 @@ namespace MSP.BetterCalm.BusinessLogic
             meeting.TotalPrice = CreateDiscount(user, unPsychologist);
             meeting.AdressMeeting = CreateAdress(unPsychologist);
         }
+        private void SetMeetingCount(User user)
+        {
+            if((int)user.Discount != 1)
+            {
+                user.Discount = discount.Zero;
+                user.MeetingCount = 0;
+            }
+            else
+            {
+                user.MeetingCount++;
+            }
+        }
         private void CreateMeeting(User user)
         {
             user.Meeting = new List<Meeting>();
@@ -76,6 +88,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 user = _repositoryUser.Get(UserId(user));
                 SetMeeting(user, unPsychologist, meeting);
                 user.Meeting.Add(meeting);
+                if ((int)user.Discount != 1) 
                 Update(user,user.Id);
             }
             else
@@ -189,6 +202,7 @@ namespace MSP.BetterCalm.BusinessLogic
             int userDiscount = (int)user.Discount;
             double realPrice = CalculatePrice(price, duration);
             double priceDiscount = CalculateDiscount(realPrice, userDiscount);
+            
             return (int)priceDiscount;
         }
         private double CalculateDiscount(double price, int discounttoapply)
