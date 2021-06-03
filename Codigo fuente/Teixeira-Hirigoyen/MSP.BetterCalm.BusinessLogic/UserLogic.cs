@@ -19,11 +19,10 @@ namespace MSP.BetterCalm.BusinessLogic
         IPsychologistLogic _logicPsychologist;
         IData<MedicalCondition> _repositoryMedicalCondition;
 
-        public UserLogic(IData<User> repositoryUser, IPsychologistLogic logicPsychologist, IData<MedicalCondition> repositoryMedicalCondition, IData<Psychologist> repository)
+        public UserLogic(IData<User> repositoryUser, IData<MedicalCondition> repositoryMedicalCondition, IData<Psychologist> repository)
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
-            _logicPsychologist = logicPsychologist;
             _repositoryMedicalCondition = repositoryMedicalCondition;
 
         }
@@ -235,7 +234,7 @@ namespace MSP.BetterCalm.BusinessLogic
             List<User> list = _repositoryUser.GetAll().ToList();
             string email = user.Email;
             User findUser = list.Find(c => c.Email == email);
-            return user.Id;
+            return findUser.Id;
         }
         public void Update(User user, int id)
         {
@@ -254,6 +253,32 @@ namespace MSP.BetterCalm.BusinessLogic
                 if (c.MeetingCount > 4) list.Add(c);
             });
             return list;
+        }
+        public User GetUserByEmail(string email)
+        {
+            User newUser = new User();
+            newUser.Email = email;
+            if (ExistUser(newUser))
+            {
+                newUser = _repositoryUser.Get(UserId(newUser));
+            }
+            else
+            {
+                throw new EntityNotExists("There are no user with this email");
+            }
+            return newUser;
+
+        }
+
+        public User Get(int id)
+        {
+           LookUser(id);
+           return  _repositoryUser.Get(id);
+        }
+        private void LookUser(int id)
+        {
+           User user = _repositoryUser.Get(id);
+            if (user == null) throw new EntityNotExists("The psychologist with id: " + id + " does not exist");
         }
     }
 }

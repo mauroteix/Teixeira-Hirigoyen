@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Msp.BetterCalm.HandleMessage;
+using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
@@ -16,11 +17,9 @@ namespace MSP.BetterCalm.API.Controllers
     public class UserController : ControllerBase
     {
         IUserLogic _userLogic;
-        IPsychologistLogic _psychologistLogic;
-        public UserController(IUserLogic userLogic, IPsychologistLogic psychologistLogic)
+        public UserController(IUserLogic userLogic)
         {
             _userLogic = userLogic;
-            _psychologistLogic = psychologistLogic;
         }
         /// <summary>
         /// Create a meeting for a user
@@ -47,6 +46,41 @@ namespace MSP.BetterCalm.API.Controllers
             catch (EntityNotExists fe)
             {
                 return NotFound(fe.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] User user)
+        {
+            try
+            {
+                _userLogic.Update(user, id);
+                return Ok("Updated successfully");
+            }
+            catch (FieldEnteredNotCorrect en)
+            {
+                return UnprocessableEntity(en.MessageError());
+            }
+            catch (EntityNotExists en)
+            {
+                return NotFound(en.MessageError());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpGet()]
+        public IActionResult GetUserByEmail()
+        {
+            try
+            {
+                return Ok(_userLogic.GetUserbyCountMeeting());
             }
             catch (Exception e)
             {

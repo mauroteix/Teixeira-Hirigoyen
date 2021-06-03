@@ -15,7 +15,7 @@ namespace MSP.BetterCalm.APITest
     [TestClass]
     public class UserControllerTest
     {
-        List<User> userlistList;
+        List<User> userList;
 
         [TestInitialize]
         public void Initialize()
@@ -31,38 +31,51 @@ namespace MSP.BetterCalm.APITest
                 MeetingDuration = meetingDuration.OneHour,
 
             };
-            userlistList = new List<User>();
-            userlistList.Add(user);
+            userList = new List<User>();
+            userList.Add(user);
         }
         [TestMethod]
         public void AddOneUser()
         {
             var mockUser = new Mock<IUserLogic>(MockBehavior.Strict);
-            var mockPsy = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            mockUser.Setup(res => res.Add(userlistList[0]));
-            UserController controller = new UserController(mockUser.Object,mockPsy.Object);
+            mockUser.Setup(res => res.Add(userList[0]));
+            UserController controller = new UserController(mockUser.Object);
 
-            var result = controller.Add(userlistList[0]);
+            var result = controller.Add(userList[0]);
             var okResult = result as OkObjectResult;
 
-            Assert.AreEqual(new OkObjectResult("").ToString(), controller.Add(userlistList[0]).ToString());
+            Assert.AreEqual(new OkObjectResult("").ToString(), controller.Add(userList[0]).ToString());
         }
 
         [TestMethod]
         public void AddOneUserNameEmpty()
         {
             var mockUser = new Mock<IUserLogic>(MockBehavior.Strict);
-            var mockPsy = new Mock<IPsychologistLogic>(MockBehavior.Strict);
-            mockUser.Setup(res => res.Add(userlistList[0])).Throws(new FieldEnteredNotCorrect(""));
-            UserController controller = new UserController(mockUser.Object, mockPsy.Object);
+            mockUser.Setup(res => res.Add(userList[0])).Throws(new FieldEnteredNotCorrect(""));
+            UserController controller = new UserController(mockUser.Object);
 
-            var result = controller.Add(userlistList[0]);
+            var result = controller.Add(userList[0]);
             var okResult = result as OkObjectResult;
 
-            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), controller.Add(userlistList[0]).ToString());
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), controller.Add(userList[0]).ToString());
+        }
+        [TestMethod]
+        public void UpdateUser()
+        {
+            var mockUser = new Mock<IUserLogic>(MockBehavior.Strict);
+            mockUser.Setup(l => l.GetUserByEmail(userList[0].Email)).Returns(userList[0]);
+            mockUser.Setup(l => l.Add(userList[0]));
+            var controller = new UserController(mockUser.Object);
+            userList[0].MeetingCount = 15;
+            userList[0].Discount = discount.Fifteen;
+
+
+            var result = controller.Update(userList[0].Id, userList[0]);
+            Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
+                result.ToString());
         }
 
-       
+
 
     }
 }

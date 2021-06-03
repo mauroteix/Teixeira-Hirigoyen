@@ -89,8 +89,9 @@ namespace MSP.BetterCalm.BusinessLogicTest
             repositoryUser.Setup(r => r.Add(user));
             repositoryUser.Setup(r => r.Get(1)).Returns(user);
 
+
             psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object,repositoryMedical.Object);
-            userLogic = new UserLogic(repositoryUser.Object,psychologistLogic, repositoryMedical.Object, repositoryPsychologist.Object);
+            userLogic = new UserLogic(repositoryUser.Object, repositoryMedical.Object, repositoryPsychologist.Object);
         }
         [TestMethod]
         public void AddUserOk()
@@ -150,5 +151,13 @@ namespace MSP.BetterCalm.BusinessLogicTest
             Assert.IsTrue(count>0);
         }
 
+        [TestMethod]
+        public void GetUserByEmail()
+        {
+            User newUser = userLogic.GetUserByEmail(user.Email);
+            Assert.AreEqual(user, newUser);
+        }
     }
+
 }
+

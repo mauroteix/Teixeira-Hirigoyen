@@ -87,7 +87,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
             
             psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object, repositoryMedicalCondition.Object);
             medicalConditionLogic = new MedicalConditionLogic(repositoryMedicalCondition.Object);
-            userLogic = new UserLogic(repositoryUser.Object, psychologistLogic, repositoryMedicalCondition.Object, repositoryPsychologist.Object);
+            userLogic = new UserLogic(repositoryUser.Object, repositoryMedicalCondition.Object, repositoryPsychologist.Object);
 
 
 
