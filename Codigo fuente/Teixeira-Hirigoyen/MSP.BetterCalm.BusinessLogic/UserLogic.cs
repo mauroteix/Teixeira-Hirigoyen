@@ -93,7 +93,6 @@ namespace MSP.BetterCalm.BusinessLogic
                 SetMeeting(user, unPsychologist, meeting);
                 SetMeetingCount(user);
                 user.Meeting.Add(meeting);
-                if ((int)user.Discount != 1) 
                 Update(user,user.Id);
             }
             else
@@ -267,18 +266,6 @@ namespace MSP.BetterCalm.BusinessLogic
                 throw new EntityNotExists("There are no user with this email");
             }
             return newUser;
-
-        }
-
-        public User Get(int id)
-        {
-           LookUser(id);
-           return  _repositoryUser.Get(id);
-        }
-        private void LookUser(int id)
-        {
-           User user = _repositoryUser.Get(id);
-            if (user == null) throw new EntityNotExists("The psychologist with id: " + id + " does not exist");
         }
     }
 }
