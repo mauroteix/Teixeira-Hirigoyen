@@ -76,19 +76,6 @@ namespace MSP.BetterCalm.API.Controllers
         }
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet()]
-        public IActionResult GetUserByEmail()
-        {
-            try
-            {
-                return Ok(_userLogic.GetUserbyCountMeeting());
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
-        }
-        [ServiceFilter(typeof(AuthorizationFilter))]
-        [HttpGet()]
         public IActionResult GetUserbyCountMeeting()
         {
             try
