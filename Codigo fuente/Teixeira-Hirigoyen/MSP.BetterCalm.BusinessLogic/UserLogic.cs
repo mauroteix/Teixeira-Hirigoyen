@@ -100,6 +100,7 @@ namespace MSP.BetterCalm.BusinessLogic
             else
             {
                 SetMeeting(user, unPsychologist, meeting);
+                SetMeetingCount(user);
                 user.Meeting.Add(meeting);
                 _repositoryUser.Add(user);
             }
