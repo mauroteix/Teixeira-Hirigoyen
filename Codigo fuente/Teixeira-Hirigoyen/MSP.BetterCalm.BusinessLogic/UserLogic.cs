@@ -61,7 +61,7 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         private void SetMeetingCount(User user)
         {
-            if((int)user.Discount != 1)
+            if((int)user.Discount != 100)
             {
                 user.Discount = discount.Zero;
                 user.MeetingCount = 0;
@@ -89,11 +89,13 @@ namespace MSP.BetterCalm.BusinessLogic
             Psychologist unPsychologist = FreePsychologist(list, date, meeting);
             if (ExistUser(user))
             {
-                user = _repositoryUser.Get(UserId(user));
-                SetMeeting(user, unPsychologist, meeting);
-                SetMeetingCount(user);
-                user.Meeting.Add(meeting);
-                Update(user,user.Id);
+                User newuser = _repositoryUser.Get(UserId(user));
+                newuser.MeetingDuration = user.MeetingDuration;
+                newuser.Discount = user.Discount;
+                SetMeeting(newuser, unPsychologist, meeting);
+                SetMeetingCount(newuser);
+                newuser.Meeting.Add(meeting);
+                Update(newuser,newuser.Id);
             }
             else
             {
@@ -225,7 +227,7 @@ namespace MSP.BetterCalm.BusinessLogic
             List<User> list = _repositoryUser.GetAll().ToList();
             string email = user.Email;
             User findUser = list.Find(c => c.Email == email);
-            if (findUser.Email == null) return false; 
+            if (findUser == null) return false; 
             return true;
         }
         private int UserId(User user)
