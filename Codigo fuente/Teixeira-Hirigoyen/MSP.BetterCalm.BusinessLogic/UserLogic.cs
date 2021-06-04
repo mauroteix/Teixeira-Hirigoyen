@@ -251,10 +251,7 @@ namespace MSP.BetterCalm.BusinessLogic
             realUser.Meeting = user.Meeting;
             realUser.MeetingDuration = user.MeetingDuration;
             realUser.Discount = user.Discount;
-            if ((int)user.Discount != 100)
-            {
-                user.MeetingCount = 0;
-            }
+            user.MeetingCount = 0;
             realUser.MeetingCount = user.MeetingCount;
             _repositoryUser.Update(realUser);
         }
