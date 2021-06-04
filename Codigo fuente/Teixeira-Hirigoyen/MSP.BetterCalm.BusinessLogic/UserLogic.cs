@@ -253,7 +253,6 @@ namespace MSP.BetterCalm.BusinessLogic
             realUser.Discount = user.Discount;
             if ((int)user.Discount != 100)
             {
-                user.Discount = discount.Zero;
                 user.MeetingCount = 0;
             }
             realUser.MeetingCount = user.MeetingCount;
