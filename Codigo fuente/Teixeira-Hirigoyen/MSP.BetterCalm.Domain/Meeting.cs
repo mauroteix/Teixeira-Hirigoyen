@@ -6,6 +6,8 @@ namespace MSP.BetterCalm.Domain
 {
     public class Meeting
     {
+
+        public int Id { get; set; }
         public User User { get; set; }
         public int IdUser { get; set; }
         public Psychologist Psychologist { get; set; }

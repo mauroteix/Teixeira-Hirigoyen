@@ -41,11 +41,18 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!regexEmail.IsMatch(user.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
             if (!ValidateMeetingDuration(user)) throw new FieldEnteredNotCorrect("Only 3 types of meetingDuration");
             if (!ExistMedicalCondition(user)) throw new EntityNotExists("This medical condition not exist");
+            if (!ValidateDiscount(user)) throw new EntityNotExists("Incorrect Discount try again");
         }
         private bool ValidateMeetingDuration(User user)
         {
             int valor = (int)user.MeetingDuration;
             if (valor > 3 && valor < 1) return false;
+            return true;
+        }
+        private bool ValidateDiscount(User user)
+        {
+            int valor = (int)user.Discount;
+            if (valor != 100 && valor != 15 && valor != 25 && valor != 50) return false;
             return true;
         }
         private void SetMeeting (User user , Psychologist unPsychologist,Meeting meeting)
@@ -58,6 +65,7 @@ namespace MSP.BetterCalm.BusinessLogic
             meeting.MeetingDiscount = user.Discount;
             meeting.TotalPrice = CreateDiscount(user, unPsychologist);
             meeting.AdressMeeting = CreateAdress(unPsychologist);
+            meeting.Id = user.Meeting.Count;
         }
         private void SetMeetingCount(User user)
         {
@@ -186,7 +194,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 if (c.Date.Year == year && c.Date.Month == month && c.Date.Day == day) listMeetingDate.Add(c);
             });
 
-            return listMeetingDate.Count < 6;
+            return listMeetingDate.Count < 5;
         }
         private Psychologist SelectOlderPsychologist(List<Psychologist> list)
         {
@@ -214,7 +222,7 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         private double CalculateDiscount(double price, int discounttoapply)
         {
-            double discount = discounttoapply / 100;
+            double discount = (double)discounttoapply /100;
             return price * discount;
         }
         private double CalculatePrice(int price,int duration)
@@ -241,9 +249,14 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             User realUser = _repositoryUser.Get(id);
             realUser.Meeting = user.Meeting;
-            realUser.MeetingCount = user.MeetingCount;
             realUser.MeetingDuration = user.MeetingDuration;
             realUser.Discount = user.Discount;
+            if ((int)user.Discount != 100)
+            {
+                user.Discount = discount.Zero;
+                user.MeetingCount = 0;
+            }
+            realUser.MeetingCount = user.MeetingCount;
             _repositoryUser.Update(realUser);
         }
         public List<User> GetUserbyCountMeeting()

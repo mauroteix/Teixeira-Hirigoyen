@@ -74,7 +74,7 @@ namespace MSP.BetterCalm.DataAccess
                 .HasForeignKey(mc => mc.IdMedicalCondition);
 
             modelBuilder.Entity<Meeting>()
-           .HasKey(mc => new { mc.IdPsychologist, mc.IdUser});
+           .HasKey(mc => new {mc.IdPsychologist, mc.IdUser, mc.Id});
             modelBuilder.Entity<Meeting>()
                 .HasOne(mc => mc.Psychologist)
                 .WithMany(m => m.Meeting)

@@ -32,12 +32,15 @@ namespace MSP.BetterCalm.DataAccess
         {
             return _context.User
                 .Include(t => t.Meeting)
+                .Include(t => t.MedicalCondition)
                 .FirstOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<User> GetAll()
         {
-            return _context.User.ToList();
+            return _context.User
+                .Include(t => t.MedicalCondition)
+                .ToList();
         }
 
         public void Update(User entity)
