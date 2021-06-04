@@ -41,7 +41,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!regexEmail.IsMatch(user.Email)) throw new FieldEnteredNotCorrect("Incorrect email it must have this form: asdasd@hotmail.com");
             if (!ValidateMeetingDuration(user)) throw new FieldEnteredNotCorrect("Only 3 types of meetingDuration");
             if (!ExistMedicalCondition(user)) throw new EntityNotExists("This medical condition not exist");
-            if (!ValidateDiscount(user)) throw new EntityNotExists("Incorrect Discount try again");
+            if (!ValidateDiscount(user)) throw new FieldEnteredNotCorrect("Incorrect Discount try again");
         }
         private bool ValidateMeetingDuration(User user)
         {

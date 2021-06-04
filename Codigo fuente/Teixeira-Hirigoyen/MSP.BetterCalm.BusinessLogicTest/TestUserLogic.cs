@@ -69,6 +69,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Meeting = new List<Meeting>(),
                 Birthday = new DateTime(2000, 01, 01),
                 MedicalCondition = medicalCondition,
+                Discount = discount.Zero
             };
            
             userList = new List<User>();
