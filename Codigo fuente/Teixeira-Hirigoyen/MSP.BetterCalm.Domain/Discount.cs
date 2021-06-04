@@ -4,8 +4,8 @@ using System.Text;
 
 namespace MSP.BetterCalm.Domain
 {
-    public enum meetingDuration
+    public enum discount
     {
-        OneHour = 1 , OneAndHalfHour = 3, TwoHour = 2 
+        Zero= 100,Fifteen = 15, TwentyFive = 25, Fifty = 50
     }
 }

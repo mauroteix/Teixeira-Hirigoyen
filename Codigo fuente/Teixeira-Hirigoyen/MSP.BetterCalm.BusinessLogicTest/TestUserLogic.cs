@@ -71,23 +71,27 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 MedicalCondition = medicalCondition,
             };
            
-
             userList = new List<User>();
             listMedical.Add(medicalCondition);
             listPsychologist.Add(psychologist);
             userList.Add(user);
+
             repositoryUser = new Mock<IData<User>>();
             repositoryPsychologist = new Mock<IData<Psychologist>>();
             repositoryMedical = new Mock<IData<MedicalCondition>>();
+
             repositoryUser.Setup(r => r.GetAll()).Returns(userList);
             repositoryPsychologist.Setup(r => r.Add(psychologist));
             repositoryMedical.Setup(r => r.GetAll()).Returns(listMedical);
             repositoryMedical.Setup(r => r.Get(medicalCondition.Id)).Returns(medicalCondition);
             repositoryPsychologist.Setup(r => r.GetAll()).Returns(listPsychologist);
             repositoryPsychologist.Setup(r => r.Get(psychologist.Id)).Returns(psychologist);
+            repositoryUser.Setup(r => r.Add(user));
+            repositoryUser.Setup(r => r.Get(1)).Returns(user);
+
 
             psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object,repositoryMedical.Object);
-            userLogic = new UserLogic(repositoryUser.Object,psychologistLogic);
+            userLogic = new UserLogic(repositoryUser.Object, repositoryMedical.Object, repositoryPsychologist.Object);
         }
         [TestMethod]
         public void AddUserOk()
@@ -131,5 +135,29 @@ namespace MSP.BetterCalm.BusinessLogicTest
             user.Meeting.Add(meeting);
             Assert.ThrowsException<FieldEnteredNotCorrect>(() => userLogic.Add(user));
         }
+        [TestMethod]
+        public void UpdateUser()
+        {
+
+            user.MeetingCount = 5;
+            userLogic.Update(user, user.Id);
+        }
+        [TestMethod]
+        public void GetbyCountMeetingUser()
+        {
+
+            user.MeetingCount = 5;
+            int count = userLogic.GetUserbyCountMeeting().Count;
+            Assert.IsTrue(count>0);
+        }
+
+        [TestMethod]
+        public void GetUserByEmail()
+        {
+            User newUser = userLogic.GetUserByEmail(user.Email);
+            Assert.AreEqual(user, newUser);
+        }
     }
+
 }
+

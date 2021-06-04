@@ -40,7 +40,9 @@ namespace MSP.BetterCalm.DomainTest
                 Date = new DateTime(2021, 4, 18),
                 AdressMeeting = "Josesito",
                 MeetingDuration = meetingDuration.OneHour,
-                TotalPrice = 1000
+                TotalPrice = 1000,
+                MeetingDiscount = discount.Zero
+                
             };
 
         }
@@ -84,6 +86,11 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterTotalPrice()
         {
             Assert.AreEqual(1000, meeting.TotalPrice);
+        }
+        [TestMethod]
+        public void RegisterDiscount()
+        {
+            Assert.AreEqual(meeting.MeetingDiscount, discount.Zero);
         }
     }
 }

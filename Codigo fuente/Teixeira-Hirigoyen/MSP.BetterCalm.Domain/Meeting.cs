@@ -6,6 +6,8 @@ namespace MSP.BetterCalm.Domain
 {
     public class Meeting
     {
+
+        public int Id { get; set; }
         public User User { get; set; }
         public int IdUser { get; set; }
         public Psychologist Psychologist { get; set; }
@@ -14,6 +16,7 @@ namespace MSP.BetterCalm.Domain
         public string AdressMeeting { get; set; }
         public meetingDuration MeetingDuration { get; set; }
         public int TotalPrice { get; set; }
+        public discount MeetingDiscount { get; set; }
 
         public override bool Equals(object obj)
         {
