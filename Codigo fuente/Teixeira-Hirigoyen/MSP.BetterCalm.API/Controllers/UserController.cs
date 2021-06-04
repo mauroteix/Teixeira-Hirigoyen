@@ -58,7 +58,7 @@ namespace MSP.BetterCalm.API.Controllers
         {
             try
             {
-                _userLogic.Update(user, id);
+                _userLogic.UpdateByAdministrator(user, id);
                 return Ok("Updated successfully");
             }
             catch (FieldEnteredNotCorrect en)

@@ -103,7 +103,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 SetMeeting(newuser, unPsychologist, meeting);
                 SetMeetingCount(newuser);
                 newuser.Meeting.Add(meeting);
-                Update(newuser,newuser.Id);
+                UpdateByUser(newuser,newuser.Id);
             }
             else
             {
@@ -245,13 +245,22 @@ namespace MSP.BetterCalm.BusinessLogic
             User findUser = list.Find(c => c.Email == email);
             return findUser.Id;
         }
-        public void Update(User user, int id)
+        public void UpdateByAdministrator(User user, int id)
         {
             User realUser = _repositoryUser.Get(id);
             realUser.Meeting = user.Meeting;
             realUser.MeetingDuration = user.MeetingDuration;
             realUser.Discount = user.Discount;
             user.MeetingCount = 0;
+            realUser.MeetingCount = user.MeetingCount;
+            _repositoryUser.Update(realUser);
+        }
+        private void UpdateByUser(User user, int id)
+        {
+            User realUser = _repositoryUser.Get(id);
+            realUser.Meeting = user.Meeting;
+            realUser.MeetingDuration = user.MeetingDuration;
+            realUser.Discount = user.Discount;
             realUser.MeetingCount = user.MeetingCount;
             _repositoryUser.Update(realUser);
         }

@@ -141,7 +141,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
 
             user.MeetingCount = 5;
-            userLogic.Update(user, user.Id);
+            userLogic.UpdateByAdministrator(user, user.Id);
         }
         [TestMethod]
         public void GetbyCountMeetingUser()

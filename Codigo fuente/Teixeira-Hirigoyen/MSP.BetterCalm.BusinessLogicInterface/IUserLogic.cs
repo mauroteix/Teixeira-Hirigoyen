@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface IUserLogic
     {
         public void Add(User user);
-        public void Update(User user, int id);
+        public void UpdateByAdministrator(User user, int id);
         public List<User> GetUserbyCountMeeting();
         public User GetUserByEmail(string email);
     }
