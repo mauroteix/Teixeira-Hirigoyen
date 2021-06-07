@@ -8,6 +8,6 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface ISessionLogic
     {
         public bool IsCorrectToken(Guid token);
-        public Guid Login(Administrator admin);
+        public Guid Login(string email, string password);
     }
 }

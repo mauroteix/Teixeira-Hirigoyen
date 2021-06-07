@@ -23,15 +23,15 @@ namespace MSP.BetterCalm.BusinessLogic
             return this.repositoryAdministrator.GetAll().ToList().Exists(u => u.Token == token);
         }
 
-        public Guid Login(Administrator admin)
+        public Guid Login(string email, string password)
         {
-            if (admin.EmailEmpty() || admin.PasswordEmpty())
+            if (email == null || email.Length == 0 || password == null || password.Length == 0)
             {
                 throw  new FieldEnteredNotCorrect("The email and password cannot be empty");
             }
             var adminLog = this.repositoryAdministrator.GetAll().ToList().FirstOrDefault(u =>
-                u.Email.ToLower().Equals(admin.Email.ToLower())
-                && u.Password.Equals(admin.Password));
+                u.Email.ToLower().Equals(email.ToLower())
+                && u.Password.Equals(password));
 
             if (adminLog == null)
             {

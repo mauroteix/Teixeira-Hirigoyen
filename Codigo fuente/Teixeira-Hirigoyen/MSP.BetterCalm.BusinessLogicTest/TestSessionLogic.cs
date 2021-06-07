@@ -64,7 +64,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             var guidExpected = this.adminRepository.GetAll().ToList().FirstOrDefault(u => u.Email.Equals(admin.Email)).Token;
 
-            var token = this.sessionLogic.Login(admin);
+            var token = this.sessionLogic.Login(admin.Email, admin.Password);
 
             Assert.AreEqual(guidExpected, token);
         }
@@ -79,7 +79,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Password = ""
             };
 
-            var token = this.sessionLogic.Login(adminLog);
+            var token = this.sessionLogic.Login(adminLog.Email, adminLog.Password);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Password = "1234"
             };
 
-            var token = this.sessionLogic.Login(adminLog);
+            var token = this.sessionLogic.Login(adminLog.Email, adminLog.Password);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Password = "12345"
             };
 
-            var token = this.sessionLogic.Login(adminLog);
+            var token = this.sessionLogic.Login(adminLog.Email, adminLog.Password);
         }
     }
 }

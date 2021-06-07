@@ -39,7 +39,7 @@ namespace MSP.BetterCalm.API.Controllers
         {
             try
             {
-                var token = this.sessionLogic.Login(admin);
+                var token = this.sessionLogic.Login(admin.Email, admin.Password);
                 return Ok(token);
             }
             catch (FieldEnteredNotCorrect e)
