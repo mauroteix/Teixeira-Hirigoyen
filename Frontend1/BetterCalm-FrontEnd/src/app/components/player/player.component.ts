@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { Category } from 'src/app/models/category/category.module';
 import { CategoryTrack } from 'src/app/models/categorytrack/categorytrack.module';
@@ -25,11 +25,13 @@ export class PlayerComponent implements OnInit {
   isPlaylist!: boolean;
   isTrack!: boolean;
   isVideo!: boolean;
+  image!: string ;
+  
 
 
-  constructor(private categoryService: CategoryService,
-    private router: Router,
-    private alertService: AlertService) { 
+  constructor(private categoryService: CategoryService,private  router:Router,
+    private alertService: AlertService)
+    { 
     
   }
 
@@ -48,10 +50,12 @@ export class PlayerComponent implements OnInit {
   searchCategory(id: number){
     this.categoryService.get(id).subscribe(
       (resp: any) => {
+        
         this.category = resp
         this.playlistCategory = this.category.playlistCategory
         this.categoryTrack = this.category.categoryTrack
         this.categoryVideo = this.category.categoryVideo
+        
       },
       err => {
         this.alertService.danger(err.error);
@@ -60,7 +64,6 @@ export class PlayerComponent implements OnInit {
     this.setFalseAll();
 
   }
-
   showPlaylist(){
     if(this.playlistCategory.length == 0) {
       this.alertService.warning("Not exist playlist for that category");
@@ -69,7 +72,7 @@ export class PlayerComponent implements OnInit {
     this.isVideo = false;
     this.isTrack = false;
     this.isPlaylist = true;
-    }
+  }
   }
 
   showTrack(){
@@ -99,5 +102,12 @@ export class PlayerComponent implements OnInit {
     this.isPlaylist = false;
     this.isTrack = false;
     this.isVideo = false;
+  }
+  
+  navegar(playlist:PlaylistCategory){
+    const params = {
+      id: playlist.idPlaylist
+    };
+    this.router.navigate( ['infoplaylist'], { queryParams: params });
   }
 }

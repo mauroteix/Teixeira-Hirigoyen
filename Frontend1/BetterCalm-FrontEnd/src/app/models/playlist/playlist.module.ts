@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter/adapter.module';
 import { PlaylistCategory } from '../playlistcategory/playlistcategory.module';
+import { PlaylistTrack } from '../playlisttrack/playlisttrack.module';
+import { PlaylistVideo } from '../playlistvideo/playlistvideo.module';
 
 export class Playlist{
     constructor( 
@@ -9,6 +11,9 @@ export class Playlist{
         public description: string,
         public image: string,
         public playlistCategory: PlaylistCategory[],
+        public playlistTrack: PlaylistTrack[],
+        public playlistVideo: PlaylistVideo[],
+      
         ){}
 }
 
@@ -24,7 +29,9 @@ export class PlaylistAdapter implements Adapter<Playlist> {
           item.name,
           item.description,
           item.image,
-          item.playlistCategory
+          item.playlistCategory,
+          item.playlistTrack,
+          item.playlistVideo,
       );
   }
 }

@@ -15,31 +15,41 @@
 </div>
 </div>
 <div *ngIf= "isPlaylist == true">
-  <div class = "content2">
-    <h2 style="text-align: center">Playlist</h2>
-         <div class="btn-group mr-2">
-         <div *ngFor="let playlistcategory of playlistCategory">
-            <button class= "btn btn-primary" style="height: 80px;margin: 20%;display:flex;margin-right: 20px;" >
-            {{ playlistcategory.playlist.name }}
-            {{ playlistcategory.playlist.image}}
-            </button>
+  <h2 style="text-align: center">Playlist</h2>
+          <div *ngFor="let play of playlistCategory" class="ml-5">
+            
+            <div>
+              <img src="{{ play.playlist.image }}" >
+             </div> 
+             <div>
+              <label>{{ play.playlist.name }}</label> 
+             </div>
+             
+             <button class= "btn btn-primary" (click)="navegar(play)"> play</button>
+            
           </div>
-        </div>
-  </div>
 </div>
+
+
 
 <div *ngIf= "isTrack == true">
   <div class = "content2">
     <h2 style="text-align: center">Track</h2>
     <div class="btn-group mr-2">
-         <div *ngFor="let categorytrack of categoryTrack">
-            <button class= "btn btn-primary" style="height: 80px;margin: 20%;display:flex;margin-right: 20px;">
-            {{ categorytrack.track.name }}
-            </button>
+         <div *ngFor="let categorytrack of categoryTrack" class="ml-5">
+          <div>
+          <img src="{{ categorytrack.track.image }}" >
+         </div> 
+         <div>
+          <label>{{ categorytrack.track.name }}</label> 
+         </div> 
+          <button class= "btn btn-primary"> Play </button>
+      </div>
+
         </div>
     </div>
   </div>
-</div>
+
 
 <div *ngIf= "isVideo == true">
   <div class = "content3">

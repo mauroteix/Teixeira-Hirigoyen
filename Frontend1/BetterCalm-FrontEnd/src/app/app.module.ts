@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LogInComponent } from './components/log-in/log-in.component';
+
 
 //Import alerts
 import { AlertModule } from 'ngx-alerts';
@@ -16,6 +16,9 @@ import { CommonModule } from '@angular/common';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PlayerComponent } from './components/player/player.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ShowPlaylistComponent } from './components/show-playlist/show-playlist.component';
+import { BookpsychologistComponent } from './components/bookpsychologist/bookpsychologist.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LogInComponent,
     AuthInterceptor,
     PlayerComponent,
-    NavbarComponent
+    NavbarComponent,
+    ShowPlaylistComponent,
+    BookpsychologistComponent
   ],
   imports: [
     BrowserModule,
@@ -33,11 +38,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     NgbModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       {path: 'session', component: LogInComponent},
       {path: 'player', component: PlayerComponent},
+      {path: 'infoplaylist', component: ShowPlaylistComponent},
+      {path: 'bookpsychologist', component: BookpsychologistComponent},
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
