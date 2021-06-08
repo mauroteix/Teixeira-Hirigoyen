@@ -1,0 +1,57 @@
+<div class="contenedor">
+<div class="dropdown">
+  <div *ngFor="let category of categories">
+  <div class="btn-group-vertical" style="margin-right: 3px">
+    <button class="btn btn-secondary dropdown-toggle" style= "margin-right: 15px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="searchCategory(category.id)">
+      {{ category.name }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" (click)="showPlaylist()">Playlist</button>
+      <a class="dropdown-item" (click)="showTrack()">Track</a>
+      <a class="dropdown-item" (click)="showVideo()">Video</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div *ngIf= "isPlaylist == true">
+  <div class = "content2">
+    <h2 style="text-align: center">Playlist</h2>
+         <div class="btn-group mr-2">
+         <div *ngFor="let playlistcategory of playlistCategory">
+            <button class= "btn btn-primary" style="height: 80px;margin: 20%;display:flex;margin-right: 20px;" >
+            {{ playlistcategory.playlist.name }}
+            {{ playlistcategory.playlist.image}}
+            </button>
+          </div>
+        </div>
+  </div>
+</div>
+
+<div *ngIf= "isTrack == true">
+  <div class = "content2">
+    <h2 style="text-align: center">Track</h2>
+    <div class="btn-group mr-2">
+         <div *ngFor="let categorytrack of categoryTrack">
+            <button class= "btn btn-primary" style="height: 80px;margin: 20%;display:flex;margin-right: 20px;">
+            {{ categorytrack.track.name }}
+            </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf= "isVideo == true">
+  <div class = "content3">
+    <h2>Track</h2>
+    <div class="btn-group-vertical btn-block">
+         <div *ngFor="let categoryvideo of categoryVideo">
+            <button class= "btn btn-primary" >
+            {{ categoryvideo.video.name }}
+            </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+

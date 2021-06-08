@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/player">Player</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="">Book psycologhist</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="">Ver Reserva</a>
+        </li>
+        <div *ngIf="admin == true">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Manejar administradores
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="">Agregar</a>
+              <a class="dropdown-item" routerLink="">Eliminar/Modificar</a
+              >
+            </div>
+          </li>
+        </div>
+        <div *ngIf="admin == false">
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="/session">Login</a>
+          </li>
+          </div>
+        <div *ngIf="admin == true" class="pull-right" style="display: flex"> 
+          <li class="nav-item active " style="text-align:right; margin-left: 600%;">
+              <div><label>Bienvenido,{{username}}</label></div>
+            <button (click)="cerrarSesion()" routerLink="" class="btn btn-primary">
+                Cerrar Sesion
+            </button>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </nav>
+  
