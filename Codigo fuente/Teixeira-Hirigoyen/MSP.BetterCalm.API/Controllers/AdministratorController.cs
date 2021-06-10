@@ -120,12 +120,31 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+        [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet()]
         public IActionResult GetAll()
         {
             try
             {
                 return Ok(adminLogic.GetAll());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        [ServiceFilter(typeof(AuthorizationFilter))]
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                Administrator admin = adminLogic.Get(id);
+                return Ok(admin);
+            }
+            catch (EntityNotExists fe)
+            {
+                return NotFound(fe.MessageError());
             }
             catch (Exception e)
             {
