@@ -7,7 +7,8 @@ export class MedicalCondition{
     constructor( 
         public id: number,
         public name: string,
-        public expertise: Expertise[]
+        public expertise: Expertise[],
+        public image: string
         ){}
 }
 
@@ -21,7 +22,8 @@ export class MedicalConditionAdapter implements Adapter<MedicalCondition> {
       return new MedicalCondition (
           item.id,
           item.name,
-          item.expertise
+          item.expertise,
+          item.image
       );
   }
 }
