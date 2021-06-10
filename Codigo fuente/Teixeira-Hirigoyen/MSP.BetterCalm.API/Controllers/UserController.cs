@@ -7,6 +7,7 @@ using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MSP.BetterCalm.API.Controllers
@@ -37,7 +38,9 @@ namespace MSP.BetterCalm.API.Controllers
             {
 
                 _userLogic.Add(user);
-                return Ok("Successfully added user name:" + user.Name);
+                List <Meeting> list = user.Meeting.ToList();
+                Meeting lastMeeting = list[list.Count-1];
+                return Ok("Successfully added user name:" + user.Name + ", " + "Costo de meeting:"+lastMeeting.TotalPrice);
             }
             catch (FieldEnteredNotCorrect fe)
             {

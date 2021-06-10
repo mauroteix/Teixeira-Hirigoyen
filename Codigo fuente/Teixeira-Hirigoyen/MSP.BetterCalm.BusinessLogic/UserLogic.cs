@@ -103,6 +103,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 SetMeeting(newuser, unPsychologist, meeting);
                 SetMeetingCount(newuser);
                 newuser.Meeting.Add(meeting);
+                user.Meeting = newuser.Meeting;
                 UpdateByUser(newuser,newuser.Id);
             }
             else
