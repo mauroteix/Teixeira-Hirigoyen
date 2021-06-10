@@ -8,7 +8,7 @@ import { PlaylistCategory } from 'src/app/models/playlistcategory/playlistcatego
 import { CategoryService } from 'src/app/services/category/category.service';
 import { CategoryVideo } from 'src/app/models/categoryvideo/categoryvideo.module';
 import { isNull } from '@angular/compiler/src/output/output_ast';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player',
@@ -27,6 +27,7 @@ export class PlayerComponent implements OnInit {
   isTrack!: boolean;
   isVideo!: boolean;
   image!: string ;
+  url!: SafeResourceUrl;
   
 
 
@@ -102,7 +103,8 @@ export class PlayerComponent implements OnInit {
     console.log("Esta entrando");
     console.log(categoryvideo);
     console.log(categoryvideo.video.linkVideo);
-    return this.sanitizer.sanitize(SecurityContext.URL,'categoryvideo.video.linkVideo')
+    this.url = categoryvideo.video.linkVideo;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url+"");
    // return this.sanitizer.bypassSecurityTrustResourceUrl('categoryvideo.video.linkVideo');
   }
 

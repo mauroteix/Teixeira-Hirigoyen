@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
-import { AdministratorToAdd } from 'src/app/models/admin/admin.module';
+import { Administrator, AdministratorToAdd } from 'src/app/models/admin/admin.module';
 import { AdminService } from 'src/app/services/admin/admin.service';
 
 @Component({
@@ -18,12 +19,16 @@ export class AdministratorComponent implements OnInit {
     private router: Router,private alertService: AlertService, private adminService: AdminService) { }
 
     showAdmin: boolean = false;
+    showUpdate: boolean = false;
     nameFunction!: string;
+    adminList!: Administrator[];
+    
 
     adminForm= new FormGroup({ 
       name:new FormControl(''),
       email :new FormControl(''),
       password: new FormControl(''),
+      administrator: new FormControl(''),
     })
 
   ngOnInit(): void {
@@ -34,16 +39,27 @@ export class AdministratorComponent implements OnInit {
       this.admin = false;
       this.alertService.warning("Unauthorized! You must be logged");
     }
+    this.adminService.getAll().subscribe(
+      (resp: any) => {
+        this.adminList = resp
+      },
+      err => {
+        this.alertService.danger(err.error);
+      }
+    );
+
   }
 
   showAddAdmin(){
     this.showAdmin = true;
     this.nameFunction = "Add";
+    this.showUpdate = false;
   }
 
   showUpdateAdmin(){
     this.showAdmin = true;
     this.nameFunction = "Update";
+    this.showUpdate = true;
   }
 
   showDeleteAdmin(){

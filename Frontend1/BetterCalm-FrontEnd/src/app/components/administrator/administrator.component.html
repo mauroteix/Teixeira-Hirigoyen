@@ -13,6 +13,14 @@
 <div *ngIf= "showAdmin == true">
     <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
     <form [formGroup] ="adminForm" style="margin: 2%;">
+      <div class="form-row" *ngIf = "showUpdate == true">
+        <div class="form-group col-md-6">
+        <label>Select administrator</label>
+        <select class="form-control"  formControlName="administrator" id="administrator">                        
+            <option *ngFor="let admin of adminList" value={{admin.id}}> {{admin.email}} </option>
+        </select>
+      </div>
+    </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Name</label>

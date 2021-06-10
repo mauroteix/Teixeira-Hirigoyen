@@ -1,11 +1,13 @@
-<h2 style="text-align: center">Medical Condition</h2>
-<div class="total">
-         <div *ngFor="let medical of medicalconditions" class="polaroid">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+<h2 class="font-effect-shadow-multiple" style="text-align: center;font-size: 45px;">Medical Condition</h2>
+<div class="row">
+   
+         <div *ngFor="let medical of medicalconditions" class="col-md-4" style="text-align: center;">
+                  <img  src="{{ medical.image }}" style=" width: 400px;
+                  height: 400px;margin:5%;"/>
                   <div>
-                  <img  src="{{ medical.image }}">
-                  </div> 
-               <div class="container">
-                  <button class= "btn btn-primary" (click) = "arePsychologistAvailable(medical.id)"> {{ medical.name }}</button>
+                  <button  (click) = "arePsychologistAvailable(medical.id)"> {{ medical.name }}</button>
                </div>
+                  
          </div>
 </div>
