@@ -108,6 +108,14 @@ namespace MSP.BetterCalm.APITest
             Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
                 result.ToString());
         }
+        [TestMethod]
+        public void GetAllAdministrator()
+        {
+            var mockAdministrator = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdministrator.Setup(u => u.GetAll()).Returns(adminList);
+            var controller = new AdministratorController(mockAdministrator.Object);
+            Assert.AreEqual(new OkObjectResult("").ToString(), controller.GetAll().ToString());
+        }
 
     }
 }

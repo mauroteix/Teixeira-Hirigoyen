@@ -120,5 +120,17 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+        [HttpGet()]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                return Ok(adminLogic.GetAll());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
     }
 }
