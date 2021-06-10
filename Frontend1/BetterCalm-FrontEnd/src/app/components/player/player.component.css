@@ -1,4 +1,19 @@
+
 .dropdown{
   display: flex;
   margin: 1%;
+}
+
+.padre {
+  background-color: #fafafa;
+  margin: 1rem;
+  padding: 1rem;
+  /* IMPORTANTE */
+  text-align: center;
+}
+
+
+.trackh1{
+  display: initial;
+  margin: 15%;
 }

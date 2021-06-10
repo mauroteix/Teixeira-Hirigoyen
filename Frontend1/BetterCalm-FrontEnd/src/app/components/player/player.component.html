@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
 <div class="contenedor">
 <div class="dropdown">
   <div *ngFor="let category of categories">
@@ -15,56 +16,52 @@
 </div>
 </div>
 <div *ngIf= "isPlaylist == true">
-  <h2 style="text-align: center">Playlist</h2>
-          <div *ngFor="let play of playlistCategory" class="ml-5">
+  <h2 class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Playlists</h2>
+  <div  class="row" style="margin:1%">
+          <div *ngFor="let play of playlistCategory" class="col-md-4" style="text-align: center;">
             
             <div>
               <img src="{{ play.playlist.image }}" >
              </div> 
              <div>
-              <label>{{ play.playlist.name }}</label> 
-             </div>
-             
-             <button class= "btn btn-primary" (click)="navegar(play)"> play</button>
-            
-          </div>
+              <h1 class="font-effect-shadow-multiple" style="font-size: 30px;">{{ play.playlist.name }}</h1>
+            </div> 
+             <button class= "btn btn-primary" (click)="navegar(play)">Play</button>
+            </div>
+        </div>
 </div>
 
 
 
 <div *ngIf= "isTrack == true">
-  <div class = "content2">
-    <h2 style="text-align: center">Track</h2>
-    <div class="btn-group mr-2">
-         <div *ngFor="let categorytrack of categoryTrack" class="ml-5">
-          <div>
-          <img src="{{ categorytrack.track.image }}" >
-         </div> 
-         <div>
-          <label>{{ categorytrack.track.name }}</label> 
-         </div> 
-          <button class= "btn btn-primary"> Play </button>
-      </div>
-
-        </div>
+  <h2  class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Tracks</h2>
+    <div *ngFor="let cattrack of categoryTrack" class="ml-5">    
+      <div class="padre">
+      <a>
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16" style = "cursor:pointer;">
+          <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+        </svg>
+      </a>
+        <h1 class="trackh1">{{ cattrack.track.name }}</h1>
+        <a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16" style = "cursor:pointer;">
+          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+        </svg>
+      </a>
     </div>
+  </div>
   </div>
 
 
-<div *ngIf= "isVideo == true" class="embed-responsive embed-responsive-16by9" style=" width: 400px;
-height: 400px;">
- <div *ngFor="let categoryvideo of categoryVideo">
+<div *ngIf= "isVideo == true">
+  <h2 class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Videos</h2>
+ <div  class="row">
+  <div class= "col-md-4" *ngFor="let categoryvideo of categoryVideo" style="text-align: center;">
     <iframe class="embed-responsive-item" [src]="photoURL(categoryvideo)" style=" width: 400px;
-    height: 400px;"></iframe>
-  <div class = "content3">
-    <h2>Video</h2>
-    <div class="btn-group-vertical btn-block">
-            <button class= "btn btn-primary" >
-            {{ categoryvideo.video.name }}
-            </button>
-        </div>
-    </div>
+    height: 400px;margin:5%;"></iframe>
+    <h1 class="font-effect-shadow-multiple" style="font-size: 30px;">{{categoryvideo.video.name}} - {{categoryvideo.video.author}}</h1>
   </div>
+</div>
 </div>
 
 
