@@ -1,0 +1,38 @@
+<div *ngIf = "admin == true">
+    <div class="context" style="margin: 2%;">
+    <h1>Administrator</h1>
+    <div class="dropdown" style="margin: 2%;">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="showAddAdmin()">Add</button>
+            <button type="button" class="btn btn-primary" (click)="showUpdateAdmin()">Update</button>
+            <button type="button" class="btn btn-primary" (click)="showDeleteAdmin()">Delete</button>
+          </div>
+      </div>
+    </div>
+
+<div *ngIf= "showAdmin == true">
+    <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+    <form [formGroup] ="adminForm" style="margin: 2%;">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Name</label>
+            <input type="text" class="form-control"  formControlName="name"  id="name">
+          </div>
+        </div>
+          <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputAddress">Email</label>
+            <input type="text" class="form-control"  formControlName="email"  id="email">
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputAddress">Password</label>
+              <input type="password" class="form-control"  formControlName="password"  id="password">
+            </div>
+          </div>
+        <button type="submit" class="btn btn-primary" (click)="functionAdmin()">{{nameFunction}}</button>
+    </form>
+</div>
+
+</div>

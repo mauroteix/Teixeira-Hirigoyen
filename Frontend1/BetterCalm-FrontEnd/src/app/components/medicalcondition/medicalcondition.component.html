@@ -1,0 +1,6 @@
+<h2 style="text-align: center">Medical Condition</h2>
+<div class="content" style= "display: flex;margin-top: 2%;justify-content: center;">
+            <div *ngFor="let medical of medicalconditions" class="ml-5">
+               <button class= "btn btn-primary" (click) = "arePsychologistAvailable(medical.id)"> {{ medical.name }}</button>
+            </div>
+  </div>

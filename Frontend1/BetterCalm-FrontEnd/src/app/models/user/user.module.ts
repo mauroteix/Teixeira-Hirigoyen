@@ -27,6 +27,9 @@ export class UserToAdd{
       public cellphone: string,
       public medicalCondition: MedicalCondition,
       public meetingduration:number,
+      public discount:number,
+      public meetingcount:number,
+      public meeting:Meeting[],
       ){}
 }
 

@@ -6,10 +6,7 @@
           <a class="nav-link" routerLink="/player">Player</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/bookpsychologist">Book psycologhist</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="">Ver Reserva</a>
+          <a class="nav-link" routerLink="/medicalcondition">Book psychologist</a>
         </li>
         <div *ngIf="admin == true">
           <li class="nav-item dropdown">
@@ -21,12 +18,13 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Manejar administradores
+              Administrator Management
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink="">Agregar</a>
-              <a class="dropdown-item" routerLink="">Eliminar/Modificar</a
-              >
+              <a class="dropdown-item" routerLink="/adminManage">Administrator</a>
+              <a class="dropdown-item" routerLink="">Music</a>
+              <a class="dropdown-item" routerLink="">Psychologist</a>
+              <a class="dropdown-item" routerLink="">Register discount</a>
             </div>
           </li>
         </div>
@@ -36,7 +34,7 @@
           </li>
           </div>
         <div *ngIf="admin == true" class="pull-right" style="display: flex"> 
-          <li class="nav-item active " style="text-align:right; margin-left: 600%;">
+          <li class="nav-item active " style="text-align:right; margin-left: 300%;">
               <div><label>Bienvenido,{{username}}</label></div>
             <button (click)="cerrarSesion()" routerLink="" class="btn btn-primary">
                 Cerrar Sesion

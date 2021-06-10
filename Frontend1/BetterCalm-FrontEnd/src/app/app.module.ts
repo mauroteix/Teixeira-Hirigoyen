@@ -19,6 +19,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ShowPlaylistComponent } from './components/show-playlist/show-playlist.component';
 import { BookpsychologistComponent } from './components/bookpsychologist/bookpsychologist.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { MedicalconditionComponent } from './components/medicalcondition/medicalcondition.component';
+import { AdministratorComponent } from './components/administrator/administrator.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { LogInComponent } from './components/log-in/log-in.component';
     PlayerComponent,
     NavbarComponent,
     ShowPlaylistComponent,
-    BookpsychologistComponent
+    BookpsychologistComponent,
+    MedicalconditionComponent,
+    AdministratorComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,9 @@ import { LogInComponent } from './components/log-in/log-in.component';
       {path: 'player', component: PlayerComponent},
       {path: 'infoplaylist', component: ShowPlaylistComponent},
       {path: 'bookpsychologist', component: BookpsychologistComponent},
+      {path: 'medicalcondition', component: MedicalconditionComponent},
+      {path: 'adminManage', component: AdministratorComponent},
+      
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter/adapter.module';
+import { CategoryTrack } from '../categorytrack/categorytrack.module';
+import { PlaylistTrack } from '../playlisttrack/playlisttrack.module';
 
 export class Track{
     constructor( 
@@ -8,8 +10,11 @@ export class Track{
         public author: string,
         public image: string,
         public hour: number,
-        public minseconds: number,
+        public minseconds:any,
         public sound: string,
+        public categoryTrack: CategoryTrack[],
+        public playlistTrack: PlaylistTrack[],
+
         ){}
 }
 
@@ -27,7 +32,9 @@ export class TrackAdapter implements Adapter<Track> {
           item.image,
           item.hour,
           item.minseconds,
-          item.sound
+          item.sound,
+          item.categoryTrack,
+          item.playlistTrack
       );
   }
 }

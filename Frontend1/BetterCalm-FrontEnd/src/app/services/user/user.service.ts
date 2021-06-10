@@ -17,10 +17,15 @@ export class UserService {
     return this.http.get<User>(`${environment.apiUrl}/user`);
   }
 
-  post(user: UserToAdd): any{
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    return this.http.post(`${environment.apiUrl}/user`, JSON.stringify(user), {headers});
+  post(user: UserToAdd){
+    //const headers = new HttpHeaders()
+    //  .set('Content-Type', 'application/json')
+    return this.http.post(`${environment.apiUrl}/user`, user, {responseType: 'text'})
+    .pipe(
+      map( resp => {
+        return resp;
+      })
+    );
   }
 
   
