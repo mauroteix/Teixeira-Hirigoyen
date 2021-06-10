@@ -30,14 +30,27 @@ export class MedicalconditionComponent implements OnInit {
       },
       err => this.alertService.warning(err.error())
     );
+    this.psychologistService.getAll().subscribe(
+      (resp: any) => {
+        this.listPsychologist = resp;
+        
+        if(this.listPsychologist.length > 0){
+           this.exist = true;
+        }
+        else this.alertService.warning("Not exist psychologist for all medical condition");
+      
+      },
+      err => {
+        this.alertService.danger(err.error);
+      }
+     
+    );
   }
 
   public arePsychologistAvailable(idMedical:number){
     this.medicalconditionService.get(idMedical).subscribe(
       (resp: any) => {
         this.medical = resp;
-        console.log(this.medical);
-        this.existPsychologist();
         if(this.medical.expertise.length > 0 || (this.exist && this.medical.id ==8)){
             const params = {
              id: this.medical.id
@@ -56,23 +69,5 @@ export class MedicalconditionComponent implements OnInit {
 
   }
 
-  existPsychologist(){
-  this.psychologistService.getAll().subscribe(
-    (resp: any) => {
-      this.listPsychologist = resp;
-      
-      if(this.listPsychologist.length > 0){
-         this.exist = true;
-      }
-      else this.alertService.warning("Not exist psychologist for all medical condition");
-    
-    },
-    err => {
-      this.alertService.danger(err.error);
-    }
-   
-  );
-    
-  }
 
 }

@@ -36,13 +36,10 @@ export class ShowPlaylistComponent implements OnInit {
 
   onPlay(track: Track){
     this.playSong = true;
-    console.log(track);
-    console.log(track.minseconds);
-    console.log( isNaN(track.minseconds as number));
     this.songTrack = track;
-    //if(track.hour == 0) this.duration = "" +track.minseconds + " min";
-    //else if(track.minseconds == 0) this.duration = ""+track.hour+ " h";
-    //else this.duration = ""+track.hour+ "h" +  " " +track.minseconds + "min";
+    if(track.hour == 0) this.duration = "" +track.minSeconds + " min";
+    else if(track.minSeconds == 0) this.duration = ""+track.hour+ " h";
+    else this.duration = ""+track.hour+ "h" +  " " +track.minSeconds + "min";
   }
 
 
