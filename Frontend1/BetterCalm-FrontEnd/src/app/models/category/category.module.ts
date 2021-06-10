@@ -11,6 +11,7 @@ export class Category{
         public categoryTrack : CategoryTrack[],
         public playlistCategory: PlaylistCategory[],
         public categoryVideo : CategoryVideo[], 
+        public image: string,
         ){}
 }
 
@@ -26,7 +27,8 @@ export class CategoryAdapter implements Adapter<Category> {
           item.name,
           item.categoryTrack,
           item.playlistCategory,
-          item.categoryVideo
+          item.categoryVideo,
+          item.image
       );
   }
 }
