@@ -18,5 +18,12 @@ namespace MSP.BetterCalm.DomainTest
             medicalCondition.Name = "Depresion";
             Assert.AreEqual("Depresion", medicalCondition.Name);
         }
+        [TestMethod]
+        public void RegisterImage()
+        {
+            medicalCondition = new MedicalCondition();
+            medicalCondition.Image = "http://www.google.com";
+            Assert.AreEqual("http://www.google.com", medicalCondition.Image);
+        }
     }
 }

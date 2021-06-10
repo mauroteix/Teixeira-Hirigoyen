@@ -100,6 +100,12 @@ namespace MSP.BetterCalm.DomainTest
         {
             Assert.IsTrue(category.PlaylistCategory.Count == 1);
         }
+        [TestMethod]
+        public void RegisterImage()
+        {
+            category.Image = "http://www.google.com";
+            Assert.AreEqual("http://www.google.com", category.Image);
+        }
 
     }
 }
