@@ -10,7 +10,7 @@ export class Track{
         public author: string,
         public image: string,
         public hour: number,
-        public minseconds:any,
+        public minSeconds:number,
         public sound: string,
         public categoryTrack: CategoryTrack[],
         public playlistTrack: PlaylistTrack[],
@@ -31,7 +31,7 @@ export class TrackAdapter implements Adapter<Track> {
           item.author,
           item.image,
           item.hour,
-          item.minseconds,
+          item.minSeconds,
           item.sound,
           item.categoryTrack,
           item.playlistTrack

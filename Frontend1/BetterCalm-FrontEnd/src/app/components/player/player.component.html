@@ -51,11 +51,14 @@
   </div>
 
 
-<div *ngIf= "isVideo == true">
+<div *ngIf= "isVideo == true" class="embed-responsive embed-responsive-16by9" style=" width: 400px;
+height: 400px;">
+ <div *ngFor="let categoryvideo of categoryVideo">
+    <iframe class="embed-responsive-item" [src]="photoURL(categoryvideo)" style=" width: 400px;
+    height: 400px;"></iframe>
   <div class = "content3">
-    <h2>Track</h2>
+    <h2>Video</h2>
     <div class="btn-group-vertical btn-block">
-         <div *ngFor="let categoryvideo of categoryVideo">
             <button class= "btn btn-primary" >
             {{ categoryvideo.video.name }}
             </button>

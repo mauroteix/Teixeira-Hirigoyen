@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { Router} from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { Category } from 'src/app/models/category/category.module';
@@ -8,6 +8,7 @@ import { PlaylistCategory } from 'src/app/models/playlistcategory/playlistcatego
 import { CategoryService } from 'src/app/services/category/category.service';
 import { CategoryVideo } from 'src/app/models/categoryvideo/categoryvideo.module';
 import { isNull } from '@angular/compiler/src/output/output_ast';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player',
@@ -30,7 +31,7 @@ export class PlayerComponent implements OnInit {
 
 
   constructor(private categoryService: CategoryService,private  router:Router,
-    private alertService: AlertService)
+    private alertService: AlertService, private sanitizer: DomSanitizer)
     { 
     
   }
@@ -42,9 +43,6 @@ export class PlayerComponent implements OnInit {
       },
       err => this.alertService.warning(err.error())
     );
-    /*if(localStorage.getItem("auth_token") != null) this.admin = true;  
-    else this.admin = false;
-    this.regions = ["","CentroSur","CorredorPajarosPintados","Este","LitoralNorte","Metropolitana"];*/
   }
   
   searchCategory(id: number){
@@ -88,6 +86,8 @@ export class PlayerComponent implements OnInit {
 
   
   showVideo(){
+    console.log(this.categoryVideo);
+    console.log(this.categoryVideo.length);
     if(this.categoryVideo.length == 0) {
       this.alertService.warning("Not exist video for that category");
     }
@@ -96,6 +96,14 @@ export class PlayerComponent implements OnInit {
     this.isTrack = false;
     this.isVideo = true;
     }
+  }
+
+  photoURL(categoryvideo: CategoryVideo){
+    console.log("Esta entrando");
+    console.log(categoryvideo);
+    console.log(categoryvideo.video.linkVideo);
+    return this.sanitizer.sanitize(SecurityContext.URL,'categoryvideo.video.linkVideo')
+   // return this.sanitizer.bypassSecurityTrustResourceUrl('categoryvideo.video.linkVideo');
   }
 
   setFalseAll(){
