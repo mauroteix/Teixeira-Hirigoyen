@@ -30,6 +30,14 @@ export class PsychologistService {
       map(item => this.adapter.adapt(item))
     );
   }
+  put(psy: PsychologistToAdd, id: number){
+    return this.http.put(`${environment.apiUrl}/psychologist/${id}`, psy, {responseType: 'text'})
+    .pipe(
+    map( resp => {
+      return resp;
+    })
+  );
+}
 }
 
 
