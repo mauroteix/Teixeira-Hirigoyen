@@ -24,6 +24,10 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistAdministrator(id);
             return repositoryAdministrator.Get(id);
         }
+        public List<Administrator> GetAll()
+        {
+            return repositoryAdministrator.GetAll().ToList();
+        }
 
         public void Add(Administrator administrator)
         {
