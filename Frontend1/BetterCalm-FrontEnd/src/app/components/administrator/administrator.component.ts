@@ -19,7 +19,8 @@ export class AdministratorComponent implements OnInit {
     private router: Router,private alertService: AlertService, private adminService: AdminService) { }
 
     showAdmin: boolean = false;
-    showUpdate: boolean = false;
+    showSelect: boolean = false;
+    showDelete: boolean = false;
     nameFunction!: string;
     adminList!: Administrator[];
     
@@ -47,31 +48,35 @@ export class AdministratorComponent implements OnInit {
         this.alertService.danger(err.error);
       }
     );
-
   }
 
   showAddAdmin(){
     this.showAdmin = true;
     this.nameFunction = "Add";
-    this.showUpdate = false;
+    this.showSelect = false;
+    this.showDelete = false;
   }
 
   showUpdateAdmin(){
     this.showAdmin = true;
     this.nameFunction = "Update";
-    this.showUpdate = true;
+    this.showSelect = true;
+    this.showDelete = false;
   }
 
   showDeleteAdmin(){
     this.showAdmin = false;
     this.nameFunction = "Delete";
+    this.showDelete = true;
+    this.showSelect = true;
   }
 
   cleanForm(){
     this.adminForm.patchValue({
       name: '',
       email: '',
-      password: ''
+      password: '',
+      administrator:''
    });
   }
 
@@ -91,37 +96,74 @@ export class AdministratorComponent implements OnInit {
     return true;
   }
 
-  functionAdmin(){
-    if(this.validateAdmin()){
-      if(this.nameFunction == "Add"){
-      const admin = new AdministratorToAdd(
+  validateSelect(): boolean{
+    if(this.adminForm.value.administrator == "") return false;
+    return true;
+  }
+  functionAdd(){
+    const admin = new AdministratorToAdd(
       this.adminForm.value.name,
       this.adminForm.value.email,
       this.adminForm.value.password,
       );
       this.adminService.post(admin)
       .subscribe( resp => {
-      this.alertService.success(resp)
+      this.alertService.success(resp);
+      this.ngOnInit();
       }, (err) => {
       this.alertService.danger(err.error);
       });
       this.cleanForm();
-    }
-      if(this.nameFunction == "Update"){
-      const admin = new AdministratorToAdd(
+  }
+
+  functionUpdate(){
+    const admin = new AdministratorToAdd(
       this.adminForm.value.name,
       this.adminForm.value.email,
       this.adminForm.value.password,
-      );
-      this.adminService.put(admin,6) //harckodeadoo!!!! FALTA TRAER EL ID DE UN ADMIN
+       );
+      this.adminService.put(admin,this.adminForm.value.administrator) 
       .subscribe( resp => {
-      this.alertService.success(resp)
+      this.alertService.success(resp);
+      this.cleanForm();
+      this.ngOnInit();
       }, (err) => {
       this.alertService.danger(err.error);
       });
-      this.cleanForm();
-    }
+      
+  }
+
+  functionDelete(){
+    console.log(this.adminForm.value.administrator);
+    this.adminService.delete(this.adminForm.value.administrator) 
+    .subscribe( resp => {
+    this.alertService.success(resp);
+    this.ngOnInit();
+    }, (err) => {
+    this.alertService.danger(err.error);
+    });
     
   }
+
+  functionAdmin(){
+    if(this.showAdmin && this.validateAdmin()){
+      if(this.nameFunction == "Add"){
+          this.functionAdd();
+      }
+      if(this.nameFunction == "Update"){
+        if(this.validateSelect()){
+          this.functionUpdate();
+        }
+        else this.alertService.info("You need to select a administrator");
+      }
+    }
+      if(this.nameFunction == "Delete"){
+        if(this.validateSelect()){
+          this.functionDelete();
+        }
+        else this.alertService.info("You need to select a administrator");
+      }
+    
+ 
   }
 }
