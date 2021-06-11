@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter/adapter.module';
-import { Expertise } from '../expertise/expertise/expertise.module';
+import { Expertise, ExpertiseToAdd } from '../expertise/expertise/expertise.module';
 import { Meeting } from '../meeting/meeting.module';
 
 
@@ -23,7 +23,7 @@ export class PsychologistToAdd{
       public meetingType: number,
       public meetingPrice: number,
       public adressMeeting: string,
-      public expertise: Expertise[],
+      public expertise: ExpertiseToAdd[],
       public meeting: Meeting[],   
       ){}
 }
