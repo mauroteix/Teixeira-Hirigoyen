@@ -35,10 +35,17 @@ export class PsychologistService {
     .pipe(
     map( resp => {
       return resp;
-    })
-  );
+      })
+    );
+  }
+  delete( id: number ){
+    return this.http.delete(`${ environment.apiUrl }/psychologist/${id}`,  {responseType: 'text'})
+    .pipe(
+      map( resp => {
+        return resp;
+      })
+    );
+  }
 }
-}
-
 
 

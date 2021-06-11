@@ -30,9 +30,12 @@ export class PsychologistComponent implements OnInit {
   psychologist!: Psychologist;
   psyList!:Psychologist[];
   
- 
+  psydeleteForm= new FormGroup({ 
+    psydelete: new FormControl('')
 
-  psyForm= new FormGroup({ 
+  })
+
+  psyForm = new FormGroup({ 
     name:new FormControl(''),
     meetingtype :new FormControl(''),
     meetingprice: new FormControl(''),
@@ -41,7 +44,6 @@ export class PsychologistComponent implements OnInit {
     medical2: new FormControl(''),
     medical3: new FormControl(''),
     psychologist: new FormControl(''),
-
   })
  
   constructor(
@@ -82,18 +84,24 @@ export class PsychologistComponent implements OnInit {
     }
   }
   showAdd(){
+    this.cleanForm();
+    this.ngOnInit();
     this.add = true;
     this.nameFunction = "Add";
     this.select = false;
     this.delete= false;
   }
   showUpdate(){
+    this.cleanForm();
+    this.ngOnInit();
     this.add = true;
     this.nameFunction = "Update";
     this.select = true;
     this.delete= false;
   }
   showDelete(){
+    this.cleanForm();
+    this.ngOnInit();
     this.add = false;
     this.nameFunction = "Delete";
     this.select = false;
@@ -127,7 +135,6 @@ export class PsychologistComponent implements OnInit {
       return false;
     }
     else if(!this.validateMedicalCondition()){
-      console.log(this.validateMedicalCondition());
       this.alertService.info("There are one or more medical condition repeated");
       return false;
     } 
@@ -137,19 +144,40 @@ export class PsychologistComponent implements OnInit {
     if(this.psyForm.value.psychologist == "") return false;
     return true;
   }
+  validateSelectDelete(): boolean{
+    if(this.psyForm.value.psydelete == "") return false;
+    return true;
+  }
   functionPsychologist(){
-    if(this.validatePsychologist()){
-      this.createExpertise();
-      if(this.nameFunction == "Add"){
-        this.createPsychologist();  
-      }
-      if(this.nameFunction == "Update"){
-        if(this.validateSelectUpdate()){
-          this.updatePsychologist();
-        }   
+    this.createExpertise();
+    if(this.nameFunction == "Delete"){
+      console.log(this.psydeleteForm.value.psydelete);
+      if(this.validateSelectDelete()){
+        this.deletePsychologist();
+      }   
+    }
+    else{
+      if(this.validatePsychologist()){
+        if(this.nameFunction == "Add"){
+          this.createPsychologist();  
+        }
+        if(this.nameFunction == "Update"){
+          if(this.validateSelectUpdate()){
+            this.updatePsychologist();
+          }   
+        }
       }
     }
-  
+  }
+  deletePsychologist(){
+    this.psyService.delete(this.psydeleteForm.value.psydelete) 
+    .subscribe( resp => {
+    this.alertService.success(resp);
+    this.cleanForm();
+    this.ngOnInit();
+    }, (err) => {
+    this.alertService.danger(err.error);
+    });
   }
   createExpertise(){
     if(this.psyForm.value.medical1 != ""){
@@ -214,6 +242,10 @@ export class PsychologistComponent implements OnInit {
       medical2:'',
       medical3: '',
       psychologist: '',
+      psydelete: '',
+    });
+    this.psydeleteForm.patchValue({
+      psydelete: '',
     });
 
   }

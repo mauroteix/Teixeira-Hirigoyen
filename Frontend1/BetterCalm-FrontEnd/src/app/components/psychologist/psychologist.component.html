@@ -75,17 +75,18 @@
     </div>
     <div *ngIf= "delete == true">
         <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
-        <form [formGroup] ="psyForm" style="margin: 2%;">
-          <div class="form-row" *ngIf = "showSelect == true">
-            <div class="form-group col-md-6">
-            <label>Select Psychologist</label>
-            <select class="form-control"  formControlName="psydelete" id="psydelete">                        
-                <option *ngFor="let psy of psyList" value={{psy.id}}>{{psy.id}}.{{psy.name}} </option>
-            </select>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary" (click)="functionPsychologist()">{{nameFunction}}</button>
-        </form>
+        <form [formGroup] ="psydeleteForm" style="margin: 2%;">
+            <div class="form-row"> 
+                <div class="form-group col-md-6">
+                    <label>Select Psychologist</label>
+                    <select class="form-control"  formControlName="psydelete" id="psydelete">                        
+                        <option *ngFor="let ps of psyList" value={{ps.id}}>{{ps.id}}.{{ps.name}} </option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="functionPsychologist()">{{nameFunction}}</button>
+     
+     </form>
       </div>
 
 
