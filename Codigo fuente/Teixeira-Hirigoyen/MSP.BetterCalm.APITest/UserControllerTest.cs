@@ -29,6 +29,10 @@ namespace MSP.BetterCalm.APITest
                 Email = "mauroGil@gmail.com",
                 Cellphone = "099156189",
                 MeetingDuration = meetingDuration.OneHour,
+                MeetingCount = 0,
+                Discount = discount.Zero,
+
+
 
             };
             userList = new List<User>();
@@ -38,13 +42,15 @@ namespace MSP.BetterCalm.APITest
         public void AddOneUser()
         {
             var mockUser = new Mock<IUserLogic>(MockBehavior.Strict);
-            mockUser.Setup(res => res.Add(userList[0]));
+            mockUser.Setup(res => res.GetUserByEmail(userList[0].Email)).Returns(userList[0]);
             UserController controller = new UserController(mockUser.Object);
 
             var result = controller.Add(userList[0]);
             var okResult = result as OkObjectResult;
 
-            Assert.AreEqual(new OkObjectResult("").ToString(), controller.Add(userList[0]).ToString());
+            var resultado = new ObjectResult("").ToString();
+            var comp = controller.Add(userList[0]).ToString();
+            Assert.AreEqual(resultado, comp);
         }
 
         [TestMethod]
