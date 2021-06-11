@@ -5,7 +5,7 @@
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" (click)="showAdd()">Add</button>
                 <button type="button" class="btn btn-primary"(click)="showUpdate()">Update</button>
-                <button type="button" class="btn btn-primary">Delete</button>
+                <button type="button" class="btn btn-primary" (click)="showDelete()">Delete</button>
             </div>
         </div>
     </div>
@@ -73,4 +73,20 @@
         <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionPsychologist()" >{{nameFunction}}</button>
         </form>
     </div>
+    <div *ngIf= "delete == true">
+        <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+        <form [formGroup] ="psyForm" style="margin: 2%;">
+          <div class="form-row" *ngIf = "showSelect == true">
+            <div class="form-group col-md-6">
+            <label>Select Psychologist</label>
+            <select class="form-control"  formControlName="psydelete" id="psydelete">                        
+                <option *ngFor="let psy of psyList" value={{psy.id}}>{{psy.id}}.{{psy.name}} </option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="functionPsychologist()">{{nameFunction}}</button>
+        </form>
+      </div>
+
+
 </div>

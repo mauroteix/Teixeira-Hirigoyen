@@ -19,6 +19,7 @@ export class PsychologistComponent implements OnInit {
   admin!: boolean;
   add: boolean = false;
   select: boolean = false;
+  delete: boolean = false;
   nameFunction!: string;
   listMedicalCondition!:MedicalCondition[];
   list : ExpertiseToAdd[] = [];
@@ -84,11 +85,19 @@ export class PsychologistComponent implements OnInit {
     this.add = true;
     this.nameFunction = "Add";
     this.select = false;
+    this.delete= false;
   }
   showUpdate(){
     this.add = true;
     this.nameFunction = "Update";
     this.select = true;
+    this.delete= false;
+  }
+  showDelete(){
+    this.add = false;
+    this.nameFunction = "Delete";
+    this.select = false;
+    this.delete= true;
   }
   validateMedicalCondition() : boolean{
     var valor1 = this.psyForm.value.medical1 == "";
@@ -137,8 +146,7 @@ export class PsychologistComponent implements OnInit {
       if(this.nameFunction == "Update"){
         if(this.validateSelectUpdate()){
           this.updatePsychologist();
-        }  
-        
+        }   
       }
     }
   
