@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
-import { Expertise, ExpertiseToAdd } from 'src/app/models/expertise/expertise/expertise.module';
+import { ExpertiseToAdd } from 'src/app/models/expertise/expertise/expertise.module';
 import { MedicalCondition } from 'src/app/models/medicalcondition/medicalcondition.module';
 import { Meeting } from 'src/app/models/meeting/meeting.module';
 import { Psychologist, PsychologistToAdd } from 'src/app/models/psychologist/psychologist.module';
 import { MedicalconditionService } from 'src/app/services/medicalcondition/medicalcondition.service';
 import { PsychologistService } from 'src/app/services/psychologist/psychologist.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-psychologist',
@@ -17,6 +18,7 @@ import { PsychologistService } from 'src/app/services/psychologist/psychologist.
 export class PsychologistComponent implements OnInit {
   admin!: boolean;
   add: boolean = false;
+  select: boolean = false;
   nameFunction!: string;
   listMedicalCondition!:MedicalCondition[];
   list : ExpertiseToAdd[] = [];
@@ -25,6 +27,8 @@ export class PsychologistComponent implements OnInit {
   listMeeting: Meeting[] = [];
   idMedical!: number;
   psychologist!: Psychologist;
+  psyList!:Psychologist[];
+  
  
 
   psyForm= new FormGroup({ 
@@ -35,6 +39,7 @@ export class PsychologistComponent implements OnInit {
     medical1: new FormControl(''),
     medical2: new FormControl(''),
     medical3: new FormControl(''),
+    psychologist: new FormControl(''),
 
   })
  
@@ -52,8 +57,17 @@ export class PsychologistComponent implements OnInit {
       this.admin = true;
       this.medicalService.getAll().subscribe(
         (resp: any) => {
+
           this.listMedicalCondition = resp;
           this.listMedicalCondition.pop();
+        },
+        err => {
+          this.alertService.danger(err.error);
+        }
+      );
+      this.psyService.getAll().subscribe(
+        (resp: any) => {
+          this.psyList = resp
         },
         err => {
           this.alertService.danger(err.error);
@@ -69,6 +83,12 @@ export class PsychologistComponent implements OnInit {
   showAdd(){
     this.add = true;
     this.nameFunction = "Add";
+    this.select = false;
+  }
+  showUpdate(){
+    this.add = true;
+    this.nameFunction = "Update";
+    this.select = true;
   }
   validateMedicalCondition() : boolean{
     var valor1 = this.psyForm.value.medical1 == "";
@@ -104,40 +124,79 @@ export class PsychologistComponent implements OnInit {
     } 
     return true;
   }
-
-  createPsychologist() {
+  validateSelectUpdate(): boolean{
+    if(this.psyForm.value.psychologist == "") return false;
+    return true;
+  }
+  functionPsychologist(){
     if(this.validatePsychologist()){
-      if(this.psyForm.value.medical1 != ""){
-        this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical1);
-        this.list.push(this.expertisetoadd1);
+      this.createExpertise();
+      if(this.nameFunction == "Add"){
+        this.createPsychologist();  
       }
-      if(this.psyForm.value.medical2 != ""){
-        this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical2);
-        this.list.push(this.expertisetoadd1);
+      if(this.nameFunction == "Update"){
+        if(this.validateSelectUpdate()){
+          this.updatePsychologist();
+        }  
+        
       }
-      if(this.psyForm.value.medical3 != ""){
-        this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical3);
-        this.list.push(this.expertisetoadd1);
-      }
-      const psy = new PsychologistToAdd(
-        this.psyForm.value.name,
-        this.psyForm.value.meetingtype,
-        this.psyForm.value.meetingprice,
-        this.psyForm.value.adressmeeting,
-        this.list,
-        this.listMeeting
-      );
-      this.psyService.post(psy)
-      .subscribe( resp => {
-        this.cleanForm();
-       this.alertService.success(resp)
-      }, (err) => {
-        this.cleanForm();
-        this.alertService.danger(err.error);
-      });
+    }
+  
+  }
+  createExpertise(){
+    if(this.psyForm.value.medical1 != ""){
+      this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical1);
+      this.list.push(this.expertisetoadd1);
+    }
+    if(this.psyForm.value.medical2 != ""){
+      this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical2);
+      this.list.push(this.expertisetoadd1);
+    }
+    if(this.psyForm.value.medical3 != ""){
+      this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical3);
+      this.list.push(this.expertisetoadd1);
     }
   }
+  updatePsychologist(){
+    const psy = new PsychologistToAdd(
+      this.psyForm.value.name,
+      this.psyForm.value.meetingtype,
+      this.psyForm.value.meetingprice,
+      this.psyForm.value.adressmeeting,
+      this.list,
+      this.listMeeting
+    );
+    this.psyService.put(psy,this.psyForm.value.psychologist) .subscribe( resp => {
+        this.alertService.success(resp);
+        this.ngOnInit()
+        this.cleanForm();
+      }, (err) => {
+        this.alertService.danger(err.error);
+        this.cleanForm();
+      });
+  }
+  createPsychologist() {
+    const psy = new PsychologistToAdd(
+      this.psyForm.value.name,
+      this.psyForm.value.meetingtype,
+      this.psyForm.value.meetingprice,
+      this.psyForm.value.adressmeeting,
+      this.list,
+      this.listMeeting
+    );
+    this.psyService.post(psy).subscribe( resp => {
+      this.cleanForm();
+      this.alertService.success(resp)
+    },(err) => {
+      this.cleanForm();
+      this.alertService.danger(err.error);
+    });
+    
+  }
   cleanForm(){
+    this.list= [];
+    this.psyList= [];
+    this.listMedicalCondition= [];
     this.psyForm.patchValue({
       name:'',
       meetingtype: '',
@@ -146,8 +205,9 @@ export class PsychologistComponent implements OnInit {
       medical1:'',
       medical2:'',
       medical3: '',
+      psychologist: '',
     });
-    this.list= [];
+
   }
 
 }

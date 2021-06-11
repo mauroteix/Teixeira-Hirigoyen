@@ -4,7 +4,7 @@
         <div class="dropdown" style="margin: 1%;">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" (click)="showAdd()">Add</button>
-                <button type="button" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-primary"(click)="showUpdate()">Update</button>
                 <button type="button" class="btn btn-primary">Delete</button>
             </div>
         </div>
@@ -13,6 +13,15 @@
     <div *ngIf= "add == true">
         <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
         <form [formGroup] ="psyForm" style="margin: 1%;">
+            <div class="form-row" *ngIf = "select == true">
+                <div class="form-group col-md-12">
+                    <label>Select Psychologist</label>
+                    <select class="form-control"  formControlName="psychologist" id="psychologist">                        
+                        <option *ngFor="let psy of psyList" value={{psy.id}}>{{psy.id}}.{{psy.name}} </option>
+                    </select>
+                </div>
+            </div>
+              
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label>Name</label>
@@ -61,7 +70,7 @@
                     </select>
                 </div>
             </div>
-        <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="createPsychologist()" >{{nameFunction}}</button>
+        <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionPsychologist()" >{{nameFunction}}</button>
         </form>
     </div>
 </div>

@@ -25,7 +25,7 @@ namespace MSP.BetterCalm.BusinessLogic
             ValidatePsychologist(psychologist);
             if (psychologist.Meeting.Count > 0) throw new FieldEnteredNotCorrect("The meeting must be empty");
             Psychologist psy = ToEntity(psychologist);
-            _repository.Add(psychologist);
+            _repository.Add(psy);
         }
         private Psychologist ToEntity(Psychologist psychologist)
         {
@@ -44,9 +44,9 @@ namespace MSP.BetterCalm.BusinessLogic
                 Psychologist = psychologist,
                 IdPsychologist = psychologist.Id
             }).ToList();
-            psychologist.Expertise = listExpertise;
+            play.Expertise = listExpertise;
 
-            return psychologist;
+            return play;
         }
      
         private void ValidatePsychologist(Psychologist psychologist)
@@ -129,11 +129,12 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistPsychologist(id);
             Psychologist unPsychologist = _repository.Get(id);
             ValidatePsychologist(psychologist);
-            unPsychologist.Name = psychologist.Name;
-            unPsychologist.MeetingType = psychologist.MeetingType;
-            unPsychologist.AdressMeeting = CreateAdress(psychologist);
-            unPsychologist.Expertise = psychologist.Expertise;
-            unPsychologist.MeetingPrice = psychologist.MeetingPrice;
+            Psychologist psy = ToEntity(psychologist);
+            unPsychologist.Name = psy.Name;
+            unPsychologist.MeetingType = psy.MeetingType;
+            unPsychologist.AdressMeeting = CreateAdress(psy);
+            unPsychologist.Expertise = psy.Expertise;
+            unPsychologist.MeetingPrice = psy.MeetingPrice;
 
             _repository.Update(unPsychologist);
         }
