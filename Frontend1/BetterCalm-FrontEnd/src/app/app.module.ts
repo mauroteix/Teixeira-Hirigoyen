@@ -38,7 +38,7 @@ import { AdministratorComponent } from './components/administrator/administrator
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AlertModule.forRoot({maxMessages: 5, timeout: 5000, positionX: 'right', positionY: 'top'}),
+    AlertModule.forRoot({maxMessages: 5, timeout: 6000, positionX: 'right', positionY: 'top'}),
     NgbModule,
     HttpClientModule,
     FormsModule,

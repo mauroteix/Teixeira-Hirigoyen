@@ -34,5 +34,15 @@ put(admin: AdministratorToAdd, id: number){
   );
 }
 
+delete( adminId: number ){
+  return this.http.delete(`${ environment.apiUrl }/administrator/${adminId}`,  {responseType: 'text'})
+  .pipe(
+    map( resp => {
+      return resp;
+    })
+  );
+
+}
+
 
 }
