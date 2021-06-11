@@ -28,6 +28,7 @@ export class PlayerComponent implements OnInit {
   isVideo!: boolean;
   image!: string ;
   url!: SafeResourceUrl;
+  duration!:boolean;
   
 
 
@@ -85,7 +86,7 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  
+  //container my-3 mb-4 
   showVideo(){
     console.log(this.categoryVideo);
     console.log(this.categoryVideo.length);
@@ -100,12 +101,8 @@ export class PlayerComponent implements OnInit {
   }
 
   photoURL(categoryvideo: CategoryVideo){
-    console.log("Esta entrando");
-    console.log(categoryvideo);
-    console.log(categoryvideo.video.linkVideo);
     this.url = categoryvideo.video.linkVideo;
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.url+"");
-   // return this.sanitizer.bypassSecurityTrustResourceUrl('categoryvideo.video.linkVideo');
   }
 
   setFalseAll(){

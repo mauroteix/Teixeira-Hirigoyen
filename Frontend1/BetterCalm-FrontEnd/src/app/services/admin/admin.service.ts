@@ -41,7 +41,12 @@ delete( adminId: number ){
       return resp;
     })
   );
+}
 
+get(id: number): Observable<Administrator>{
+  return this.http.get(`${environment.apiUrl}/administrator/${id}`).pipe(
+    map(item => this.adapter.adapt(item))
+  );
 }
 
 

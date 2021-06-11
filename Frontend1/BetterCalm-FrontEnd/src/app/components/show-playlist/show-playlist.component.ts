@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { CategoryTrack } from 'src/app/models/categorytrack/categorytrack.module';
@@ -25,10 +26,11 @@ export class ShowPlaylistComponent implements OnInit {
   playSong: boolean = false;
   songTrack!: Track;
   duration!: string;
+  url!: SafeResourceUrl;
 
 
  constructor(private route: ActivatedRoute,
-  private router: Router, private playlistService: PlaylistService, private alertService: AlertService) { 
+  private router: Router, private playlistService: PlaylistService, private alertService: AlertService,  private sanitizer: DomSanitizer) { 
   this.route.queryParams.subscribe( params => {
   this.play = +params['id'];
   });
@@ -61,6 +63,12 @@ export class ShowPlaylistComponent implements OnInit {
         this.alertService.danger(err.error);
       }
     );
+  }
+
+  
+  photoURL(playlistvideo: PlaylistVideo){
+    this.url = playlistvideo.video.linkVideo;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url+"");
   }
 
  

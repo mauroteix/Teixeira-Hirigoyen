@@ -46,11 +46,11 @@
   <div *ngIf= "showDelete == true">
     <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
     <form [formGroup] ="adminForm" style="margin: 2%;">
-      <div class="form-row" *ngIf = "showSelect == true">
+      <div class="form-row" *ngIf = "showSelectDelete == true">
         <div class="form-group col-md-6">
         <label>Select administrator</label>
-        <select class="form-control"  formControlName="administrator" id="administrator">                        
-            <option *ngFor="let admin of adminList" value={{admin.id}}> {{admin.email}} </option>
+        <select class="form-control"  formControlName="administratorDelete" id="administratorDelete">                        
+            <option *ngFor="let admin of adminDeleteList" value={{admin.id}}> {{admin.email}} </option>
         </select>
       </div>
     </div>
