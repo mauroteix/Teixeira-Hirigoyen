@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   admin!: boolean;
   username : any;
-  constructor() { }
+  constructor( private _location: Location) { }
 
   ngOnInit(): void {
     if(localStorage.getItem("auth_token") != null){
@@ -20,6 +21,8 @@ export class NavbarComponent implements OnInit {
 
   cerrarSesion(){
     localStorage.removeItem("auth_token");
+    localStorage.removeItem("name");
+    this._location.go("https://localhost:4200");
     location.reload();
 }
 }

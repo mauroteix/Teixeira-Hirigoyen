@@ -13,7 +13,6 @@ import { AdminLoginModel } from 'src/app/models/admin/adminLogic.module';
 export class LogInComponent implements OnInit {
   username!: string;
   password!: string;
-  //admin: AdminLoginModel = new AdminLoginModel();
 
   constructor(
     private loginService: LogInService,

@@ -1,6 +1,6 @@
 
 <div *ngIf= "isTrack == false">
-    <h2 style="text-align: center">Playlist {{ playlist.name }}</h2><br>
+    <h2 style="text-align: center">Playlist</h2>
     <h2 style="text-align: center">Tracks</h2>
         <div *ngFor="let playtrack of playlistTrack" class="ml-5">    
             <div class="padre">
@@ -18,6 +18,17 @@
           </div>
           
         </div>
+  </div>
+
+  <div *ngIf= "isVideo == false">
+    <h2 class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Videos</h2>
+   <div  class="row">
+    <div class= "col-md-4" *ngFor="let playVideo of playlistVideo" style="text-align: center;">
+      <iframe class="embed-responsive-item" [src]="photoURL(playVideo)" style=" width: 400px;
+      height: 400px;margin:5%;"></iframe>
+      <h1 class="font-effect-shadow-multiple" style="font-size: 30px;">{{playVideo.video.name}} - {{playVideo.video.author}}</h1>
+    </div>
+  </div>
   </div>
 
   <footer class="bg-dark text-center" *ngIf = "playSong == true" style= "clear: both;

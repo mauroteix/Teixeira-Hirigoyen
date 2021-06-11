@@ -21,8 +21,12 @@ export class AdministratorComponent implements OnInit {
     showAdmin: boolean = false;
     showSelect: boolean = false;
     showDelete: boolean = false;
+    showSelectDelete: boolean = false;
     nameFunction!: string;
     adminList!: Administrator[];
+    username: any;
+    adminLogged!: Administrator;
+    adminDeleteList: Administrator[] = [];
     
 
     adminForm= new FormGroup({ 
@@ -30,6 +34,7 @@ export class AdministratorComponent implements OnInit {
       email :new FormControl(''),
       password: new FormControl(''),
       administrator: new FormControl(''),
+      administratorDelete: new FormControl(''),
     })
 
   ngOnInit(): void {
@@ -42,12 +47,22 @@ export class AdministratorComponent implements OnInit {
     }
     this.adminService.getAll().subscribe(
       (resp: any) => {
-        this.adminList = resp
+        this.adminList = resp;
+        if(this.showDelete){
+          this.adminDeleteList = [];
+          this.adminList.forEach(a => {
+            if(a.email != this.username) {
+              this.adminDeleteList.push(a);
+            }
+          })
+        }
       },
       err => {
         this.alertService.danger(err.error);
       }
     );
+    this.username = localStorage.getItem("name");
+   
   }
 
   showAddAdmin(){
@@ -65,18 +80,25 @@ export class AdministratorComponent implements OnInit {
   }
 
   showDeleteAdmin(){
-    this.showAdmin = false;
-    this.nameFunction = "Delete";
+    this.cleanForm();
+    this.ngOnInit();
     this.showDelete = true;
-    this.showSelect = true;
+    this.showSelect = false;
+    this.showAdmin = false;
+    this.showSelectDelete = true;
+    this.nameFunction = "Delete";
+    
   }
 
   cleanForm(){
+    this.adminList = [];
+    this.adminDeleteList=[];
     this.adminForm.patchValue({
       name: '',
       email: '',
       password: '',
-      administrator:''
+      administrator:'',
+      administratorDelete:'',
    });
   }
 
@@ -96,8 +118,8 @@ export class AdministratorComponent implements OnInit {
     return true;
   }
 
-  validateSelect(): boolean{
-    if(this.adminForm.value.administrator == "") return false;
+  validateSelect(admin: any): boolean{
+    if(admin == "") return false;
     return true;
   }
   functionAdd(){
@@ -127,6 +149,7 @@ export class AdministratorComponent implements OnInit {
       this.alertService.success(resp);
       this.cleanForm();
       this.ngOnInit();
+      //location.reload();
       }, (err) => {
       this.alertService.danger(err.error);
       });
@@ -134,16 +157,20 @@ export class AdministratorComponent implements OnInit {
   }
 
   functionDelete(){
-    console.log(this.adminForm.value.administrator);
-    this.adminService.delete(this.adminForm.value.administrator) 
+    this.adminService.delete(this.adminForm.value.administratorDelete) 
     .subscribe( resp => {
     this.alertService.success(resp);
     this.ngOnInit();
+    this.cleanForm();
+    //location.reload();
     }, (err) => {
     this.alertService.danger(err.error);
     });
     
   }
+  
+    
+  
 
   functionAdmin(){
     if(this.showAdmin && this.validateAdmin()){
@@ -151,14 +178,14 @@ export class AdministratorComponent implements OnInit {
           this.functionAdd();
       }
       if(this.nameFunction == "Update"){
-        if(this.validateSelect()){
+        if(this.validateSelect(this.adminForm.value.administrator)){
           this.functionUpdate();
         }
         else this.alertService.info("You need to select a administrator");
       }
     }
       if(this.nameFunction == "Delete"){
-        if(this.validateSelect()){
+        if(this.validateSelect(this.adminForm.value.administratorDelete)){
           this.functionDelete();
         }
         else this.alertService.info("You need to select a administrator");
