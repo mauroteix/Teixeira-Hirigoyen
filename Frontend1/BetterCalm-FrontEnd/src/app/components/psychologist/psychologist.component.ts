@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
-import { Expertise } from 'src/app/models/expertise/expertise/expertise.module';
+import { Expertise, ExpertiseToAdd } from 'src/app/models/expertise/expertise/expertise.module';
 import { MedicalCondition } from 'src/app/models/medicalcondition/medicalcondition.module';
 import { Meeting } from 'src/app/models/meeting/meeting.module';
 import { Psychologist, PsychologistToAdd } from 'src/app/models/psychologist/psychologist.module';
@@ -19,9 +19,9 @@ export class PsychologistComponent implements OnInit {
   add: boolean = false;
   nameFunction!: string;
   listMedicalCondition!:MedicalCondition[];
-  list : Expertise[] = [];
+  list : ExpertiseToAdd[] = [];
   medicalcondition! : MedicalCondition;
-  expertise!: Expertise;
+  expertisetoadd1!: ExpertiseToAdd;
   listMeeting: Meeting[] = [];
   idMedical!: number;
   psychologist!: Psychologist;
@@ -104,39 +104,21 @@ export class PsychologistComponent implements OnInit {
     } 
     return true;
   }
-  getMedicalConditionFromId(id:number){
-    this.medicalService.get(id).subscribe(
-      (resp: any) => {
-        this.medicalcondition = resp;
-        this.expertise = new Expertise(
-          this.medicalcondition.id,
-          this.medicalcondition,
-          0,
-          this.psychologist
-        )
-        console.log(this.expertise);
-        this.list.push(this.expertise);
-      },
-      err => {
-        this.alertService.danger(err.error);
-      }
-    );
-  }
-  createListExpertice():Expertise[]{
-    if(this.psyForm.value.medical1 != ""){
-      this.getMedicalConditionFromId(this.psyForm.value.medical1);
-    }
-    if(this.psyForm.value.medical2 != ""){
-      this.getMedicalConditionFromId(this.psyForm.value.medical2);
-    }
-    if(this.psyForm.value.medical3 != ""){
-      this.getMedicalConditionFromId(this.psyForm.value.medical3);
-    }
-    return this.list;
-  }
+
   createPsychologist() {
     if(this.validatePsychologist()){
-      this.createListExpertice();
+      if(this.psyForm.value.medical1 != ""){
+        this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical1);
+        this.list.push(this.expertisetoadd1);
+      }
+      if(this.psyForm.value.medical2 != ""){
+        this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical2);
+        this.list.push(this.expertisetoadd1);
+      }
+      if(this.psyForm.value.medical3 != ""){
+        this.expertisetoadd1 = new ExpertiseToAdd(this.psyForm.value.medical3);
+        this.list.push(this.expertisetoadd1);
+      }
       const psy = new PsychologistToAdd(
         this.psyForm.value.name,
         this.psyForm.value.meetingtype,
@@ -147,11 +129,27 @@ export class PsychologistComponent implements OnInit {
       );
       this.psyService.post(psy)
       .subscribe( resp => {
+        this.cleanForm();
        this.alertService.success(resp)
       }, (err) => {
+        this.cleanForm();
         this.alertService.danger(err.error);
       });
     }
   }
+  cleanForm(){
+    this.psyForm.patchValue({
+      name:'',
+      meetingtype: '',
+      meetingprice:'',
+      adressmeeting:'',
+      medical1:'',
+      medical2:'',
+      medical3: '',
+    });
+    this.list= [];
+  }
 
 }
+
+

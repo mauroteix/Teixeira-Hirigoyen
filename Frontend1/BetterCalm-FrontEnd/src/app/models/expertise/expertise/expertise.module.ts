@@ -12,6 +12,11 @@ export class Expertise{
         public psychologist: Psychologist
         ){}
 }
+export class ExpertiseToAdd{
+  constructor( 
+      public idMedicalCondition: number,
+      ){}
+}
 
 
 @Injectable({
