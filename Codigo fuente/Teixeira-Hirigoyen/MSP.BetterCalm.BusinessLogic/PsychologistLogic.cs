@@ -29,8 +29,8 @@ namespace MSP.BetterCalm.BusinessLogic
         }
         private Psychologist ToEntity(Psychologist psychologist)
         {
-            if ((int)psychologist.MeetingType == 1) psychologist.AdressMeeting = "";
-            Psychologist play = new Psychologist()
+            
+            Psychologist psy = new Psychologist()
             {
                 Name = psychologist.Name,
                 MeetingType = psychologist.MeetingType,
@@ -44,9 +44,10 @@ namespace MSP.BetterCalm.BusinessLogic
                 Psychologist = psychologist,
                 IdPsychologist = psychologist.Id
             }).ToList();
-            play.Expertise = listExpertise;
+            if ((int)psychologist.MeetingType == 1) psy.AdressMeeting = "";
+            psy.Expertise = listExpertise;
 
-            return play;
+            return psy;
         }
      
         private void ValidatePsychologist(Psychologist psychologist)

@@ -1,0 +1,24 @@
+<div>
+    <h1 style="margin-left: 2%;">Register Discount</h1>
+    <form [formGroup] ="userForm" style="margin: 2%;">
+        <div class="form-row"> 
+            <div class="form-group col-md-6">
+                <label>Select User</label>
+                <select class="form-control"  formControlName="user" id="user">                        
+                    <option *ngFor="let psy of userList" value={{psy.id}}> {{psy.id}}.{{psy.name}}, Email:{{psy.email}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Select Discount</label>
+                <select class="form-control"  formControlName="dis" id="dis">                        
+                    <option value=100>No discount -> 0%</option>
+                    <option value=15>Discount ->15%</option>
+                    <option value=25>Discount -> 25%</option>
+                    <option value=50>Discount -> 50%</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="functionDiscount()"> Apply Discount</button>
+ 
+    </form>
+</div>

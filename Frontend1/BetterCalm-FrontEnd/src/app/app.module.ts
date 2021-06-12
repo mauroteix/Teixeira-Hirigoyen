@@ -22,6 +22,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { MedicalconditionComponent } from './components/medicalcondition/medicalcondition.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { PsychologistComponent } from './components/psychologist/psychologist.component';
+import { DiscountComponent } from './components/discount/discount.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
     BookpsychologistComponent,
     MedicalconditionComponent,
     AdministratorComponent,
-    PsychologistComponent
+    PsychologistComponent,
+    DiscountComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ import { PsychologistComponent } from './components/psychologist/psychologist.co
       {path: 'medicalcondition', component: MedicalconditionComponent},
       {path: 'adminManage', component: AdministratorComponent},
       {path: 'psychologist', component: PsychologistComponent},
+      {path: 'registerdiscount', component: DiscountComponent},
       
     ])
   ],
