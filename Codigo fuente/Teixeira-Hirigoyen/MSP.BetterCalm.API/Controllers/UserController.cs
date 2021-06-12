@@ -40,7 +40,7 @@ namespace MSP.BetterCalm.API.Controllers
                 _userLogic.Add(user);
                 List <Meeting> list = user.Meeting.ToList();
                 Meeting lastMeeting = list[list.Count-1];
-                return Ok("Successfully added user name:" + user.Name + ", " + "Costo de meeting:"+lastMeeting.TotalPrice);
+                return Ok("Successfully added user email:" + user.Email + ", " + "Costo de meeting:"+lastMeeting.TotalPrice);
             }
             catch (FieldEnteredNotCorrect fe)
             {

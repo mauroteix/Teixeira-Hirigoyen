@@ -8,7 +8,6 @@ import { Meeting } from 'src/app/models/meeting/meeting.module';
 import { Psychologist, PsychologistToAdd } from 'src/app/models/psychologist/psychologist.module';
 import { MedicalconditionService } from 'src/app/services/medicalcondition/medicalcondition.service';
 import { PsychologistService } from 'src/app/services/psychologist/psychologist.service';
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-psychologist',
@@ -149,6 +148,7 @@ export class PsychologistComponent implements OnInit {
     return true;
   }
   functionPsychologist(){
+    this.ngOnInit();
     this.createExpertise();
     if(this.nameFunction == "Delete"){
       console.log(this.psydeleteForm.value.psydelete);
@@ -208,6 +208,7 @@ export class PsychologistComponent implements OnInit {
         this.cleanForm();
       }, (err) => {
         this.alertService.danger(err.error);
+        this.ngOnInit()
         this.cleanForm();
       });
   }
@@ -222,8 +223,10 @@ export class PsychologistComponent implements OnInit {
     );
     this.psyService.post(psy).subscribe( resp => {
       this.cleanForm();
+      this.ngOnInit();
       this.alertService.success(resp)
     },(err) => {
+      this.ngOnInit()
       this.cleanForm();
       this.alertService.danger(err.error);
     });

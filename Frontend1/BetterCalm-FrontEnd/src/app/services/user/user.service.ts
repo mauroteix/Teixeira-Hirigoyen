@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
 import { MedicalCondition, MedicalConditionAdapter } from 'src/app/models/medicalcondition/medicalcondition.module';
-import { User, UserAdapter, UserToAdd } from 'src/app/models/user/user.module';
+import { User, UserAdapter, UserToAdd, UserToUpdate } from 'src/app/models/user/user.module';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private adapter: UserAdapter) { }
 
-  getAll(): Observable<User> {
+  getUserByMeetingCount(): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/user`);
   }
 
@@ -24,6 +24,15 @@ export class UserService {
     .pipe(
       map( resp => {
         return resp;
+      })
+    );
+  }
+
+  updateByAdmin(user: UserToUpdate, id: number){
+    return this.http.put(`${environment.apiUrl}/user/${id}`, user, {responseType: 'text'})
+    .pipe(
+    map( resp => {
+      return resp;
       })
     );
   }

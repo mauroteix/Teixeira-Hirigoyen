@@ -99,7 +99,6 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 User newuser = _repositoryUser.Get(UserId(user));
                 newuser.MeetingDuration = user.MeetingDuration;
-                newuser.Discount = user.Discount;
                 SetMeeting(newuser, unPsychologist, meeting);
                 SetMeetingCount(newuser);
                 newuser.Meeting.Add(meeting);
@@ -249,11 +248,8 @@ namespace MSP.BetterCalm.BusinessLogic
         public void UpdateByAdministrator(User user, int id)
         {
             User realUser = _repositoryUser.Get(id);
-            realUser.Meeting = user.Meeting;
-            realUser.MeetingDuration = user.MeetingDuration;
             realUser.Discount = user.Discount;
-            user.MeetingCount = 0;
-            realUser.MeetingCount = user.MeetingCount;
+            realUser.MeetingCount = 0;
             _repositoryUser.Update(realUser);
         }
         private void UpdateByUser(User user, int id)

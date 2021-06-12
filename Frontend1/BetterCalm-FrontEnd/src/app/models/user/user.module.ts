@@ -18,6 +18,12 @@ export class User{
         public meetingcount:number
         ){}
 }
+export class UserToUpdate{
+  constructor(
+    public id: number,
+    public discount:number,
+  ){}
+}
 export class UserToAdd{
   constructor( 
       public name: string,
