@@ -148,7 +148,7 @@ export class PsychologistComponent implements OnInit {
     return true;
   }
   functionPsychologist(){
-    this.ngOnInit();
+   // this.ngOnInit();
     this.createExpertise();
     if(this.nameFunction == "Delete"){
       console.log(this.psydeleteForm.value.psydelete);
@@ -159,7 +159,9 @@ export class PsychologistComponent implements OnInit {
     else{
       if(this.validatePsychologist()){
         if(this.nameFunction == "Add"){
-          this.createPsychologist();  
+          this.createPsychologist();
+          this.cleanForm();
+         
         }
         if(this.nameFunction == "Update"){
           if(this.validateSelectUpdate()){
@@ -168,6 +170,7 @@ export class PsychologistComponent implements OnInit {
         }
       }
     }
+    this.list = [];
   }
   deletePsychologist(){
     this.psyService.delete(this.psydeleteForm.value.psydelete) 
@@ -226,8 +229,8 @@ export class PsychologistComponent implements OnInit {
       this.ngOnInit();
       this.alertService.success(resp)
     },(err) => {
-      this.ngOnInit()
       this.cleanForm();
+      this.ngOnInit();
       this.alertService.danger(err.error);
     });
     

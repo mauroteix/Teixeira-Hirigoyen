@@ -23,6 +23,7 @@ import { MedicalconditionComponent } from './components/medicalcondition/medical
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { PsychologistComponent } from './components/psychologist/psychologist.component';
 import { DiscountComponent } from './components/discount/discount.component';
+import { AdminTrackComponent } from './components/admin-track/admin-track.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { DiscountComponent } from './components/discount/discount.component';
     MedicalconditionComponent,
     AdministratorComponent,
     PsychologistComponent,
-    DiscountComponent
+    DiscountComponent,
+    AdminTrackComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,7 @@ import { DiscountComponent } from './components/discount/discount.component';
       {path: 'adminManage', component: AdministratorComponent},
       {path: 'psychologist', component: PsychologistComponent},
       {path: 'registerdiscount', component: DiscountComponent},
-      
+      {path: 'track', component: AdminTrackComponent},
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
