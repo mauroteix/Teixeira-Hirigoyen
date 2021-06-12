@@ -29,7 +29,14 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistTrack(id);
             return _repository.Get(id);
         }
-
+        private bool ExistTrackByName(Track track)
+        {
+            List<Track> list = _repository.GetAll().ToList();
+            string name = track.Name;
+            Track findTrack = list.Find(c => c.Name == name);
+            if (findTrack == null) return false;
+            return true;
+        }
         public void Add(Track track)
         {
             ValidateTrack(track);
@@ -51,6 +58,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
             if (track.HourIsEmpty() && track.MinSeconds == 0 ) throw new FieldEnteredNotCorrect("Track must have duration");
             if (track.Hour < 0 ||  track.MinSeconds < 0) throw new FieldEnteredNotCorrect("Track duration must be positive");
+            if(ExistTrackByName(track) == false) throw new EntityNotExists("The track with name: " + track.Name + " already exist");
             ValidateCategoriesId(track);
             ValidatePlaylistId(track);
             ValidateCategoryUnique(track);
