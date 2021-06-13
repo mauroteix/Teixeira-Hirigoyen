@@ -12,6 +12,11 @@ export class CategoryTrack{
         ){}
 }
 
+export class CategoryTrackToAdd{
+  constructor( 
+      public idCategory: number,
+      ){}
+}
 
 @Injectable({
   providedIn: 'root'

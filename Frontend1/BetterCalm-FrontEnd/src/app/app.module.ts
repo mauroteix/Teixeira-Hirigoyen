@@ -26,6 +26,7 @@ import { DiscountComponent } from './components/discount/discount.component';
 import { AdminTrackComponent } from './components/admin-track/admin-track.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

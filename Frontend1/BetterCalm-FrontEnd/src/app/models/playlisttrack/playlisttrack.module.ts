@@ -13,6 +13,13 @@ export class PlaylistTrack{
         ){}
 }
 
+export class PlaylistTrackToAdd{
+  constructor( 
+      public idPlaylist: number,
+      ){}
+}
+
+
 
 @Injectable({
   providedIn: 'root'
