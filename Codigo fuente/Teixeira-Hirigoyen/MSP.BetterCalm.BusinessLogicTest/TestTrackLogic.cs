@@ -229,10 +229,35 @@ namespace MSP.BetterCalm.BusinessLogicTest
         [TestMethod]
         public void UpdateTrack()
         {
-            track.Name = "Primavera";
-            track.Author = "Armandinho";
-            trackLogic.Update(track, track.Id);
-            Assert.AreEqual("Primavera", trackLogic.Get(0).Name);
+            Track trackToAdd = new Track()
+            {
+                Id = 1,
+                Name = "Joseee",
+                Author = "Wisin",
+                Sound = "www.youtube.com/fiel.mp3",
+                Hour = 0,
+                MinSeconds = 2.60,
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+
+            CategoryTrack categoryTrack = new CategoryTrack
+            {
+                Category = new Category
+                {
+                    Id = 1,
+                    Name = "Dormir",
+                    CategoryTrack = new List<CategoryTrack>(),
+                    PlaylistCategory = new List<PlaylistCategory>()
+                },
+                IdCategory = 1,
+                IdTrack = 1,
+                Track = trackToAdd
+
+            };
+            trackToAdd.CategoryTrack.Add(categoryTrack);
+            trackLogic.Update(trackToAdd, track.Id);
+            Assert.AreEqual("Joseee", trackLogic.Get(0).Name);
         }
 
         [TestMethod]
@@ -273,6 +298,12 @@ namespace MSP.BetterCalm.BusinessLogicTest
         {
             track.Sound = "";
             Assert.IsFalse(trackLogic.ValidateTrackToAdd(track));
+        }
+        [TestMethod]
+        public void GetTrackByName()
+        {
+            Track newtrack = trackLogic.GetTrackByName("Gasolina");
+            Assert.AreEqual(newtrack.Name, "Gasolina");
         }
     }
 }

@@ -34,6 +34,7 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Video video)
         {
             ValidateVideo(video);
+            if (ExistVideoByName(video) == true) throw new EntityNotExists("The track with name: " + video.Name + " already exist");
             //Video unVideo = ToEntity(video);
             videoRepository.Add(video);
         }
@@ -85,7 +86,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (video.CategoryVideoEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the video");
             if (video.HourIsEmpty() && video.MinSecondsIsEmpty()) throw new FieldEnteredNotCorrect("Video must have duration");
             if (video.Hour < 0 || video.MinSeconds < 0) throw new FieldEnteredNotCorrect("Video duration must be positive");
-            if (ExistVideoByName(video) == false) throw new EntityNotExists("The track with name: " + video.Name + " already exist");
+            
             ValidateCategoriesId(video);
             ValidatePlaylistId(video);
             ValidateCategoryUnique(video);

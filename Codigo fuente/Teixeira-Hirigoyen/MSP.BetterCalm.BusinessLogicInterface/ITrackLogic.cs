@@ -14,5 +14,6 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public List<Track> GetAll();
         public bool ExistTrackByName(Track track);
         bool ValidateTrackToAdd(Track track);
+        Track GetTrackByName(string name);
     }
 }

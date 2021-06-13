@@ -17,11 +17,12 @@ namespace MSP.BetterCalm.BusinessLogic
         IData<Track> _repositoryTrack;
         ITrackLogic logicTrack;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack)
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack, ITrackLogic _logicTrack)
         {
             _repository = repository;
             _repositoryCategory = reposCategory;
             _repositoryTrack = repositoryTrack;
+            logicTrack = _logicTrack;
         }
 
         public Playlist Get(int id)
@@ -33,7 +34,8 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Playlist playlist)
         {
             ValidatePlaylist(playlist);
-            Playlist play = ToEntity(playlist);
+            setPlayListTrack(playlist);
+            Playlist play = ToEntity(playlist);       
             _repository.Add(play);
         }
 
@@ -43,9 +45,9 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
             if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
             ValidateCategoriesId(playlist);
-            ValidateTrackId(playlist);
+            //ValidateTrackId(playlist);
             ValidateCategoryUnique(playlist);
-            ValidateTrackUnique(playlist);
+            //ValidateTrackUnique(playlist);
         }
 
         public List<Playlist> GetAll()
@@ -74,9 +76,9 @@ namespace MSP.BetterCalm.BusinessLogic
                 Playlist = playlist,
                 IdPlaylist = playlist.Id
             }).ToList();
-            playlist.PlaylistCategory = listCategory;
-            playlist.PlaylistTrack = listTrack;
-            return playlist;
+            play.PlaylistCategory = listCategory;
+            play.PlaylistTrack = listTrack;
+            return play;
         }
 
         private void ValidateCategoryUnique(Playlist playlist)
@@ -125,32 +127,41 @@ namespace MSP.BetterCalm.BusinessLogic
             if (!exist) throw new EntityNotExists("One ore more category do not exist");
 
         }
-        private bool ExistTrackByName(Track track)
+        private bool ValidatePlayListTrack(List<PlaylistTrack> list)
         {
-            List<Track> list = _repositoryTrack.GetAll().ToList();
-            string name = track.Name;
-            Track findTrack = list.Find(c => c.Name == name);
-            if (findTrack == null) return false;
-            return true;
+            bool exist = true;
+            list.ForEach(item =>
+            {
+                if (!logicTrack.ValidateTrackToAdd(item.Track)) exist = false;
+            });
+            return exist;
         }
 
         private void setPlayListTrack(Playlist playlist)
         {
             List<PlaylistTrack> list = new List<PlaylistTrack>();
-            List<PlaylistTrack> listOfPlaylist = playlist.PlaylistTrack.ToList();
-            listOfPlaylist.ForEach(item =>
+            List<PlaylistTrack> listOfPlaylistTrack = playlist.PlaylistTrack.ToList();
+            if(!ValidatePlayListTrack(listOfPlaylistTrack)) throw new FieldEnteredNotCorrect("One or more track incorrect");
+            listOfPlaylistTrack.ForEach(item =>
             {
-                if (ExistTrackByName(item.Track))
+
+                if (logicTrack.ExistTrackByName(item.Track))
                 {
+                    item.Track = logicTrack.GetTrackByName(item.Track.Name);
+                    item.IdTrack = item.Track.Id;
                     list.Add(item);
                 }
                 else
                 {
-
+                    logicTrack.Add(item.Track);
+                    item.Track = logicTrack.GetTrackByName(item.Track.Name);
+                    item.IdTrack = item.Track.Id;
+                    list.Add(item);
                 }
+                
             }
             );
-
+            playlist.PlaylistTrack = list;
         }
 
         private void ValidateTrackId(Playlist playlist)

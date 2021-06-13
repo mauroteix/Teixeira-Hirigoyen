@@ -40,7 +40,6 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Track track)
         {
             ValidateTrack(track);
-            if (ExistTrackByName(track) == false) throw new EntityNotExists("The track with name: " + track.Name + " already exist");
             Track unTrack = ToEntity(track);
             _repository.Add(unTrack);
         }
@@ -59,7 +58,11 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.HourIsEmpty() && track.MinSeconds == 0) return false;
             if (track.Hour < 0 || track.MinSeconds < 0) return false;
             if (ValidateListCategory(track) == false) return false;
-            if (ValidateListPlayList(track) == false) return false;
+            if (ExistTrackByName(track) == true)
+            {
+                if (ValidateListPlayList(track) == false) return false;
+            }
+                
             return true;
         }
         private bool ValidateListPlayList(Track track)
@@ -115,6 +118,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
             if (track.HourIsEmpty() && track.MinSeconds == 0 ) throw new FieldEnteredNotCorrect("Track must have duration");
             if (track.Hour < 0 ||  track.MinSeconds < 0) throw new FieldEnteredNotCorrect("Track duration must be positive");
+            if (ExistTrackByName(track) == true) throw new EntityAlreadyExist("The track with name: " + track.Name + " already exist");
             ValidateCategoriesId(track);
             ValidatePlaylistId(track);
             ValidateCategoryUnique(track);
@@ -225,7 +229,7 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             ExistTrack(id);
             Track unTrack = _repository.Get(id);
-            ValidateTrack(track);
+            ValidateTrack(track);    
             unTrack.Name = track.Name;
             unTrack.Image = track.Image;
             unTrack.Author = track.Author;
@@ -235,6 +239,13 @@ namespace MSP.BetterCalm.BusinessLogic
             unTrack.PlaylistTrack = track.PlaylistTrack;
             _repository.Update(unTrack);
         }
+        public Track GetTrackByName(string name)
+        {
+            List<Track> list = _repository.GetAll().ToList();
+            Track findTrack = list.Find(c => c.Name == name);
+             return findTrack;
+        }
+
 
 
     }
