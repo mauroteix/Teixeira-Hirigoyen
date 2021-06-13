@@ -16,7 +16,6 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         IData<Psychologist> _repository;
         IData<User> _repositoryUser;
-        IPsychologistLogic _logicPsychologist;
         IData<MedicalCondition> _repositoryMedicalCondition;
 
         public UserLogic(IData<User> repositoryUser, IData<MedicalCondition> repositoryMedicalCondition, IData<Psychologist> repository)

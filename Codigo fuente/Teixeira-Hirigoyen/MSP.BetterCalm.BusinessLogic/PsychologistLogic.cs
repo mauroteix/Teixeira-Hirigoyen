@@ -133,7 +133,7 @@ namespace MSP.BetterCalm.BusinessLogic
             Psychologist psy = ToEntity(psychologist);
             unPsychologist.Name = psy.Name;
             unPsychologist.MeetingType = psy.MeetingType;
-            unPsychologist.AdressMeeting = CreateAdress(psy);
+            unPsychologist.AdressMeeting = psy.AdressMeeting;
             unPsychologist.Expertise = psy.Expertise;
             unPsychologist.MeetingPrice = psy.MeetingPrice;
 

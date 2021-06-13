@@ -21,6 +21,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
         Mock<IData<Category>> repositoryCategory;
         Mock<IData<Track>> repositoryTrack;
         PlaylistLogic playlistLogic;
+        TrackLogic trackLogic;
         List<Category> categoryList = new List<Category>();
         List<Track> trackList = new List<Track>();
         Category category;
@@ -67,7 +68,8 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             repositoryPlaylist.Setup(play => play.Get(0)).Returns(playlist);
             repositoryPlaylist.Setup(play => play.Add(playlist));
-            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object, repositoryTrack.Object);
+            trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object,repositoryPlaylist.Object);
+            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object, repositoryTrack.Object,trackLogic);
       
         }
 
