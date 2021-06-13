@@ -241,5 +241,38 @@ namespace MSP.BetterCalm.BusinessLogicTest
             List<Track> tracks = trackLogic.GetAll();
             Assert.AreEqual(tracks.Count, 1);
         }
+        [TestMethod]
+        public void ExistTrackByName()
+        {
+            track = new Track()
+            {
+                Id = 0,
+                Name = "Gasolina",
+                Author = "Daddy yankee",
+                Sound = "www.youtube.com/daddyyanke/gasolina.mp3",
+                Hour = 0,
+                MinSeconds = 2.50,
+                CategoryTrack = new List<CategoryTrack>(),
+                PlaylistTrack = new List<PlaylistTrack>()
+            };
+            Assert.IsTrue(trackLogic.ExistTrackByName(track));
+        }
+        [TestMethod]
+        public void ValidateTrack()
+        {
+            Assert.IsTrue(trackLogic.ValidateTrackToAdd(track));
+        }
+        [TestMethod]
+        public void ValidateTrackNameEmpty()
+        {
+            track.Name = "";
+            Assert.IsFalse(trackLogic.ValidateTrackToAdd(track));
+        }
+        [TestMethod]
+        public void ValidateTrackSoundEmpty()
+        {
+            track.Sound = "";
+            Assert.IsFalse(trackLogic.ValidateTrackToAdd(track));
+        }
     }
 }

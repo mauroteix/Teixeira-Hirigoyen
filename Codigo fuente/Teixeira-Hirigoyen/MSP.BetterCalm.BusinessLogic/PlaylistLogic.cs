@@ -15,8 +15,9 @@ namespace MSP.BetterCalm.BusinessLogic
         IData<Playlist> _repository;
         IData<Category> _repositoryCategory;
         IData<Track> _repositoryTrack;
+        ITrackLogic logicTrack;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack )
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack)
         {
             _repository = repository;
             _repositoryCategory = reposCategory;
@@ -122,6 +123,42 @@ namespace MSP.BetterCalm.BusinessLogic
                 }
             });
             if (!exist) throw new EntityNotExists("One ore more category do not exist");
+
+        }
+        private bool ExistTrackByName(Track track)
+        {
+            List<Track> list = _repositoryTrack.GetAll().ToList();
+            string name = track.Name;
+            Track findTrack = list.Find(c => c.Name == name);
+            if (findTrack == null) return false;
+            return true;
+        }
+        private bool validateTrack(Track track)
+        {
+            if (track.NameEmpty()) return false;
+            if (track.AuthorEmpty()) return false;
+            if (track.SoundEmpty()) return false;
+            if (track.CategoryTrackEmpty()) return false;
+            if (track.HourIsEmpty() && track.MinSeconds == 0) return false;
+            if (track.Hour < 0 || track.MinSeconds < 0) return false;
+            return true;
+        }
+        private void setPlayListTrack(Playlist playlist)
+        {
+            List<PlaylistTrack> list = new List<PlaylistTrack>();
+            List<PlaylistTrack> listOfPlaylist = playlist.PlaylistTrack.ToList();
+            listOfPlaylist.ForEach(item =>
+            {
+                if (ExistTrackByName(item.Track))
+                {
+                    list.Add(item);
+                }
+                else
+                {
+
+                }
+            }
+            );
 
         }
 
