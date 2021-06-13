@@ -133,16 +133,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (findTrack == null) return false;
             return true;
         }
-        private bool validateTrack(Track track)
-        {
-            if (track.NameEmpty()) return false;
-            if (track.AuthorEmpty()) return false;
-            if (track.SoundEmpty()) return false;
-            if (track.CategoryTrackEmpty()) return false;
-            if (track.HourIsEmpty() && track.MinSeconds == 0) return false;
-            if (track.Hour < 0 || track.MinSeconds < 0) return false;
-            return true;
-        }
+
         private void setPlayListTrack(Playlist playlist)
         {
             List<PlaylistTrack> list = new List<PlaylistTrack>();
