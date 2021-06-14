@@ -93,6 +93,7 @@ namespace MSP.BetterCalm.BusinessLogic
             unVideo.Author = video.Author;
             unVideo.MinSeconds = video.MinSeconds;
             unVideo.Hour = video.Hour;
+            unVideo.LinkVideo = video.LinkVideo;
             unVideo.CategoryVideo = video.CategoryVideo;
             unVideo.PlaylistVideo = video.PlaylistVideo;
             videoRepository.Update(unVideo);

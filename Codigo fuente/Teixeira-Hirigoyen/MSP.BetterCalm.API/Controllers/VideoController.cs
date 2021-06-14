@@ -13,6 +13,8 @@ using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
+    [Route("api/video")]
+    [ApiController]
     public class VideoController : ControllerBase
     {
 
@@ -75,6 +77,10 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 _videoLogic.Update(newVideo, id);
                 return Ok("Updated successfully");
+            }
+            catch (EntityAlreadyExist fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
             }
             catch (FieldEnteredNotCorrect en)
             {

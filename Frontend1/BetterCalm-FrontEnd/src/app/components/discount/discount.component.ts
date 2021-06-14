@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class DiscountComponent implements OnInit {
 
   userList!:User[];
-
+  admin!: boolean;
   userForm= new FormGroup({ 
     user: new FormControl(''),
     dis: new FormControl('')
@@ -27,6 +27,13 @@ export class DiscountComponent implements OnInit {
   {}
 
   ngOnInit(): void {
+    if(localStorage.getItem("auth_token") != null){
+      this.admin = true;
+    }  
+    else {
+      this.admin = false;
+      this.alertService.warning("Unauthorized! You must be logged");
+    }
     this.userService.getUserByMeetingCount().subscribe(
       (resp: any) => {
         this.userList = resp;
@@ -36,19 +43,20 @@ export class DiscountComponent implements OnInit {
       }
     );
   }
-  validateSelectUpdate(): boolean{
-    if(this.userForm.value.user == "") return false;
+  validateSelectUpdate(item: any): boolean{
+    if(item == "") return false;
     return true;
   }
   functionDiscount(){
-    if(this.validateSelectUpdate()){
+    if(this.validateSelectUpdate(this.userForm.value.user)){
+      if(this.validateSelectUpdate(this.userForm.value.dis)){
       const newuser = new UserToUpdate(
         this.userForm.value.user,
         this.userForm.value.dis,
 
       );
       this.userService.updateByAdmin(newuser,this.userForm.value.user) .subscribe( resp => {
-          this.alertService.success(resp);
+          this.alertService.success("Discount apply");
           this.ngOnInit()
           this.cleanForm();
         }, (err) => {
@@ -56,7 +64,10 @@ export class DiscountComponent implements OnInit {
           this.ngOnInit()
           this.cleanForm();
         });
+      }
+      else this.alertService.info("You need to select a discount");
     }
+    else this.alertService.info("You need to select a user");
   }
   cleanForm(){
     this.userForm.patchValue({

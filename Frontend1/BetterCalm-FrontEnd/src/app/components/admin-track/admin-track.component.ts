@@ -197,7 +197,7 @@ export class AdminTrackComponent implements OnInit {
       if(this.validateSelect(this.trackForm.value.trackDelete)){
         this.functionDelete();
       }
-      else this.alertService.info("You need to select a administrator");
+      else this.alertService.info("You need to select a track");
     }
   }
 
