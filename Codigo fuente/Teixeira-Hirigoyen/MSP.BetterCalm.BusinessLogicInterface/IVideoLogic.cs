@@ -12,5 +12,8 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public void Delete(Video video);
         public List<Video> GetAll();
         public void Update(Video video, int id);
+        public bool ExistVideoByName(Video video);
+        bool ValidateVideoToAdd(Video video);
+        Video GetVideoByName(string name);
     }
 }
