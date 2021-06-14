@@ -112,6 +112,10 @@ namespace MSP.BetterCalm.API.Controllers
             {
                 return UnprocessableEntity(en.MessageError());
             }
+            catch (EntityAlreadyExist fe)
+            {
+                return UnprocessableEntity(fe.MessageError());
+            }
             catch (EntityNotExists en)
             {
                 return NotFound(en.MessageError());

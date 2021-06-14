@@ -35,8 +35,38 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             ValidateVideo(video);
             if (ExistVideoByName(video) == true) throw new EntityNotExists("The track with name: " + video.Name + " already exist");
-            //Video unVideo = ToEntity(video);
+            Video unVideo = ToEntity(video);
             videoRepository.Add(video);
+        }
+        private Video ToEntity(Video video)
+        {
+         
+                Video unVideo = new Video()
+                {
+                    Name = video.Name,
+                    Author = video.Author,
+                    Hour = video.Hour,
+                    MinSeconds = video.MinSeconds,
+                    LinkVideo = video.LinkVideo
+                };
+                List<CategoryVideo> list = video.CategoryVideo.Select(py => new CategoryVideo()
+                {
+                    Category = categoryRepository.Get(py.IdCategory),
+                    IdCategory = py.IdCategory,
+                    Video = video,
+                    IdVideo = video.Id
+                }).ToList();
+                List<PlaylistVideo> listTrack = video.PlaylistVideo.Select(py => new PlaylistVideo()
+                {
+                    Video = video,
+                    IdVideo = video.Id,
+                    Playlist = playlistRepository.Get(py.IdPlaylist),
+                    IdPlaylist = py.IdPlaylist
+                }).ToList();
+                unVideo.CategoryVideo = list;
+                unVideo.PlaylistVideo = listTrack;
+                return unVideo;
+          
         }
 
         public void Delete(Video video)
@@ -55,6 +85,10 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistVideo(id);
             Video unVideo = videoRepository.Get(id);
             ValidateVideo(video);
+            if (video.Name != unVideo.Name)
+            {
+                if (ExistVideoByName(video) == true) throw new EntityAlreadyExist("The track with name: " +video.Name + " already exist");
+            }
             unVideo.Name = video.Name;
             unVideo.Author = video.Author;
             unVideo.MinSeconds = video.MinSeconds;
@@ -69,12 +103,78 @@ namespace MSP.BetterCalm.BusinessLogic
             Video unVideo = videoRepository.Get(id);
             if (unVideo == null) throw new EntityNotExists("The video with id: " + id + " does not exist");
         }
-        private bool ExistVideoByName(Video video)
+        private bool ValidateCategoryVideo(Video video)
+        {
+            var categoryList = categoryRepository.GetAll().Select(c => c.Id).ToList();
+            var list = video.CategoryVideo.ToList();
+            var exist = true;
+            var repetidos = true;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (!categoryList.Contains(c.IdCategory))
+                {
+                    exist = false;
+                }
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = false;
+                }
+                iterador++;
+            });
+            if (!exist) return false;
+            if (!repetidos) return false;
+            return true;
+        }
+        private bool ValidatePlaylistVideo(Video video)
+        {
+            var playlistList = playlistRepository.GetAll().Select(u => u.Id).ToList();
+            var list = video.PlaylistVideo.ToList();
+            var exist = true;
+            var repetidos = true;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (!playlistList.Contains(c.IdPlaylist))
+                {
+                    exist = false;
+                }
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = false;
+                }
+                iterador++;
+            });
+            if (!exist) return false;
+            if (!repetidos) return false;
+            return true;
+        }
+        public Video GetVideoByName(string name)
+        {
+            List<Video> list = videoRepository.GetAll().ToList();
+            Video findVideo = list.Find(c => c.Name == name);
+            return findVideo;
+        }
+        public bool ExistVideoByName(Video video)
         {
             List<Video> list = videoRepository.GetAll().ToList();
             string name = video.Name;
             Video findVideo = list.Find(c => c.Name == name);
             if (findVideo == null) return false;
+            return true;
+        }
+        public bool ValidateVideoToAdd(Video video)
+        {
+            if (video.NameEmpty()) return false;
+            if (video.AuthorEmpty()) return false;
+            if (video.LinkVideoEmpty()) return false;
+            if (video.CategoryVideoEmpty()) return false;
+            if (video.HourIsEmpty() && video.MinSecondsIsEmpty()) return false;
+            if (video.Hour < 0 || video.MinSeconds < 0) return false;
+            if (ValidateCategoryVideo(video) == false) return false;
+            if(ExistVideoByName(video)== true)
+            {
+                if (ValidatePlaylistVideo(video) == false) return false;
+            }
+            
             return true;
         }
 

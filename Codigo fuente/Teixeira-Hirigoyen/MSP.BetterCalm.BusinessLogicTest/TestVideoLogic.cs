@@ -243,5 +243,31 @@ namespace MSP.BetterCalm.BusinessLogicTest
             videoLogic.Update(video, video.Id);
             Assert.AreEqual("Primavera", videoLogic.Get(0).Name);
         }
+        [TestMethod]
+        public void ValidateVideo()
+        {
+            Assert.IsTrue(videoLogic.ValidateVideoToAdd(video));
+        }
+        [TestMethod]
+        public void GetVideoByName()
+        {
+            Video newvideo = videoLogic.GetVideoByName("Gasolina");
+            Assert.AreEqual(newvideo.Name, "Gasolina");
+        }
+        public void ExistVideoByName()
+        {
+            video = new Video()
+            {
+                Id = 0,
+                Name = "Gasolina",
+                Author = "Daddy yankee",
+                LinkVideo = "www.youtube.com/daddyyanke/gasolina.mp3",
+                Hour = 0,
+                MinSeconds = 2.50,
+                CategoryVideo = new List<CategoryVideo>(),
+                PlaylistVideo = new List<PlaylistVideo>()
+            };
+            Assert.IsTrue(videoLogic.ExistVideoByName(video));
+        }
     }
 }

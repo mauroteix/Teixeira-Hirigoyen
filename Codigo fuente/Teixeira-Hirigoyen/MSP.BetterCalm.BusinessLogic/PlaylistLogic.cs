@@ -16,13 +16,14 @@ namespace MSP.BetterCalm.BusinessLogic
         IData<Category> _repositoryCategory;
         IData<Track> _repositoryTrack;
         ITrackLogic logicTrack;
+        IVideoLogic logicVideo;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, IData<Track> repositoryTrack, ITrackLogic _logicTrack)
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, ITrackLogic _logicTrack,IVideoLogic _logicVideo)
         {
             _repository = repository;
             _repositoryCategory = reposCategory;
-            _repositoryTrack = repositoryTrack;
             logicTrack = _logicTrack;
+            logicVideo = _logicVideo;
         }
 
         public Playlist Get(int id)
@@ -34,7 +35,8 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Playlist playlist)
         {
             ValidatePlaylist(playlist);
-            setPlayListTrack(playlist);
+            if(playlist.PlaylistVideo.Count > 0) setPlayListVideo(playlist);
+            if(playlist.PlaylistTrack.Count > 0) setPlayListTrack(playlist);
             Playlist play = ToEntity(playlist);       
             _repository.Add(play);
         }
@@ -44,10 +46,9 @@ namespace MSP.BetterCalm.BusinessLogic
             if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
             if (!playlist.DescriptionLength()) throw new FieldEnteredNotCorrect("The length of the description should not exceed 150 characters");
             if (playlist.PlaylistCategoryEmpty()) throw new FieldEnteredNotCorrect("A Playlist Category must be added");
-            ValidateCategoriesId(playlist);
-            //ValidateTrackId(playlist);
-            ValidateCategoryUnique(playlist);
-            //ValidateTrackUnique(playlist);
+            ValidatePlaylistCategory(playlist);
+
+
         }
 
         public List<Playlist> GetAll()
@@ -81,51 +82,36 @@ namespace MSP.BetterCalm.BusinessLogic
             return play;
         }
 
-        private void ValidateCategoryUnique(Playlist playlist)
-        {
-            var list = playlist.PlaylistCategory.ToList();
-            var repetidos = false;
-            var iterador = 1;
-            list.ForEach(c => {
-                if (list.Skip(iterador).Contains(c))
-                {
-                    repetidos = true;
-                }
-
-                iterador++;
-            });
-            if (repetidos) throw new EntityAlreadyExist("There are two or more equal categories");
-        }
-
-        private void ValidateTrackUnique(Playlist playlist)
-        {
-            var list = playlist.PlaylistTrack.ToList();
-            var repetidos = false;
-            var iterador = 1;
-            list.ForEach(c => {
-                if (list.Skip(iterador).Contains(c))
-                {
-                    repetidos = true;
-                }
-
-                iterador++;
-            });
-            if (repetidos) throw new EntityAlreadyExist("There are two or more equal tracks");
-        }
-
-        private void ValidateCategoriesId(Playlist playlist)
+        private void ValidatePlaylistCategory(Playlist playlist)
         {
             var categoryList = _repositoryCategory.GetAll().Select(c => c.Id).ToList();
             var list = playlist.PlaylistCategory.ToList();
             var exist = true;
+            var repetidos = true;
+            var iterador = 1;
             list.ForEach(c => {
                 if (!categoryList.Contains(c.IdCategory))
                 {
                     exist = false;
                 }
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = false;
+                }
+                iterador++;
             });
             if (!exist) throw new EntityNotExists("One ore more category do not exist");
+            if (!repetidos) throw new EntityAlreadyExist("There are two or more equal categories");
 
+        }
+        private bool ValidatePlayListVideo(List<PlaylistVideo> list)
+        {
+            bool exist = true;
+            list.ForEach(item =>
+            {
+                if (!logicVideo.ValidateVideoToAdd(item.Video)) exist = false;
+            });
+            return exist;
         }
         private bool ValidatePlayListTrack(List<PlaylistTrack> list)
         {
@@ -135,6 +121,32 @@ namespace MSP.BetterCalm.BusinessLogic
                 if (!logicTrack.ValidateTrackToAdd(item.Track)) exist = false;
             });
             return exist;
+        }
+        private void setPlayListVideo(Playlist playlist)
+        {
+            List<PlaylistVideo> list = new List<PlaylistVideo>();
+            List<PlaylistVideo> listOfPlaylistVideo = playlist.PlaylistVideo.ToList();
+            if (!ValidatePlayListVideo(listOfPlaylistVideo)) throw new FieldEnteredNotCorrect("One or more video incorrect");
+            listOfPlaylistVideo.ForEach(item =>
+            {
+
+                if (logicVideo.ExistVideoByName(item.Video))
+                {
+                    item.Video = logicVideo.GetVideoByName(item.Video.Name);
+                    item.IdVideo = item.Video.Id;
+                    list.Add(item);
+                }
+                else
+                {
+                    logicVideo.Add(item.Video);
+                    item.Video = logicVideo.GetVideoByName(item.Video.Name);
+                    item.IdVideo = item.Video.Id;
+                    list.Add(item);
+                }
+
+            }
+            );
+            playlist.PlaylistVideo = list;
         }
 
         private void setPlayListTrack(Playlist playlist)
@@ -163,21 +175,7 @@ namespace MSP.BetterCalm.BusinessLogic
             );
             playlist.PlaylistTrack = list;
         }
-
-        private void ValidateTrackId(Playlist playlist)
-        {
-            var playlistTrack = playlist.PlaylistTrack.ToList();
-            var rangeList = playlistTrack.Count;
-            for (int aPlaylistTrack = 0; aPlaylistTrack < rangeList; aPlaylistTrack++)
-            {
-                var idTrack = playlistTrack[aPlaylistTrack].IdTrack;
-                if(idTrack <= 0 ) throw new FieldEnteredNotCorrect("One or more tracks are with id invalid");
-                var unTrack = _repositoryTrack.Get(playlistTrack[aPlaylistTrack].IdTrack);
-                if (unTrack == null) throw new EntityNotExists("One or more tracks not exist");      
-            }
-        }
-
-     
+   
         private void ExistPlaylist(int id)
         {
             Playlist unPlaylist = _repository.Get(id);

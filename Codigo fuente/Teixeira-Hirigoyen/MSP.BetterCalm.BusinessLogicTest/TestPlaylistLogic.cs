@@ -20,8 +20,10 @@ namespace MSP.BetterCalm.BusinessLogicTest
         Mock<IData<Playlist>> repositoryPlaylist;
         Mock<IData<Category>> repositoryCategory;
         Mock<IData<Track>> repositoryTrack;
+        Mock<IData<Video>> repositoryVideo;
         PlaylistLogic playlistLogic;
         TrackLogic trackLogic;
+        VideoLogic videoLogic;
         List<Category> categoryList = new List<Category>();
         List<Track> trackList = new List<Track>();
         Category category;
@@ -55,12 +57,14 @@ namespace MSP.BetterCalm.BusinessLogicTest
                           IdCategory = category.Id
                      }
                 },
-                PlaylistTrack = new List<PlaylistTrack>()
+                PlaylistTrack = new List<PlaylistTrack>(),
+                PlaylistVideo = new List<PlaylistVideo>()
             };
             playlistList.Add(playlist);
             repositoryPlaylist = new Mock<IData<Playlist>>();
             repositoryCategory = new Mock<IData<Category>>();
             repositoryTrack = new Mock<IData<Track>>();
+            repositoryVideo = new Mock<IData<Video>>();
 
             repositoryPlaylist.Setup(r => r.GetAll()).Returns(playlistList);
             repositoryCategory.Setup(r => r.GetAll()).Returns(categoryList);
@@ -69,7 +73,8 @@ namespace MSP.BetterCalm.BusinessLogicTest
             repositoryPlaylist.Setup(play => play.Get(0)).Returns(playlist);
             repositoryPlaylist.Setup(play => play.Add(playlist));
             trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object,repositoryPlaylist.Object);
-            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object, repositoryTrack.Object,trackLogic);
+            videoLogic = new VideoLogic(repositoryVideo.Object, repositoryCategory.Object, repositoryPlaylist.Object);
+            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object,trackLogic,videoLogic);
       
         }
 
@@ -113,6 +118,8 @@ namespace MSP.BetterCalm.BusinessLogicTest
 
             };
             playlistToAdd.PlaylistCategory.Add(playlistCategory);
+            playlistToAdd.PlaylistVideo = new List<PlaylistVideo>();
+            playlistToAdd.PlaylistTrack = new List<PlaylistTrack>();
             playlistLogic.Add(playlistToAdd);
         }
 
