@@ -58,14 +58,14 @@ export class AdminVideoComponent implements OnInit {
         this.alertService.danger(err.error);
       }
     );
-   /* this.videoService.getAll().subscribe(
+    this.videoService.getAll().subscribe(
       (resp: any) => {
         this.videoList = resp;
       },
       err => {
         this.alertService.danger(err.error);
       }
-    );*/
+    );
   }
 
   videoForm= new FormGroup({ 
@@ -190,11 +190,13 @@ export class AdminVideoComponent implements OnInit {
   }
 
   functionAdd(video: any){
+    console.log(video);
     this.videoService.post(video)
     .subscribe( resp => {
     this.alertService.success(resp);
     this.ngOnInit();
     }, (err) => {
+      console.log(err);
     this.alertService.danger(err.error);
     });
     this.cleanForm();
@@ -216,8 +218,8 @@ export class AdminVideoComponent implements OnInit {
     this.videoService.delete(this.videoForm.value.videoDelete) 
     .subscribe( resp => {
     this.alertService.success(resp);
-    this.ngOnInit();
     this.cleanForm();
+    this.ngOnInit();
     }, (err) => {
     this.alertService.danger(err.error);
     });

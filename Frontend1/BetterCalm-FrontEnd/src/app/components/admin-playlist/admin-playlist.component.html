@@ -16,7 +16,7 @@
             <div class="form-row" *ngIf = "showSelect == true">
                 <div class="form-group col-md-6">
                 <label>Select playlist</label>
-                <select class="form-control"  formControlName="track" id="track">                        
+                <select class="form-control"  formControlName="playlist" id="playlist">                        
                     <option *ngFor="let playlist of playlistList" value={{playlist.id}}> {{playlist.name}} </option>
                 </select>
               </div>
@@ -59,11 +59,24 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionVideo()" >{{nameFunction}}</button>
+            <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionPlaylist()" >{{nameFunction}}</button>
         </form>
     </div>
 
-
+    <div *ngIf= "showDelete == true">
+        <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+        <form [formGroup] ="playlistForm" style="margin: 2%;">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+            <label>Select playlist</label>
+            <select class="form-control"  formControlName="playlistDelete" id="playlistDelete">                        
+                <option *ngFor="let playlist of playlistList" value={{playlist.id}}> {{playlist.name}}</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="functionPlaylist()">{{nameFunction}}</button>
+        </form>
+      </div>
 
 
 

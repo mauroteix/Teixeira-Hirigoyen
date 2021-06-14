@@ -13,6 +13,12 @@ export class PlaylistCategory{
         ){}
 }
 
+export class PlaylistCategoryToAdd{
+  constructor( 
+      public idCategory: number,
+      ){}
+}
+
 
 @Injectable({
   providedIn: 'root'

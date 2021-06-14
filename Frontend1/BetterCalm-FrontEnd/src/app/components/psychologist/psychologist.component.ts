@@ -28,7 +28,7 @@ export class PsychologistComponent implements OnInit {
   idMedical!: number;
   psychologist!: Psychologist;
   psyList!:Psychologist[];
-  
+ 
   psydeleteForm= new FormGroup({ 
     psydelete: new FormControl('')
 
@@ -82,6 +82,7 @@ export class PsychologistComponent implements OnInit {
       this.alertService.warning("Unauthorized! You must be logged");
     }
   }
+  
   showAdd(){
     this.cleanForm();
     this.ngOnInit();
@@ -129,7 +130,7 @@ export class PsychologistComponent implements OnInit {
     else if(this.psyForm.value.meetingprice == ""){
         this.alertService.info("The meetin price can not be empty");
     }
-    else if(this.psyForm.value.adressmeeting == "") {
+    else if(this.psyForm.value.meetingtype == 2 && this.psyForm.value.adressmeeting == "") {
       this.alertService.info("The adress meeting can not be empty");
       return false;
     }
