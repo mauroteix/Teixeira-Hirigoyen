@@ -37,10 +37,18 @@ namespace MSP.BetterCalm.BusinessLogic
             ValidatePlaylist(playlist);
             if(playlist.PlaylistVideo.Count > 0) setPlayListVideo(playlist);
             if(playlist.PlaylistTrack.Count > 0) setPlayListTrack(playlist);
+            if (ExistPlaylistByName(playlist) == true) throw new EntityAlreadyExist("The track with name: " + playlist.Name + " already exist");
             Playlist play = ToEntity(playlist);       
             _repository.Add(play);
         }
-
+        private bool ExistPlaylistByName(Playlist playlist)
+        {
+            List<Playlist> list = _repository.GetAll().ToList();
+            string name = playlist.Name;
+            Playlist findPlaylist = list.Find(c => c.Name == name);
+            if (findPlaylist == null) return false;
+            return true;
+        }
         private void ValidatePlaylist(Playlist playlist)
         {
             if (playlist.NameEmpty()) throw new FieldEnteredNotCorrect("The name cannot be empty");
@@ -193,6 +201,10 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistPlaylist(id);
             Playlist unPlaylist = _repository.Get(id);
             ValidatePlaylist(playlist);
+            if (playlist.Name != unPlaylist.Name)
+            {
+                if (ExistPlaylistByName(playlist) == true) throw new EntityAlreadyExist("The track with name: " + playlist.Name + " already exist");
+            }
             unPlaylist.Name = playlist.Name;
             unPlaylist.Description = playlist.Description;
             unPlaylist.Image = playlist.Image;
