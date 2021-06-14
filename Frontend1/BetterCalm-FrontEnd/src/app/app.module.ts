@@ -24,6 +24,8 @@ import { AdministratorComponent } from './components/administrator/administrator
 import { PsychologistComponent } from './components/psychologist/psychologist.component';
 import { DiscountComponent } from './components/discount/discount.component';
 import { AdminTrackComponent } from './components/admin-track/admin-track.component';
+import { AdminVideoComponent } from './components/admin-video/admin-video.component';
+import { AdminPlaylistComponent } from './components/admin-playlist/admin-playlist.component';
 
 
 
@@ -40,7 +42,9 @@ import { AdminTrackComponent } from './components/admin-track/admin-track.compon
     AdministratorComponent,
     PsychologistComponent,
     DiscountComponent,
-    AdminTrackComponent
+    AdminTrackComponent,
+    AdminVideoComponent,
+    AdminPlaylistComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,8 @@ import { AdminTrackComponent } from './components/admin-track/admin-track.compon
       {path: 'psychologist', component: PsychologistComponent},
       {path: 'registerdiscount', component: DiscountComponent},
       {path: 'track', component: AdminTrackComponent},
+      {path: 'video', component: AdminVideoComponent},
+      {path: 'playlist', component: AdminPlaylistComponent},
     ])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
