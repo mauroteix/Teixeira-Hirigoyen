@@ -1,25 +1,23 @@
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 <div *ngIf = "admin == true">
     <div class="context" style="margin: 2%;">
-    <h1>Track management</h1>
+    <h1>Video management</h1>
     <div class="dropdown" style="margin: 2%;">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" (click)="showAddTrack()">Add</button>
-            <button type="button" class="btn btn-primary" (click)="showUpdateTrack()">Update</button>
-            <button type="button" class="btn btn-primary" (click)="showDeleteTrack()">Delete</button>
+            <button type="button" class="btn btn-primary" (click)="showAddVideo()">Add</button>
+            <button type="button" class="btn btn-primary" (click)="showUpdateVideo()">Update</button>
+            <button type="button" class="btn btn-primary" (click)="showDeleteVideo()">Delete</button>
           </div>
       </div>
     </div>
 
-  
-<div *ngIf = "showTrack == true">
+<div *ngIf = "showVideo == true">
     <h1 style="margin-left: 2%;">{{nameFunction}}</h1> 
-    <form  [formGroup] ="trackForm" style="margin: 1%;"> 
+    <form  [formGroup] ="videoForm" style="margin: 1%;"> 
         <div class="form-row" *ngIf = "showSelect == true">
             <div class="form-group col-md-6">
-            <label>Select track</label>
-            <select class="form-control"  formControlName="track" id="track">                        
-                <option *ngFor="let track of trackList" value={{track.id}}> {{track.name}} - {{track.author}} </option>
+            <label>Select video</label>
+            <select class="form-control"  formControlName="video" id="video">                        
+                <option *ngFor="let video of videoList" value={{video.id}}> {{video.name}} - {{video.author}} </option>
             </select>
           </div>
         </div>
@@ -35,12 +33,8 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label>Image</label>
-                <input type="text" class="form-control"  formControlName="image"  id="image">
-            </div>
-            <div class="form-group col-md-6">
-                <label>Sound</label>
-                <input type="text" class="form-control"  formControlName="sound"  id="sound">
+                <label>Link Video</label>
+                <input type="text" class="form-control"  formControlName="linkVideo"  id="linkVideo">
             </div>
         </div>
         <div class="form-row"> 
@@ -67,29 +61,23 @@
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionTrack()" >{{nameFunction}}</button>
+        <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionVideo()" >{{nameFunction}}</button>
     </form>
 </div>
 
 <div *ngIf= "showDelete == true">
     <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
-    <form [formGroup] ="trackForm" style="margin: 2%;">
+    <form [formGroup] ="videoForm" style="margin: 2%;">
       <div class="form-row">
         <div class="form-group col-md-6">
-        <label>Select track</label>
-        <select class="form-control"  formControlName="trackDelete" id="trackDelete">                        
-            <option *ngFor="let track of trackList" value={{track.id}}> {{track.name}} - {{track.author}} </option>
+        <label>Select video</label>
+        <select class="form-control"  formControlName="videoDelete" id="videoDelete">                        
+            <option *ngFor="let video of videoList" value={{video.id}}> {{video.name}} - {{video.author}} </option>
         </select>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="functionTrack()">{{nameFunction}}</button>
+    <button type="submit" class="btn btn-primary" (click)="functionVideo()">{{nameFunction}}</button>
     </form>
   </div>
 
-
-
-
-
-
-    </div>
-  
+</div>

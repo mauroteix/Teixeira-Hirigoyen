@@ -12,6 +12,12 @@ export class CategoryVideo{
         ){}
 }
 
+export class CategoryVideoToAdd{
+  constructor( 
+      public idCategory: number,
+      ){}
+}
+
 
 @Injectable({
   providedIn: 'root'

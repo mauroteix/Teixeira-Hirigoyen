@@ -13,6 +13,12 @@ export class PlaylistVideo{
         ){}
 }
 
+export class PlaylistVideoToAdd{
+  constructor( 
+      public idPlaylist: number,
+      ){}
+}
+
 
 @Injectable({
   providedIn: 'root'
