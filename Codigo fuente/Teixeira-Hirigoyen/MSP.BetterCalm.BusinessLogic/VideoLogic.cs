@@ -34,7 +34,7 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Video video)
         {
             ValidateVideo(video);
-            if (ExistVideoByName(video) == true) throw new EntityNotExists("The track with name: " + video.Name + " already exist");
+            if (ExistVideoByName(video) == true) throw new EntityAlreadyExist("The track with name: " + video.Name + " already exist");
             Video unVideo = ToEntity(video);
             videoRepository.Add(video);
         }
