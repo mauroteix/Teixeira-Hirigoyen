@@ -136,7 +136,7 @@ namespace MSP.BetterCalm.BusinessLogic
             meeting.Date = date;
             return psychologist;
         }
-        public string CreateAdress(Psychologist psychologist)
+        private string CreateAdress(Psychologist psychologist)
         {
             string adress = "";
             Guid guid = Guid.NewGuid();
