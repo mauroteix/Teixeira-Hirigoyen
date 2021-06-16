@@ -13,6 +13,7 @@ using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
+  
     [Route("api/video")]
     [ApiController]
     public class VideoController : ControllerBase

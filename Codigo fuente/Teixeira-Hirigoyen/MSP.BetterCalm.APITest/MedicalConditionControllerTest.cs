@@ -30,7 +30,7 @@ namespace MSP.BetterCalm.APITest
             medicalConditionList.Add(medicalCondition);
         }
         [TestMethod]
-        public void GetOnePlaylist()
+        public void GetOneMedicalConditionOk()
         {
             var mockMedicalCondition = new Mock<IMedicalConditionLogic>(MockBehavior.Strict);
             mockMedicalCondition.Setup(res => res.Get(medicalConditionList[0].Id)).Returns(medicalConditionList[0]);
@@ -39,6 +39,27 @@ namespace MSP.BetterCalm.APITest
 
             mockMedicalCondition.VerifyAll();
             Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
+        }
+
+        [TestMethod]
+        public void GetOneMedicalConditionError()
+        {
+            var mockMedicalCondition = new Mock<IMedicalConditionLogic>(MockBehavior.Strict);
+            mockMedicalCondition.Setup(res => res.Get(medicalConditionList[0].Id)).Throws(new Exception());
+            MedicalConditionController controller = new MedicalConditionController(mockMedicalCondition.Object);
+            var result = controller.Get(medicalConditionList[0].Id);
+
+            mockMedicalCondition.VerifyAll();
+            Assert.AreEqual(result.ToString(), new ObjectResult("").ToString());
+        }
+
+        [TestMethod]
+        public void GetAllMedicalCondition()
+        {
+            var mockMedicalCondition = new Mock<IMedicalConditionLogic>(MockBehavior.Strict);
+            mockMedicalCondition.Setup(u => u.GetAll()).Returns(medicalConditionList);
+            var controller = new MedicalConditionController(mockMedicalCondition.Object);
+            Assert.AreEqual(new OkObjectResult("").ToString(), controller.GetAll().ToString());
         }
 
     }
