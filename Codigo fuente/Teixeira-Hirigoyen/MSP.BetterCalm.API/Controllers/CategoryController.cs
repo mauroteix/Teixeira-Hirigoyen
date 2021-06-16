@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace MSP.BetterCalm.API.Controllers
 {
+
     [SwaggerTag("Category")]
     [Route("api/category")]
     [ApiController]

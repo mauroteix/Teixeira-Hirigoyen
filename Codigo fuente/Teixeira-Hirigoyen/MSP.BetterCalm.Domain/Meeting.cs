@@ -4,6 +4,7 @@ using System.Text;
 
 namespace MSP.BetterCalm.Domain
 {
+ 
     public class Meeting
     {
 
