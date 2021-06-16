@@ -139,23 +139,6 @@ namespace MSP.BetterCalm.BusinessLogic
 
             _repository.Update(unPsychologist);
         }
-        public string CreateAdress(Psychologist psychologist)
-        {
-            string adress = "";
-            Guid guid = Guid.NewGuid();
-            if((int)psychologist.MeetingType == 1)
-            {
-                adress = "https://bettercalm.com.uy/meeting/";
-                var valor = guid;
-                adress = adress + valor;
-            }
-            else
-            {
-                adress = psychologist.AdressMeeting;
-            }
-          
-            return adress;
-        }
       
     }
 }

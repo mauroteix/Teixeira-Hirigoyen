@@ -13,7 +13,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public void Update(Track track, int id);
         public List<Track> GetAll();
         public bool ExistTrackByName(Track track);
-        bool ValidateTrackToAdd(Track track);
-        Track GetTrackByName(string name);
+        public bool ValidateTrackToAdd(Track track);
+        public Track GetTrackByName(string name);
     }
 }
