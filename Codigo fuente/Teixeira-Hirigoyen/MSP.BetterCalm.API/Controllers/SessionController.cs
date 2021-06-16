@@ -33,7 +33,7 @@ namespace MSP.BetterCalm.API.Controllers
         /// <response code="200">OK. Returns the requested object.</response>
         /// <response code="404">NotFound. The requested object was not found.</response>
         /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
-        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpPost]
         public IActionResult Login([FromBody] Administrator admin)
         {

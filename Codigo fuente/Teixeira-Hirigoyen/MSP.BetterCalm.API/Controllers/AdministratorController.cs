@@ -32,7 +32,7 @@ namespace MSP.BetterCalm.API.Controllers
         /// <response code="200">OK. Returns the requested object.</response>
         /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
         /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
-        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Administrator admin)
@@ -59,7 +59,7 @@ namespace MSP.BetterCalm.API.Controllers
         /// <response code="200">OK. Returns the requested object.</response>
         /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
         /// <response code="404">NotFound. The requested object was not found.</response>
-        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -97,7 +97,7 @@ namespace MSP.BetterCalm.API.Controllers
         /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
         /// <response code="404">NotFound. The requested object was not found.</response>
         /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
-        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Administrator newAdmin)
@@ -120,6 +120,14 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        /// <summary>
+        /// Get all administrators
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet()]
         public IActionResult GetAll()
@@ -133,6 +141,16 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        /// <summary>
+        /// Get a administrator by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
