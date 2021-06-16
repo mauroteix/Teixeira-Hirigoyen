@@ -30,7 +30,7 @@ namespace MSP.BetterCalm.API.Controllers
         /// <response code="200">OK. Returns the requested object.</response>
         /// <response code="404">NotFound. The requested object was not found.</response>
         /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
-        /// <response code="501">InternalServerError. The server could not handle an exception in the system.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpPost()]
         public IActionResult Add([FromBody] User user)
         {
@@ -55,6 +55,19 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+
+        /// <summary>
+        /// Update a user by id - discount
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] User user)
@@ -77,6 +90,13 @@ namespace MSP.BetterCalm.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        /// <summary>
+        /// Get all the users with more than 5 meeting
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpGet()]
         public IActionResult GetUserbyCountMeeting()

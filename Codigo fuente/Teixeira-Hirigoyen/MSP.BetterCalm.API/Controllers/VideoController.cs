@@ -5,6 +5,7 @@ using MSP.BetterCalm.API.Filters;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.HandleMessage;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using UruguayNatural.HandleError;
 
 namespace MSP.BetterCalm.API.Controllers
 {
-  
+    [SwaggerTag("Video")]
     [Route("api/video")]
     [ApiController]
     public class VideoController : ControllerBase
@@ -25,6 +26,14 @@ namespace MSP.BetterCalm.API.Controllers
             _videoLogic = videoLogic;
         }
 
+        /// <summary>
+        /// Get video by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -43,6 +52,16 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Add a video
+        /// </summary>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPost()]
         public IActionResult Add([FromBody] Video video)
@@ -70,6 +89,17 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a video by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newVideo"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="422">UnprocessableEntity. Error in the semantics.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Video newVideo)
@@ -97,6 +127,15 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a video by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
+        /// <response code="404">NotFound. The requested object was not found.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [ServiceFilter(typeof(AuthorizationFilter))]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -124,7 +163,12 @@ namespace MSP.BetterCalm.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get all the videos
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns the requested object.</response>
+        /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
         [HttpGet()]
         public IActionResult GetAll()
         {
