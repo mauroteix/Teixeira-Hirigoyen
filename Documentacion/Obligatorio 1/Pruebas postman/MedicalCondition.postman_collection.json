@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "99603585-19d2-4120-9475-cd4110587fb4",
+		"name": "MedicalCondition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all medical condition",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/medicalcondition",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"medicalcondition"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get medical condition by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/medicalcondition/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"medicalcondition",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
