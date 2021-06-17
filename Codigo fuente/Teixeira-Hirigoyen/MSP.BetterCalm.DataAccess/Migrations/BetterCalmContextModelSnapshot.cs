@@ -52,6 +52,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -73,6 +76,21 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.HasIndex("IdTrack");
 
                     b.ToTable("CategoryTrack");
+                });
+
+            modelBuilder.Entity("MSP.BetterCalm.Domain.CategoryVideo", b =>
+                {
+                    b.Property<int>("IdCategory")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVideo")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdCategory", "IdVideo");
+
+                    b.HasIndex("IdVideo");
+
+                    b.ToTable("CategoryVideo");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Expertise", b =>
@@ -97,6 +115,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -113,13 +134,25 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("AdressMeeting")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("IdPsychologist", "IdUser");
+                    b.Property<int>("MeetingDiscount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MeetingDuration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPsychologist", "IdUser", "Id");
 
                     b.HasIndex("IdUser");
 
@@ -177,6 +210,21 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.ToTable("PlaylistTrack");
                 });
 
+            modelBuilder.Entity("MSP.BetterCalm.Domain.PlaylistVideo", b =>
+                {
+                    b.Property<int>("IdPlaylist")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVideo")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPlaylist", "IdVideo");
+
+                    b.HasIndex("IdVideo");
+
+                    b.ToTable("PlaylistVideo");
+                });
+
             modelBuilder.Entity("MSP.BetterCalm.Domain.Psychologist", b =>
                 {
                     b.Property<int>("Id")
@@ -186,6 +234,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
 
                     b.Property<string>("AdressMeeting")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MeetingPrice")
+                        .HasColumnType("int");
 
                     b.Property<int>("MeetingType")
                         .HasColumnType("int");
@@ -241,10 +292,19 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Property<string>("Cellphone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MedicalConditionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MeetingCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MeetingDuration")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -258,6 +318,33 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.HasIndex("MedicalConditionId");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("MSP.BetterCalm.Domain.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Hour")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LinkVideo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MinSeconds")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Video");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.CategoryTrack", b =>
@@ -277,6 +364,25 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Track");
+                });
+
+            modelBuilder.Entity("MSP.BetterCalm.Domain.CategoryVideo", b =>
+                {
+                    b.HasOne("MSP.BetterCalm.Domain.Category", "Category")
+                        .WithMany("CategoryVideo")
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MSP.BetterCalm.Domain.Video", "Video")
+                        .WithMany("CategoryVideo")
+                        .HasForeignKey("IdVideo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Video");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Expertise", b =>
@@ -355,6 +461,25 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Track");
                 });
 
+            modelBuilder.Entity("MSP.BetterCalm.Domain.PlaylistVideo", b =>
+                {
+                    b.HasOne("MSP.BetterCalm.Domain.Playlist", "Playlist")
+                        .WithMany("PlaylistVideo")
+                        .HasForeignKey("IdPlaylist")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MSP.BetterCalm.Domain.Video", "Video")
+                        .WithMany("PlaylistVideo")
+                        .HasForeignKey("IdVideo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Playlist");
+
+                    b.Navigation("Video");
+                });
+
             modelBuilder.Entity("MSP.BetterCalm.Domain.User", b =>
                 {
                     b.HasOne("MSP.BetterCalm.Domain.MedicalCondition", "MedicalCondition")
@@ -367,6 +492,8 @@ namespace MSP.BetterCalm.DataAccess.Migrations
             modelBuilder.Entity("MSP.BetterCalm.Domain.Category", b =>
                 {
                     b.Navigation("CategoryTrack");
+
+                    b.Navigation("CategoryVideo");
 
                     b.Navigation("PlaylistCategory");
                 });
@@ -381,6 +508,8 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("PlaylistCategory");
 
                     b.Navigation("PlaylistTrack");
+
+                    b.Navigation("PlaylistVideo");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.Domain.Psychologist", b =>
@@ -400,6 +529,13 @@ namespace MSP.BetterCalm.DataAccess.Migrations
             modelBuilder.Entity("MSP.BetterCalm.Domain.User", b =>
                 {
                     b.Navigation("Meeting");
+                });
+
+            modelBuilder.Entity("MSP.BetterCalm.Domain.Video", b =>
+                {
+                    b.Navigation("CategoryVideo");
+
+                    b.Navigation("PlaylistVideo");
                 });
 #pragma warning restore 612, 618
         }

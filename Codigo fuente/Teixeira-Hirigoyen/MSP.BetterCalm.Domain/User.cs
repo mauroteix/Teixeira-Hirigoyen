@@ -14,6 +14,9 @@ namespace MSP.BetterCalm.Domain
         public string Cellphone { get; set; }
         public ICollection<Meeting> Meeting { get; set; }
         public MedicalCondition MedicalCondition { get; set; }
+        public meetingDuration MeetingDuration { get; set; }
+        public discount Discount { get; set; }
+        public int MeetingCount { get; set; }
 
         public User()
         {

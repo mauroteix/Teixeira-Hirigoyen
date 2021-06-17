@@ -38,7 +38,11 @@ namespace MSP.BetterCalm.DomainTest
                 Psychologist = psychologist,
                 IdPsychologist = psychologist.Id,
                 Date = new DateTime(2021, 4, 18),
-                AdressMeeting = "Josesito"
+                AdressMeeting = "Josesito",
+                MeetingDuration = meetingDuration.OneHour,
+                TotalPrice = 1000,
+                MeetingDiscount = discount.Zero
+                
             };
 
         }
@@ -72,6 +76,21 @@ namespace MSP.BetterCalm.DomainTest
         public void RegisterAdress()
         {
             Assert.AreEqual("Josesito", meeting.AdressMeeting);
+        }
+        [TestMethod]
+        public void RegisterMeetingDuration()
+        {
+            Assert.AreEqual(meetingDuration.OneHour, meeting.MeetingDuration);
+        }
+        [TestMethod]
+        public void RegisterTotalPrice()
+        {
+            Assert.AreEqual(1000, meeting.TotalPrice);
+        }
+        [TestMethod]
+        public void RegisterDiscount()
+        {
+            Assert.AreEqual(meeting.MeetingDiscount, discount.Zero);
         }
     }
 }

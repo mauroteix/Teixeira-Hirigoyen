@@ -8,7 +8,9 @@ namespace MSP.BetterCalm.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Image { get; set; }
         public ICollection<CategoryTrack> CategoryTrack { get; set; }
+        public ICollection<CategoryVideo> CategoryVideo { get; set; }
         public ICollection<PlaylistCategory> PlaylistCategory { get; set; }
         public Category()
         { }

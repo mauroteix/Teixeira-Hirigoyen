@@ -14,6 +14,5 @@ namespace MSP.BetterCalm.BusinessLogicInterface
         public void Delete(Psychologist psychologist);
         public void Update(Psychologist psychologist, int id);
 
-        public User CreateMeeting(User user);
     }
 }

@@ -1,0 +1,92 @@
+<div *ngIf = "admin == true">
+    <div class="context" style="margin: 2%;">
+    <h1>Playlist management</h1>
+    <div class="dropdown" style="margin: 2%;">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="showAddPlaylist()">Add</button>
+            <button type="button" class="btn btn-primary" (click)="showUpdatePlaylist()">Update</button>
+            <button type="button" class="btn btn-primary" (click)="showDeletePlaylist()">Delete</button>
+          </div>
+      </div>
+    </div>
+
+    <div *ngIf = "showPlaylist == true">
+        <h1 style="margin-left: 2%;">{{nameFunction}}</h1> 
+        <form  [formGroup] ="playlistForm" style="margin: 1%;"> 
+            <div class="form-row" *ngIf = "showSelect == true">
+                <div class="form-group col-md-6">
+                <label>Select playlist</label>
+                <select class="form-control"  formControlName="playlist" id="playlist">                        
+                    <option *ngFor="let playlist of playlistList" value={{playlist.id}}> {{playlist.name}} </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label>Name</label>
+                <input type="text" class="form-control"  formControlName="name"  id="name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Description</label>
+                    <input type="text" class="form-control"  formControlName="description"  id="description">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Image</label>
+                    <input type="text" class="form-control"  formControlName="image"  id="image">
+                </div>
+            </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-6">
+                    <label>Select category</label>
+                    <select class="select" multiple formControlName="category"  id="category" style="display: flex;">                   
+                        <option *ngFor="let cat of categoryList" value={{cat.id}}> {{cat.name}} </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Select video</label>
+                    <select class="select" multiple formControlName="video"  id="video" style="display: flex;">                   
+                        <option *ngFor="let video of videoList" value={{video.id}}> {{video.name}} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-6">
+                    <label>Select track</label>
+                    <select class="select" multiple formControlName="track"  id="track" style="display: flex;">                   
+                        <option *ngFor="let track of trackList" value={{track.id}}> {{track.name}} - {{track.author}} </option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionPlaylist()" >{{nameFunction}}</button>
+        </form>
+    </div>
+
+    <div *ngIf= "showDelete == true">
+        <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+        <form [formGroup] ="playlistForm" style="margin: 2%;">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+            <label>Select playlist</label>
+            <select class="form-control"  formControlName="playlistDelete" id="playlistDelete">                        
+                <option *ngFor="let playlist of playlistList" value={{playlist.id}}> {{playlist.name}}</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="functionPlaylist()">{{nameFunction}}</button>
+        </form>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

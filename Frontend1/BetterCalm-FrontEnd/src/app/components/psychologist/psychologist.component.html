@@ -1,0 +1,93 @@
+<div *ngIf = "admin == true">
+    <div class="context" style="margin: 1%;">
+        <h1>Psychologist</h1>
+        <div class="dropdown" style="margin: 1%;">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" (click)="showAdd()">Add</button>
+                <button type="button" class="btn btn-primary"(click)="showUpdate()">Update</button>
+                <button type="button" class="btn btn-primary" (click)="showDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf= "add == true">
+        <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+        <form [formGroup] ="psyForm" style="margin: 1%;">
+            <div class="form-row" *ngIf = "select == true">
+                <div class="form-group col-md-12">
+                    <label>Select Psychologist</label>
+                    <select class="form-control"  formControlName="psychologist" id="psychologist">                        
+                        <option *ngFor="let psy of psyList" value={{psy.id}}>{{psy.id}} - {{psy.name}} </option>
+                    </select>
+                </div>
+            </div>
+              
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label>Name</label>
+                <input type="text" class="form-control"  formControlName="name"  id="name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Meeting Type</label>
+                    <select class="form-control" id="meetingtype" formControlName="meetingtype">
+                        <option value=1>Virtual</option>
+                        <option value=2>Face to face</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Meeting Price</label>
+                    <select class="form-control" id="meetingprice" formControlName="meetingprice">
+                        <option value=500>UY500</option>
+                        <option value=750>UY750</option>
+                        <option value=1000>UY1000</option>
+                        <option value=2000>UY2000</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6" *ngIf= "psyForm.value.meetingtype == 2">
+                    <label>Address Meeting</label>
+                    <input type="text" class="form-control"  formControlName="adressmeeting"  id="adressmeeting">
+                </div>
+            </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-auto">
+                    <label>Medical Condition 1</label>
+                    <select class="form-control" id="medical1" formControlName="medical1" id="medical1">                        
+                        <option *ngFor="let medical of listMedicalCondition" value= "{{ medical.id }}"> {{medical.name}} </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-auto">
+                    <label>Medical Condition 2</label>
+                    <select class="form-control" id="medical2" formControlName="medical2" id="medical2">                        
+                        <option *ngFor="let medical of listMedicalCondition" value= "{{ medical.id }}"> {{medical.name}} </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-auto">
+                    <label>Medical Condition 3</label>
+                    <select class="form-control" id="medical3" formControlName="medical3" id="medical3">                        
+                        <option *ngFor="let medical of listMedicalCondition" value="{{ medical.id }}"> {{medical.name}} </option>
+                    </select>
+                </div>
+            </div>
+        <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionPsychologist()" >{{nameFunction}}</button>
+        </form>
+    </div>
+    <div *ngIf= "delete == true">
+        <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+        <form [formGroup] ="psydeleteForm" style="margin: 2%;">
+            <div class="form-row"> 
+                <div class="form-group col-md-6">
+                    <label>Select Psychologist</label>
+                    <select class="form-control"  formControlName="psydelete" id="psydelete">                        
+                        <option *ngFor="let ps of psyList" value={{ps.id}}>{{ps.id}} - {{ps.name}} </option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="functionPsychologist()">{{nameFunction}}</button>
+     
+     </form>
+    </div>
+
+
+</div>

@@ -29,10 +29,18 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistTrack(id);
             return _repository.Get(id);
         }
-
+        public bool ExistTrackByName(Track track)
+        {
+            List<Track> list = _repository.GetAll().ToList();
+            string name = track.Name;
+            Track findTrack = list.Find(c => c.Name == name);
+            if (findTrack == null) return false;
+            return true;
+        }
         public void Add(Track track)
         {
             ValidateTrack(track);
+            if (ExistTrackByName(track) == true) throw new EntityAlreadyExist("The track with name: " + track.Name + " already exist");
             Track unTrack = ToEntity(track);
             _repository.Add(unTrack);
         }
@@ -41,6 +49,66 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             Track unTrack = _repository.Get(id);
             if (unTrack == null) throw new EntityNotExists("The track with id: " + id + " does not exist");
+        }
+        public bool ValidateTrackToAdd(Track track)
+        {
+            if (track.NameEmpty()) return false;
+            if (track.AuthorEmpty()) return false;
+            if (track.SoundEmpty()) return false;
+            if (track.CategoryTrackEmpty()) return false;
+            if (track.HourIsEmpty() && track.MinSeconds == 0) return false;
+            if (track.Hour < 0 || track.MinSeconds < 0) return false;
+            if (ValidateListCategory(track) == false) return false;
+            if (ExistTrackByName(track) == true)
+            {
+                if (ValidateListPlayList(track) == false) return false;
+            }
+                
+            return true;
+        }
+        private bool ValidateListPlayList(Track track)
+        {
+            var playlistList = playlistRepository.GetAll().Select(u => u.Id).ToList();
+            var list = track.PlaylistTrack.ToList();
+            var exist = true;
+            var repetidos = true;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (!playlistList.Contains(c.IdPlaylist))
+                {
+                    exist = false;
+                }
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = false;
+                }
+                iterador++;
+            });
+            if (!exist) return false;
+            if (!repetidos) return false;
+            return true;
+        }
+        private bool ValidateListCategory(Track track)
+        {
+            var categoryList = categoryRepository.GetAll().Select(c => c.Id).ToList();
+            var list = track.CategoryTrack.ToList();
+            var exist = true;
+            var repetidos = true;
+            var iterador = 1;
+            list.ForEach(c => {
+                if (!categoryList.Contains(c.IdCategory))
+                {
+                    exist =false;
+                }
+                if (list.Skip(iterador).Contains(c))
+                {
+                    repetidos = false;
+                }
+                iterador++;
+            });
+            if (!exist) return false;
+            if (!repetidos) return false;
+            return true;
         }
 
         private void ValidateTrack(Track track)
@@ -51,6 +119,7 @@ namespace MSP.BetterCalm.BusinessLogic
             if (track.CategoryTrackEmpty()) throw new FieldEnteredNotCorrect("You must add a category to the track");
             if (track.HourIsEmpty() && track.MinSeconds == 0 ) throw new FieldEnteredNotCorrect("Track must have duration");
             if (track.Hour < 0 ||  track.MinSeconds < 0) throw new FieldEnteredNotCorrect("Track duration must be positive");
+            
             ValidateCategoriesId(track);
             ValidatePlaylistId(track);
             ValidateCategoryUnique(track);
@@ -162,6 +231,10 @@ namespace MSP.BetterCalm.BusinessLogic
             ExistTrack(id);
             Track unTrack = _repository.Get(id);
             ValidateTrack(track);
+            if (track.Name != unTrack.Name)
+            {
+                if (ExistTrackByName(track) == true) throw new EntityAlreadyExist("The track with name: " + track.Name + " already exist");
+            }
             unTrack.Name = track.Name;
             unTrack.Image = track.Image;
             unTrack.Author = track.Author;
@@ -171,6 +244,13 @@ namespace MSP.BetterCalm.BusinessLogic
             unTrack.PlaylistTrack = track.PlaylistTrack;
             _repository.Update(unTrack);
         }
+        public Track GetTrackByName(string name)
+        {
+            List<Track> list = _repository.GetAll().ToList();
+            Track findTrack = list.Find(c => c.Name == name);
+             return findTrack;
+        }
+
 
 
     }

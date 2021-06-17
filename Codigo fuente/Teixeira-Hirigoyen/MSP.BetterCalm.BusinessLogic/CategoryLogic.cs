@@ -21,7 +21,7 @@ namespace MSP.BetterCalm.BusinessLogic
         public List<CategoryDTO> GetAll()
         {
             var categories = _repository.GetAll().ToList();
-            var categoriesDTO = categories.Select(u => new CategoryDTO { Id = u.Id, Name = u.Name ,CategoryTrack = u.CategoryTrack, PlaylistCategory = u.PlaylistCategory }).ToList();
+            var categoriesDTO = categories.Select(u => new CategoryDTO { Id = u.Id, Name = u.Name ,CategoryTrack = u.CategoryTrack, PlaylistCategory = u.PlaylistCategory, CategoryVideo = u.CategoryVideo }).ToList();
             return categoriesDTO;
         }
 
@@ -29,7 +29,7 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             ExistCategory(id);
             var category = _repository.Get(id);
-            var categoryDTO = new CategoryDTO(category.Id, category.Name, category.CategoryTrack, category.PlaylistCategory);
+            var categoryDTO = new CategoryDTO(category.Id, category.Name, category.CategoryTrack, category.PlaylistCategory, category.CategoryVideo);
             return categoryDTO;
         }
 

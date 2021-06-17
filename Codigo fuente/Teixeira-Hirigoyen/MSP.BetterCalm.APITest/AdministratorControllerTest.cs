@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Msp.BetterCalm.HandleMessage;
 using MSP.BetterCalm.API.Controllers;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
@@ -41,7 +42,6 @@ namespace MSP.BetterCalm.APITest
 
             var result = controller.Add(adminList[0]);
             var okResult = result as OkObjectResult;
-
             Assert.AreEqual(new ObjectResult("").ToString(), controller.Add(adminList[0]).ToString());
         }
 
@@ -49,6 +49,42 @@ namespace MSP.BetterCalm.APITest
         public void AddAdministratorError()
         {
             adminList[0].Name = "";
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(r => r.Add(adminList[0])).Throws(new FieldEnteredNotCorrect(""));
+            AdministratorController controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Add(adminList[0]);
+            mockAdmin.VerifyAll();
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void AddAdministratorErrorEmail()
+        {
+            adminList[0].Email = "";
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(r => r.Add(adminList[0])).Throws(new FieldEnteredNotCorrect(""));
+            AdministratorController controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Add(adminList[0]);
+            mockAdmin.VerifyAll();
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void AddAdministratorErrorPassword()
+        {
+            adminList[0].Password = "";
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(r => r.Add(adminList[0])).Throws(new FieldEnteredNotCorrect(""));
+            AdministratorController controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Add(adminList[0]);
+            mockAdmin.VerifyAll();
+            Assert.AreEqual(new UnprocessableEntityObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void AddAdministratorErrorEmailFormatWrong()
+        {
+            adminList[0].Email = "mauro";
             var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
             mockAdmin.Setup(r => r.Add(adminList[0])).Throws(new FieldEnteredNotCorrect(""));
             AdministratorController controller = new AdministratorController(mockAdmin.Object);
@@ -105,8 +141,80 @@ namespace MSP.BetterCalm.APITest
             mockAdmin.Setup(l => l.Add(adminList[0]));
             var controller = new AdministratorController(mockAdmin.Object);
             var result = controller.Update(adminList[0].Id, newAdmin);
+
             Assert.AreEqual(new ObjectResult("Updated successfully").ToString(),
                 result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdateAdministratorNotFound()
+        {
+            Administrator newAdmin = new Administrator()
+            {
+                Name = "Rodri",
+                Password = "0123"
+            };
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(l => l.Get(adminList[0].Id)).Throws(new EntityNotExists("")); 
+            mockAdmin.Setup(l => l.Add(adminList[0]));
+            var controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Update(5, newAdmin);
+            Assert.AreEqual(new ObjectResult("").ToString(), result.ToString());
+          
+        }
+
+        [TestMethod]
+        public void UpdateAdministratorError()
+        {
+            Administrator newAdmin = new Administrator()
+            {
+                Name = "",
+                Password = "0123"
+            };
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(l => l.Get(adminList[0].Id)).Throws(new FieldEnteredNotCorrect(""));
+            mockAdmin.Setup(l => l.Add(adminList[0]));
+            var controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Update(adminList[0].Id, newAdmin);
+
+            Assert.AreEqual(new ObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void UpdateAdministratorErrorPassword()
+        {
+            Administrator newAdmin = new Administrator()
+            {
+                Name = "mauro",
+                Password = ""
+            };
+            var mockAdmin = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdmin.Setup(l => l.Get(adminList[0].Id)).Throws(new FieldEnteredNotCorrect("")); ;
+            mockAdmin.Setup(l => l.Add(adminList[0]));
+            var controller = new AdministratorController(mockAdmin.Object);
+            var result = controller.Update(adminList[0].Id, newAdmin);
+
+            Assert.AreEqual(new ObjectResult("").ToString(), result.ToString());
+        }
+
+        [TestMethod]
+        public void GetAllAdministrator()
+        {
+            var mockAdministrator = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdministrator.Setup(u => u.GetAll()).Returns(adminList);
+            var controller = new AdministratorController(mockAdministrator.Object);
+            Assert.AreEqual(new OkObjectResult("").ToString(), controller.GetAll().ToString());
+        }
+        [TestMethod]
+        public void GetOneAdministratorById()
+        {
+            var mockAdministrator = new Mock<IAdministratorLogic>(MockBehavior.Strict);
+            mockAdministrator.Setup(res => res.Get(adminList[0].Id)).Returns(adminList[0]);
+            var controller = new AdministratorController(mockAdministrator.Object);
+            var result = controller.Get(adminList[0].Id);
+
+            mockAdministrator.VerifyAll();
+            Assert.AreEqual(result.ToString(), new OkObjectResult("").ToString());
         }
 
     }

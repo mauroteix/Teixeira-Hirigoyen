@@ -30,7 +30,7 @@ namespace MSP.BetterCalm.APITest
             var tokenToReturn = Guid.NewGuid();
 
             var mock = new Mock<ISessionLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Login(It.IsAny<Administrator>())).Returns(tokenToReturn);
+            mock.Setup(m => m.Login(admin.Email, admin.Password)).Returns(tokenToReturn);
             var controller = new SessionController(mock.Object);
 
             var result = controller.Login(admin);
@@ -51,7 +51,7 @@ namespace MSP.BetterCalm.APITest
             };
 
             var mock = new Mock<ISessionLogic>(MockBehavior.Strict);
-            mock.Setup(m => m.Login(It.IsAny<Administrator>())).Throws(new EntityNotExists("The login admin is incorrect")).ToString();
+            mock.Setup(m => m.Login(admin.Email, admin.Password)).Throws(new EntityNotExists("The login admin is incorrect")).ToString();
             var controller = new SessionController(mock.Object);
 
             var result = controller.Login(admin);

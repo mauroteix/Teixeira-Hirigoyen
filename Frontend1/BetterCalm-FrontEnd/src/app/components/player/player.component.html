@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+<div class="contenedor">
+<div class="dropdown">
+  <div *ngFor="let category of categories">
+  <div class="btn-group-vertical" style="margin-right: 3px">
+    <button class="btn btn-secondary dropdown-toggle" style= "margin-right: 15px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="searchCategory(category.id)">
+      {{ category.name }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" (click)="showPlaylist()">Playlist</button>
+      <a class="dropdown-item" (click)="showTrack()">Track</a>
+      <a class="dropdown-item" (click)="showVideo()">Video</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div *ngIf= "isPlaylist == true">
+  <h2 class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Playlists</h2>
+  <div  class="row" style="margin:1%">
+          <div *ngFor="let play of playlistCategory" class="col-md-4" style="text-align: center;">
+            
+            <div>
+              <img style= "border-radius: 50%;"src="{{ play.playlist.image }}" >
+             </div> 
+             <div>
+              <h1 class="font-effect-shadow-multiple" style="font-size: 30px;">{{ play.playlist.name }}</h1>
+            </div> 
+             <button class= "btn btn-primary" (click)="navegar(play)">Play</button>
+            </div>
+        </div>
+</div>
+
+
+
+<div *ngIf= "isTrack == true">
+  <h2  class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Tracks</h2>
+  <div class="row">
+    <!-- Mask & flexbox options-->
+      <!-- Content -->
+      <div class="col-md-2" *ngFor="let cattrack of categoryTrack" style="margin-right:8%;margin-left:1%;">
+        <div id="mobile-box">
+          <div class="card" >
+    <!-- Card image -->
+      <div class="view">
+      <img class="card-img-top" src="{{cattrack.track.image}}" alt="Card image cap" style=" width: 350px;
+      height: 350px;">
+      <a href="https://bachataurban.com/" target="_blank">
+        <div class="mask gradient-card"></div>
+      </a>
+      </div>
+      <!-- Card content -->
+      <div class="card-body text-center">
+        <h5 class="h5 font-weight-bold">{{cattrack.track.name}}</h5>
+        <p class="mb-0">{{cattrack.track.author}}</p>
+        <audio id="music" preload="true">
+          <source src="https://bachataurban.com/download/2/Stefflon%20Don%20-%2016%20Shots%20(%20DJ%20Flam%20-%20Urban%20Bachata%20remix%20).mp3">
+        </audio>
+        <div id="audioplayer">
+          <i id="pButton" class="fas fa-play"></i>
+          <div id="timeline">
+            <div id="playhead"></div>
+           
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+  </div>
+</div>
+</div>
+
+
+<div *ngIf= "isVideo == true">
+  <h2 class="font-effect-shadow-multiple"style="text-align: center;font-size: 45px;">Videos</h2>
+ <div  class="row">
+  <div class= "col-md-4" *ngFor="let categoryvideo of categoryVideo" style="text-align: center;">
+    <iframe class="embed-responsive-item" [src]="photoURL(categoryvideo)" style=" width: 400px;
+    height: 400px;margin:5%;"></iframe>
+    <h1 class="font-effect-shadow-multiple" style="font-size: 30px;">{{categoryvideo.video.name}} - {{categoryvideo.video.author}}</h1>
+  </div>
+</div>
+</div>
+
+

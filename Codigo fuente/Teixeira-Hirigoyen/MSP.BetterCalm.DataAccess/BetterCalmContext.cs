@@ -19,6 +19,7 @@ namespace MSP.BetterCalm.DataAccess
         public virtual DbSet<MedicalCondition> MedicalCondition { get; set; }
         public virtual DbSet<Meeting> Meeting { get; set; }
         public virtual DbSet<Psychologist> Psychologist { get; set; }
+        public virtual DbSet<Video> Video { get; set; }
 
 
         public BetterCalmContext() { }
@@ -73,7 +74,7 @@ namespace MSP.BetterCalm.DataAccess
                 .HasForeignKey(mc => mc.IdMedicalCondition);
 
             modelBuilder.Entity<Meeting>()
-           .HasKey(mc => new { mc.IdPsychologist, mc.IdUser});
+           .HasKey(mc => new {mc.IdPsychologist, mc.IdUser, mc.Id});
             modelBuilder.Entity<Meeting>()
                 .HasOne(mc => mc.Psychologist)
                 .WithMany(m => m.Meeting)
@@ -82,6 +83,28 @@ namespace MSP.BetterCalm.DataAccess
                 .HasOne(mc => mc.User)
                 .WithMany(c => c.Meeting)
                 .HasForeignKey(mc => mc.IdUser);
+
+            modelBuilder.Entity<CategoryVideo>()
+                .HasKey(mc => new { mc.IdCategory, mc.IdVideo });
+            modelBuilder.Entity<CategoryVideo>()
+                .HasOne(mc => mc.Category)
+                .WithMany(m => m.CategoryVideo)
+                .HasForeignKey(mc => mc.IdCategory);
+            modelBuilder.Entity<CategoryVideo>()
+                .HasOne(mc => mc.Video)
+                .WithMany(c => c.CategoryVideo)
+                .HasForeignKey(mc => mc.IdVideo);
+
+            modelBuilder.Entity<PlaylistVideo>()
+              .HasKey(mc => new { mc.IdPlaylist, mc.IdVideo });
+            modelBuilder.Entity<PlaylistVideo>()
+                .HasOne(mc => mc.Playlist)
+                .WithMany(m => m.PlaylistVideo)
+                .HasForeignKey(mc => mc.IdPlaylist);
+            modelBuilder.Entity<PlaylistVideo>()
+                .HasOne(mc => mc.Video)
+                .WithMany(c => c.PlaylistVideo)
+                .HasForeignKey(mc => mc.IdVideo);
         }
 
 

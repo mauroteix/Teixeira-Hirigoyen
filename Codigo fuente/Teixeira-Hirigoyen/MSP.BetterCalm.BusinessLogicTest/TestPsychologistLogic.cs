@@ -43,6 +43,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
                 Name = "Mauro",
                 Id = 1,
                 MeetingType = meetingType.Virtual,
+                MeetingPrice = meetingPrice.UY1000,
                 Expertise = new List<Expertise>(),
                 Meeting = new List<Meeting>()
 
@@ -86,7 +87,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
             
             psychologistLogic = new PsychologistLogic(repositoryPsychologist.Object, repositoryMedicalCondition.Object);
             medicalConditionLogic = new MedicalConditionLogic(repositoryMedicalCondition.Object);
-            userLogic = new UserLogic(repositoryUser.Object, psychologistLogic);
+            userLogic = new UserLogic(repositoryUser.Object, repositoryMedicalCondition.Object, repositoryPsychologist.Object);
 
 
 
@@ -121,12 +122,6 @@ namespace MSP.BetterCalm.BusinessLogicTest
             
             psychologist.Name = "Pepe";
             psychologistLogic.Update(psychologist, psychologist.Id);
-        }
-        [TestMethod]
-        public void CreateMeeting()
-        {
-
-            psychologistLogic.CreateMeeting(user);
         }
 
 

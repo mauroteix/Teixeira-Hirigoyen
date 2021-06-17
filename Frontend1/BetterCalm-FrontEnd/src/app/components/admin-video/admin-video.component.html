@@ -1,0 +1,83 @@
+<div *ngIf = "admin == true">
+    <div class="context" style="margin: 2%;">
+    <h1>Video management</h1>
+    <div class="dropdown" style="margin: 2%;">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="showAddVideo()">Add</button>
+            <button type="button" class="btn btn-primary" (click)="showUpdateVideo()">Update</button>
+            <button type="button" class="btn btn-primary" (click)="showDeleteVideo()">Delete</button>
+          </div>
+      </div>
+    </div>
+
+<div *ngIf = "showVideo == true">
+    <h1 style="margin-left: 2%;">{{nameFunction}}</h1> 
+    <form  [formGroup] ="videoForm" style="margin: 1%;"> 
+        <div class="form-row" *ngIf = "showSelect == true">
+            <div class="form-group col-md-6">
+            <label>Select video</label>
+            <select class="form-control"  formControlName="video" id="video">                        
+                <option *ngFor="let video of videoList" value={{video.id}}> {{video.name}} - {{video.author}} </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label>Name</label>
+            <input type="text" class="form-control"  formControlName="name"  id="name">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Author</label>
+                <input type="text" class="form-control"  formControlName="author"  id="author">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Link Video</label>
+                <input type="text" class="form-control"  formControlName="linkVideo"  id="linkVideo">
+            </div>
+        </div>
+        <div class="form-row"> 
+            <div class="form-group col-md-6">
+                <label>Hour</label>
+                <input type="number" class="form-control"  formControlName="hour"  id="hour"  min="0" max= "10" value="0" onkeydown="return false">
+            </div>
+            <div class="form-group col-md-6">
+                <label>MinSeconds</label>
+                <input type="number" class="form-control"  formControlName="minSeconds"  id="minSeconds" step=".01"  min="0" max="59.9" value="0" onkeydown="return false">
+            </div>
+        </div>
+        <div class="form-row"> 
+            <div class="form-group col-md-6">
+                <label>Select category</label>
+                <select class="select" multiple formControlName="category"  id="category" style="display: flex;">                   
+                    <option *ngFor="let cat of categoryList" value={{cat.id}}> {{cat.name}} </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Select playlist</label>
+                <select class="select" multiple formControlName="playlist"  id="playlist" style="display: flex;">                   
+                    <option *ngFor="let play of playlistList" value={{play.id}}> {{play.name}} </option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary"style="margin: 1%;" (click)="functionVideo()" >{{nameFunction}}</button>
+    </form>
+</div>
+
+<div *ngIf= "showDelete == true">
+    <h1 style="margin-left: 2%;">{{nameFunction}}</h1>
+    <form [formGroup] ="videoForm" style="margin: 2%;">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+        <label>Select video</label>
+        <select class="form-control"  formControlName="videoDelete" id="videoDelete">                        
+            <option *ngFor="let video of videoList" value={{video.id}}> {{video.name}} - {{video.author}} </option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="functionVideo()">{{nameFunction}}</button>
+    </form>
+  </div>
+
+</div>

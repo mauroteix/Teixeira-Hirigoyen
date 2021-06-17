@@ -1,0 +1,44 @@
+
+
+
+<form [formGroup] ="userForm" style="margin: 2%;">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Name</label>
+        <input type="text" class="form-control"  formControlName="name"  id="name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Surname</label>
+        <input type="text" class="form-control"  formControlName="surname"  id="surname">
+      </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Birthday</label>
+          <input type="date" class="form-control"  formControlName="birthday"  id="birthday" value="2003-01-01" max="2003-01-01" min="1920-01-01">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Email</label>
+          <input type="email" class="form-control"  formControlName="email"  id="email">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Cellphone</label>
+          <input type="text" class="form-control"  formControlName="cellphone"  id="cellphone">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Meeting Duration</label>
+            <select class="form-control" id="meetingduration" formControlName="meetingduration">
+              <option value=1>One</option>
+              <option value=3>One and a half</option>
+              <option value=2>Two</option>
+            </select>
+         
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="createMeeting()">Create Meeting</button>
+  </form>
+
+  <div class="input-group mb-3"></div>
+  

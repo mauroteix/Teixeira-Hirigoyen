@@ -54,7 +54,7 @@ namespace MSP.BetterCalm.Domain
             else
             {
                 Track track = (Track)obj;
-                return (this.Id == track.Id);
+                return (this.Name == track.Name);
             }
         }
     }
