@@ -16,8 +16,10 @@ export class PlaylistTrack{
 export class PlaylistTrackToAdd{
   constructor( 
       public idPlaylist: number,
+      public idTrack: number,
       ){}
 }
+
 
 
 

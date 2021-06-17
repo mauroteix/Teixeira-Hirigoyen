@@ -16,6 +16,7 @@ export class PlaylistVideo{
 export class PlaylistVideoToAdd{
   constructor( 
       public idPlaylist: number,
+      public idVideo: number,
       ){}
 }
 

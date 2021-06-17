@@ -14,16 +14,19 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         IData<Playlist> _repository;
         IData<Category> _repositoryCategory;
-        IData<Track> _repositoryTrack;
+        IData<Track> repositoryTrack;
+        IData<Video> repositoryVideo;
         ITrackLogic logicTrack;
         IVideoLogic logicVideo;
 
-        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, ITrackLogic _logicTrack,IVideoLogic _logicVideo)
+        public PlaylistLogic(IData<Playlist> repository, IData<Category> reposCategory, ITrackLogic _logicTrack,IVideoLogic _logicVideo, IData<Track> repoTrack, IData<Video> repoVideo)
         {
             _repository = repository;
             _repositoryCategory = reposCategory;
             logicTrack = _logicTrack;
             logicVideo = _logicVideo;
+            repositoryTrack =  repoTrack;
+            repositoryVideo = repoVideo;
         }
 
         public Playlist Get(int id)
@@ -35,8 +38,6 @@ namespace MSP.BetterCalm.BusinessLogic
         public void Add(Playlist playlist)
         {
             ValidatePlaylist(playlist);
-            if(playlist.PlaylistVideo.Count > 0) setPlayListVideo(playlist);
-            if(playlist.PlaylistTrack.Count > 0) setPlayListTrack(playlist);
             if (ExistPlaylistByName(playlist) == true) throw new EntityAlreadyExist("The track with name: " + playlist.Name + " already exist");
             Playlist play = ToEntity(playlist);       
             _repository.Add(play);
@@ -78,13 +79,21 @@ namespace MSP.BetterCalm.BusinessLogic
                 Playlist = playlist,
                 IdPlaylist = playlist.Id
             }).ToList();
-            List<PlaylistTrack> listTrack = playlist.PlaylistTrack.Select(py => new PlaylistTrack()
+            List <PlaylistTrack> listTrack = playlist.PlaylistTrack.Select(py => new PlaylistTrack()
             {
-                Track = _repositoryTrack.Get(py.IdTrack),
+                Track = repositoryTrack.Get(py.IdTrack),
                 IdTrack = py.IdTrack,
                 Playlist = playlist,
                 IdPlaylist = playlist.Id
             }).ToList();
+            List<PlaylistVideo> listVideo = playlist.PlaylistVideo.Select(py => new PlaylistVideo()
+            {
+                Video = repositoryVideo.Get(py.IdVideo),
+                IdVideo = py.IdVideo,
+                Playlist = playlist,
+                IdPlaylist = playlist.Id
+            }).ToList();
+            play.PlaylistVideo = listVideo;
             play.PlaylistCategory = listCategory;
             play.PlaylistTrack = listTrack;
             return play;
@@ -210,6 +219,7 @@ namespace MSP.BetterCalm.BusinessLogic
             unPlaylist.Image = playlist.Image;
             unPlaylist.PlaylistCategory = playlist.PlaylistCategory;
             unPlaylist.PlaylistTrack = playlist.PlaylistTrack;
+            unPlaylist.PlaylistVideo = playlist.PlaylistVideo;
             _repository.Update(unPlaylist);
         }
 

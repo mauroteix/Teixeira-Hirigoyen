@@ -168,13 +168,13 @@ export class AdminPlaylistComponent implements OnInit {
       });
       if(this.playlistForm.value.video.length != 0){
         this.playlistForm.value.video.forEach((e:number) => {
-        this.videoId = new PlaylistVideoToAdd(e);
+        this.videoId = new PlaylistVideoToAdd(0,e);
          this.playlistVideo.push(this.videoId);
       });
       }
       if(this.playlistForm.value.track.length != 0){
         this.playlistForm.value.track.forEach((e:number) => {
-        this.trackId = new PlaylistTrackToAdd(e);
+        this.trackId = new PlaylistTrackToAdd(0,e);
          this.playlistTrack.push(this.trackId);
       });
       }
@@ -187,6 +187,7 @@ export class AdminPlaylistComponent implements OnInit {
     this.playlistVideo,
     );
     if(this.nameFunction == "Add"){
+    console.log(playlist);
     this.functionAdd(playlist);
     }
     if(this.nameFunction == "Update"){

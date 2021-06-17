@@ -30,9 +30,8 @@ namespace MSP.BetterCalm.API.Controllers
         /// </summary>
         /// <returns></returns>
         /// <response code="200">OK. Returns the requested object.</response>
-        /// <response code="401">Unauthorized. You do not have permissions to perform this action.</response>
         /// <response code="500">InternalServerError. The server could not handle an exception in the system.</response>
-        [ServiceFilter(typeof(AuthorizationFilter))]
+        
         [HttpGet()]
         public IActionResult GetAll()
         {

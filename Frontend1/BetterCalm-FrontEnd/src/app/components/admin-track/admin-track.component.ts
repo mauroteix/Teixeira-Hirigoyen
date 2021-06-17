@@ -169,7 +169,7 @@ export class AdminTrackComponent implements OnInit {
         });
         if(this.trackForm.value.playlist.length != 0){
           this.trackForm.value.playlist.forEach((e:number) => {
-          this.playlistId = new PlaylistTrackToAdd(e);
+          this.playlistId = new PlaylistTrackToAdd(e,0);
            this.playlistTrack.push(this.playlistId);
         });
         }
