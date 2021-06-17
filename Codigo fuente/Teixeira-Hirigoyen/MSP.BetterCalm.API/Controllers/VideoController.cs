@@ -69,7 +69,7 @@ namespace MSP.BetterCalm.API.Controllers
             try
             {
                 _videoLogic.Add(video);
-                return Ok("Successfully added track name:" + video.Name);
+                return Ok("Successfully added video name:" + video.Name);
             }
             catch (FieldEnteredNotCorrect fe)
             {

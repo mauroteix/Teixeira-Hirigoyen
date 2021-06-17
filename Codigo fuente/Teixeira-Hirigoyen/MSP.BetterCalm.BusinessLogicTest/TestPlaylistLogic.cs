@@ -74,7 +74,7 @@ namespace MSP.BetterCalm.BusinessLogicTest
             repositoryPlaylist.Setup(play => play.Add(playlist));
             trackLogic = new TrackLogic(repositoryTrack.Object, repositoryCategory.Object,repositoryPlaylist.Object);
             videoLogic = new VideoLogic(repositoryVideo.Object, repositoryCategory.Object, repositoryPlaylist.Object);
-            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object,trackLogic,videoLogic);
+            playlistLogic = new PlaylistLogic(repositoryPlaylist.Object, repositoryCategory.Object,trackLogic,videoLogic, repositoryTrack.Object, repositoryVideo.Object);
       
         }
 

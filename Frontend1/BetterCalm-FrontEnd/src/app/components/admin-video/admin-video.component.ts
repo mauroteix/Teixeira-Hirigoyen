@@ -158,7 +158,7 @@ export class AdminVideoComponent implements OnInit {
       });
       if(this.videoForm.value.playlist.length != 0){
         this.videoForm.value.playlist.forEach((e:number) => {
-        this.playlistId = new PlaylistVideoToAdd(e);
+        this.playlistId = new PlaylistVideoToAdd(e,0);
          this.playlistVideo.push(this.playlistId);
       });
       }
